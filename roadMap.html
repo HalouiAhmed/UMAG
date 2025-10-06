@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord de Monitoring Industriel - Proposition de Projet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #3b81dd;
+            --dark-blue: #0d47a1;
+            --light-blue: #e8f0fe;
+            --medium-blue: #4285f4;
+            --dark-gray: #3c4043;
+            --medium-gray: #5f6368;
+            --light-gray: #f8f9fa;
+            --border-gray: #dadce0;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: var(--white);
+            padding: 30px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .project-title {
+            margin: 15px 0;
+        }
+        
+        .project-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .timeline-container {
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--border-gray);
+            z-index: 1;
+        }
+        
+        .timeline-phase {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            max-width: 25%;
+        }
+        
+        .phase-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .phase-circle.active {
+            background-color: var(--dark-blue);
+            transform: scale(1.1);
+        }
+        
+        .phase-title {
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .phase-duration {
+            font-size: 14px;
+            color: var(--medium-gray);
+        }
+        
+        .phases-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .phase-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-blue);
+            transition: transform 0.3s ease;
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .phase-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .phase-number {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .phase-cost {
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .card-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+            font-size: 18px;
+        }
+        
+        .section-title i {
+            color: var(--primary-blue);
+        }
+        
+        .deliverables-list, .prerequisites-list, .validation-list {
+            padding-left: 20px;
+        }
+        
+        .deliverables-list li, .prerequisites-list li, .validation-list li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .prerequisites-list li.important {
+            color: #e53935;
+            font-weight: 600;
+        }
+        
+        .tech-stack {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .tech-item {
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .budget-summary {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+        }
+        
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .budget-table th, .budget-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .budget-table th {
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
+        }
+        
+        .budget-table tr:last-child {
+            font-weight: bold;
+            background-color: var(--light-gray);
+        }
+        
+        .footer-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .action-button {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .primary-button {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .secondary-button {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            border: 1px solid var(--border-gray);
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .primary-button:hover {
+            background-color: var(--dark-blue);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .timeline::before {
+                display: none;
+            }
+            
+            .timeline-phase {
+                flex-direction: row;
+                max-width: 100%;
+                margin-bottom: 20px;
+                width: 100%;
+            }
+            
+            .phase-circle {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .phase-info {
+                flex: 1;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .project-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <!-- <div class="logo">INDUSTRIE 4.0 SOLUTIONS</div> -->
+                <div class="project-title">
+                    <h1>Tableau de Bord de Monitoring Industriel</h1>
+                    <p>Solution de visualisation des indicateurs de performance (OEE, TRS, etc.)</p>
+                </div>
+            </div>
+            <div class="project-info">
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Durée: 1 mois maximum</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-euro-sign"></i>
+                    <span>Budget: 70 000 MAD HT</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Client: TUMAG Câbles</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-database"></i>
+                    <span>Technologies: Spring Boot, Angular, InfluxDB</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="timeline-container">
+            <h2>Feuille de Route du Projet</h2>
+            <div class="timeline">
+                <div class="timeline-phase">
+                    <div class="phase-circle active">1</div>
+                    <div class="phase-info">
+                        <div class="phase-title">Conception & Maquette</div>
+                        <div class="phase-duration">1 semaine</div>
+                    </div>
+                </div>
+                <div class="timeline-phase">
+                    <div class="phase-circle">2</div>
+                    <div class="phase-info">
+                        <div class="phase-title">Développement Backend</div>
+                        <div class="phase-duration">1 semaine</div>
+                    </div>
+                </div>
+                <div class="timeline-phase">
+                    <div class="phase-circle">3</div>
+                    <div class="phase-info">
+                        <div class="phase-title">Développement Frontend</div>
+                        <div class="phase-duration">1 semaine</div>
+                    </div>
+                </div>
+                <div class="timeline-phase">
+                    <div class="phase-circle">4</div>
+                    <div class="phase-info">
+                        <div class="phase-title">Déploiement & Formation</div>
+                        <div class="phase-duration">1 semaine</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="phases-content">
+            <!-- Phase 1 -->
+            <div class="phase-card">
+                <div class="phase-card-header">
+                    <div>
+                        <div class="phase-number">1</div>
+                        <h3>Phase 1: Conception & Maquette</h3>
+                    </div>
+                    <div class="phase-cost">10 000 MAD HT</div>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h4>Livrables</h4>
+                    </div>
+                    <ul class="deliverables-list">
+                        <li>Cahier des charges détaillé avec formules de calcul</li>
+                        <li>Maquette interactive validée (HTML/CSS/JS)</li>
+                        <li>Fichier de recueil des besoins complété</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-user-check"></i>
+                        <h4>Votre Implication</h4>
+                    </div>
+                    <ul class="prerequisites-list">
+                        <li class="important">2 réunions de cadrage (1h au début + 1h selon besoin)</li>
+                        <li>Remplissage du fichier de recueil des besoins (indicateurs, formules, rôles)</li>
+                        <li>Disponibilité</li>
+                        <li>Exemples de données réelles (schéma InfluxDB)</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h4>Condition de Validation</h4>
+                    </div>
+                    <ul class="validation-list">
+                        <li>Validation écrite du cahier des charges et de la maquette</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Points de Vigilance</h4>
+                    </div>
+                    <p>La validation de la maquette ne doit pas prendre plus de 2 jours ouvrés pour respecter le planning.</p>
+                </div>
+            </div>
+            
+            <!-- Phase 2 -->
+            <div class="phase-card">
+                <div class="phase-card-header">
+                    <div>
+                        <div class="phase-number">2</div>
+                        <h3>Phase 2: Développement Backend & Connexion Data</h3>
+                    </div>
+                    <div class="phase-cost">25 000 MAD HT</div>
+                </div>
+                
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <i class="fas fa-server"></i>
+                        <span>Spring Boot</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-database"></i>
+                        <span>InfluxDB</span>
+                    </div>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h4>Livrables</h4>
+                    </div>
+                    <ul class="deliverables-list">
+                        <li>API RESTful sécurisée connectée à InfluxDB</li>
+                        <li>Environnement de démonstration avec données de test</li>
+                        <li>Documentation technique de l'API</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-user-check"></i>
+                        <h4>Votre Implication</h4>
+                    </div>
+                    <ul class="prerequisites-list">
+                        <li class="important">Accès VPN ou réseau dédié au serveur InfluxDB de production (de test si existe)</li>
+                        <li class="important">Identifiants de lecture seule pour la base InfluxDB</li>
+                        <li>Documentation technique de l'API InfluxDB (version, etc.)</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h4>Condition de Validation</h4>
+                    </div>
+                    <ul class="validation-list">
+                        <li>Démonstration réussie de la connexion et la récupération des données via des API REST/ web socket</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Points de Vigilance</h4>
+                    </div>
+                    <p>Latence réseau possible via VPN. Tests précoces nécessaires pour vérifier la compatibilité avec la version d'InfluxDB.</p>
+                </div>
+            </div>
+            
+            <!-- Phase 3 -->
+            <div class="phase-card">
+                <div class="phase-card-header">
+                    <div>
+                        <div class="phase-number">3</div>
+                        <h3>Phase 3: Développement Frontend & Intégration</h3>
+                    </div>
+                    <div class="phase-cost">25 000 MAD HT</div>
+                </div>
+                
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <i class="fab fa-angular"></i>
+                        <span>Angular</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Chart.js / D3.js</span>
+                    </div>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h4>Livrables</h4>
+                    </div>
+                    <ul class="deliverables-list">
+                        <li>Application web responsive (tableau de bord) en environnement de test</li>
+                        <li>Interface connectée à l'API backend</li>
+                        <li>Graphiques interactifs et gestion des filtres</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-user-check"></i>
+                        <h4>Votre Implication</h4>
+                    </div>
+                    <ul class="prerequisites-list">
+                        <li>Validation et paiement de la Phase 2</li>
+                        <li>Retour sous 48h sur les validations intermédiaires</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h4>Condition de Validation</h4>
+                    </div>
+                    <ul class="validation-list">
+                        <li>Application fonctionnelle en environnement de test respectant le cahier des charges</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Points de Vigilance</h4>
+                    </div>
+                    <p>Aucun nouveau besoin fonctionnel ne doit être ajouté à ce stade pour respecter le délai d'un mois.</p>
+                </div>
+            </div>
+            
+            <!-- Phase 4 -->
+            <div class="phase-card">
+                <div class="phase-card-header">
+                    <div>
+                        <div class="phase-number">4</div>
+                        <h3>Phase 4: Déploiement & Formation</h3>
+                    </div>
+                    <div class="phase-cost">10 000 MAD HT</div>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-tasks"></i>
+                        <h4>Livrables</h4>
+                    </div>
+                    <ul class="deliverables-list">
+                        <li>Solution déployée sur le serveur de production</li>
+                        <li>Documentation technique et utilisateur</li>
+                        <li>Session de formation des utilisateurs finaux (3 heures)</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-user-check"></i>
+                        <h4>Votre Implication</h4>
+                    </div>
+                    <ul class="prerequisites-list">
+                        <li class="important">Accès au serveur de production Windows</li>
+                        <li>Configuration des règles firewall</li>
+                        <li>Planification de la session de formation</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h4>Condition de Validation</h4>
+                    </div>
+                    <ul class="validation-list">
+                        <li>Recette finale et signature du PV de recette</li>
+                    </ul>
+                </div>
+                
+                <div class="card-section">
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Points de Vigilance</h4>
+                    </div>
+                    <p>Vérification des droits d'administration sur le serveur et compatibilité des frameworks nécessaires.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="budget-summary">
+            <h2>Récapitulatif Budgétaire</h2>
+            <table class="budget-table">
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Durée</th>
+                        <th>Montant HT (MAD)</th>
+                        <th>Montant TTC (MAD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Conception & Maquette</td>
+                        <td>1 semaine</td>
+                        <td>10 000</td>
+                        <td>12 000</td>
+                    </tr>
+                    <tr>
+                        <td>Développement Backend</td>
+                        <td>1 semaine</td>
+                        <td>25 000</td>
+                        <td>30 000</td>
+                    </tr>
+                    <tr>
+                        <td>Développement Frontend</td>
+                        <td>1 semaine</td>
+                        <td>25 000</td>
+                        <td>30 000</td>
+                    </tr>
+                    <tr>
+                        <td>Déploiement & Formation</td>
+                        <td>1 semaine</td>
+                        <td>10 000</td>
+                        <td>12 000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>4 semaines</strong></td>
+                        <td><strong>70 000</strong></td>
+                        <td><strong>84 000</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 15px; font-style: italic;">TVA applicable: 20%</p>
+        </div>
+        
+      
+    <script>
+        // Animation pour la timeline
+        document.addEventListener('DOMContentLoaded', function() {
+            const phases = document.querySelectorAll('.phase-card');
+            
+            phases.forEach((phase, index) => {
+                // Ajouter un délai pour l'animation
+                setTimeout(() => {
+                    phase.style.opacity = '0';
+                    phase.style.transform = 'translateY(20px)';
+                    phase.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        phase.style.opacity = '1';
+                        phase.style.transform = 'translateY(0)';
+                    }, 100 * index);
+                }, 300);
+            });
+            
+            // Mettre à jour la timeline au scroll
+            window.addEventListener('scroll', function() {
+                const timelineCircles = document.querySelectorAll('.phase-circle');
+                const phaseCards = document.querySelectorAll('.phase-card');
+                
+                phaseCards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.75) {
+                        timelineCircles[index].classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temps d'Arrêt - UMAG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0F172A;
+            color: #F1F5F9;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            background: #1E293B;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 1000;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .page-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin: 0;
+        }
+        
+        .header-nav {
+            display: flex;
+            gap: 8px;
+            margin-left: 24px;
+        }
+        
+        .header-nav a {
+            color: #94A3B8;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .header-nav a:hover {
+            background: #334155;
+            color: #F1F5F9;
+        }
+        
+        .header-nav a.active {
+            background: #334155;
+            color: #60A5FA;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .clock {
+            text-align: right;
+            line-height: 1.3;
+        }
+        
+        .clock .time {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #F1F5F9;
+        }
+        
+        .clock .date {
+            font-size: 0.875rem;
+            color: #64748B;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: #334155;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .user-profile:hover {
+            background: #475569;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #F1F5F9;
+        }
+        
+        .user-role {
+            font-size: 0.75rem;
+            color: #64748B;
+        }
+
+        /* Main Content */
+        .main-wrapper {
+            margin-top: 72px;
+            padding: 32px;
+            width: 100%;
+            min-height: calc(100vh - 72px);
+        }
+        
+        .content {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Page Actions Bar */
+        .page-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .page-header-text h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin: 0 0 8px 0;
+        }
+        
+        .page-header-text p {
+            color: #94A3B8;
+            margin: 0;
+        }
+        
+        .actions-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .stat-card {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+        
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .stat-icon.red {
+            background: linear-gradient(135deg, rgba(248, 113, 113, 0.2), rgba(239, 68, 68, 0.1));
+        }
+        
+        .stat-icon.orange {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.1));
+        }
+        
+        .stat-icon.blue {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(59, 130, 246, 0.1));
+        }
+        
+        .stat-icon.purple {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(147, 51, 234, 0.1));
+        }
+        
+        .stat-content h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #F1F5F9;
+            margin: 0 0 4px 0;
+        }
+        
+        .stat-content p {
+            font-size: 0.875rem;
+            color: #94A3B8;
+            margin: 0;
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .chart-card {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .chart-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin: 0 0 20px 0;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #94A3B8;
+            margin-bottom: 8px;
+        }
+        
+        .filter-input,
+        .filter-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #F1F5F9;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .filter-input:focus,
+        .filter-select:focus {
+            outline: none;
+            border-color: #60A5FA;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+        }
+
+        /* Downtimes Table */
+        .table-card {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .table-header {
+            padding: 24px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-header h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin: 0;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        .downtimes-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .downtimes-table thead {
+            background: #0F172A;
+        }
+        
+        .downtimes-table th {
+            padding: 16px 24px;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .downtimes-table tbody tr {
+            border-top: 1px solid #334155;
+            transition: background 0.2s;
+        }
+        
+        .downtimes-table tbody tr:hover {
+            background: #0F172A;
+        }
+        
+        .downtimes-table td {
+            padding: 20px 24px;
+            color: #F1F5F9;
+            font-size: 0.95rem;
+        }
+        
+        .machine-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .machine-icon-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(59, 130, 246, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .machine-info-small h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #F1F5F9;
+            margin: 0 0 2px 0;
+        }
+        
+        .machine-info-small p {
+            font-size: 0.8rem;
+            color: #64748B;
+            margin: 0;
+        }
+        
+        .reason-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .reason-badge.breakdown {
+            background: rgba(248, 113, 113, 0.15);
+            color: #F87171;
+        }
+        
+        .reason-badge.maintenance {
+            background: rgba(251, 191, 36, 0.15);
+            color: #FBBF24;
+        }
+        
+        .reason-badge.setup {
+            background: rgba(168, 85, 247, 0.15);
+            color: #A855F7;
+        }
+        
+        .reason-badge.material {
+            background: rgba(96, 165, 250, 0.15);
+            color: #60A5FA;
+        }
+        
+        .reason-badge.other {
+            background: rgba(148, 163, 184, 0.15);
+            color: #94A3B8;
+        }
+        
+        .duration-cell {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .duration-long {
+            color: #F87171;
+        }
+        
+        .duration-medium {
+            color: #FBBF24;
+        }
+        
+        .duration-short {
+            color: #34D399;
+        }
+        
+        .actions-cell {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-icon-small {
+            padding: 8px 12px;
+            background: #334155;
+            border: none;
+            border-radius: 8px;
+            color: #F1F5F9;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-icon-small:hover {
+            background: #475569;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(96, 165, 250, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #334155;
+            color: #F1F5F9;
+        }
+        
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 32px 32px 24px;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin: 0 0 8px 0;
+        }
+        
+        .modal-header p {
+            color: #94A3B8;
+            margin: 0;
+        }
+        
+        .modal-body {
+            padding: 32px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #94A3B8;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 12px 16px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #F1F5F9;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #60A5FA;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+        }
+        
+        .modal-actions {
+            padding: 24px 32px 32px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <span class="logo-text">UMAG</span>
+            <h1 class="page-title">⏱️ Temps d'Arrêt</h1>
+            <div class="header-nav">
+                <a href="dashboard.html">Analytics</a>
+                <a href="machines.html">Machines</a>
+                <a href="downtimes.html" class="active">Temps d'Arrêt</a>
+                <a href="users.html">Utilisateurs</a>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="clock">
+                <div class="time">--:--:--</div>
+                <div class="date">-- --- ----</div>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">AD</div>
+                <div class="user-info">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Superviseur</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <div class="content">
+            <!-- Page Actions -->
+            <div class="page-actions">
+                <div class="page-header-text">
+                    <h2>Suivi des Temps d'Arrêt</h2>
+                    <p>Analysez et gérez les arrêts de production</p>
+                </div>
+                <div class="actions-buttons">
+                    <button class="btn btn-secondary">
+                        <span>⬇</span>
+                        <span>Exporter</span>
+                    </button>
+                    <button class="btn btn-primary" onclick="openModal()">
+                        <span>+</span>
+                        <span>Enregistrer un Arrêt</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon red">⏸️</div>
+                        <div class="stat-content">
+                            <h3>8.5h</h3>
+                            <p>Total Temps d'Arrêt</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">🔧</div>
+                        <div class="stat-content">
+                            <h3>12</h3>
+                            <p>Arrêts Aujourd'hui</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">⏱️</div>
+                        <div class="stat-content">
+                            <h3>42min</h3>
+                            <p>Durée Moyenne</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">📊</div>
+                        <div class="stat-content">
+                            <h3>15.2%</h3>
+                            <p>Taux d'Arrêt</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>📊 Arrêts par Type</h3>
+                    <div class="chart-container">
+                        <canvas id="reasonChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>📈 Tendance des Arrêts (7 jours)</h3>
+                    <div class="chart-container">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label class="filter-label">Période</label>
+                    <select class="filter-select">
+                        <option value="today">Aujourd'hui</option>
+                        <option value="yesterday">Hier</option>
+                        <option value="week">Cette semaine</option>
+                        <option value="month">Ce mois</option>
+                        <option value="custom">Personnalisé</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Machine</label>
+                    <select class="filter-select">
+                        <option value="">Toutes les machines</option>
+                        <option value="ex01">Extrudeuse EX-01</option>
+                        <option value="tr02">Tréfileuse TR-02</option>
+                        <option value="cb03">Câbleuse CB-03</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Type d'Arrêt</label>
+                    <select class="filter-select">
+                        <option value="">Tous les types</option>
+                        <option value="breakdown">Panne</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="setup">Changement</option>
+                        <option value="material">Matière</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Durée Min.</label>
+                    <select class="filter-select">
+                        <option value="">Toutes</option>
+                        <option value="5">Plus de 5 min</option>
+                        <option value="15">Plus de 15 min</option>
+                        <option value="30">Plus de 30 min</option>
+                        <option value="60">Plus de 1h</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Downtimes Table -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h3>📋 Historique des Arrêts</h3>
+                </div>
+                <div class="table-wrapper">
+                    <table class="downtimes-table">
+                        <thead>
+                            <tr>
+                                <th>Machine</th>
+                                <th>Type d'Arrêt</th>
+                                <th>Début</th>
+                                <th>Fin</th>
+                                <th>Durée</th>
+                                <th>Opérateur</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="machine-cell">
+                                        <div class="machine-icon-small">🔧</div>
+                                        <div class="machine-info-small">
+                                            <h4>Extrudeuse EX-01</h4>
+                                            <p>Ligne 1</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="reason-badge breakdown">
+                                        🔴 Panne
+                                    </span>
+                                </td>
+                                <td>14:30</td>
+                                <td>16:45</td>
+                                <td class="duration-cell duration-long">2h 15min</td>
+                                <td>Ahmed Ben</td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon-small">👁️</button>
+                                        <button class="btn-icon-small">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="machine-cell">
+                                        <div class="machine-icon-small">⚡</div>
+                                        <div class="machine-info-small">
+                                            <h4>Tréfileuse TR-02</h4>
+                                            <p>Ligne 1</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="reason-badge maintenance">
+                                        🟠 Maintenance
+                                    </span>
+                                </td>
+                                <td>13:00</td>
+                                <td>13:45</td>
+                                <td class="duration-cell duration-medium">45min</td>
+                                <td>Mohamed Ali</td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon-small">👁️</button>
+                                        <button class="btn-icon-small">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="machine-cell">
+                                        <div class="machine-icon-small">🔄</div>
+                                        <div class="machine-info-small">
+                                            <h4>Câbleuse CB-03</h4>
+                                            <p>Ligne 2</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="reason-badge setup">
+                                        🟣 Changement
+                                    </span>
+                                </td>
+                                <td>11:30</td>
+                                <td>12:15</td>
+                                <td class="duration-cell duration-medium">45min</td>
+                                <td>Fatima Zahra</td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon-small">👁️</button>
+                                        <button class="btn-icon-small">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="machine-cell">
+                                        <div class="machine-icon-small">🎯</div>
+                                        <div class="machine-info-small">
+                                            <h4>Enrouleuse EN-04</h4>
+                                            <p>Ligne 2</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="reason-badge material">
+                                        🔵 Matière
+                                    </span>
+                                </td>
+                                <td>10:00</td>
+                                <td>10:20</td>
+                                <td class="duration-cell duration-short">20min</td>
+                                <td>Karim Hassan</td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon-small">👁️</button>
+                                        <button class="btn-icon-small">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="machine-cell">
+                                        <div class="machine-icon-small">🔧</div>
+                                        <div class="machine-info-small">
+                                            <h4>Extrudeuse EX-01</h4>
+                                            <p>Ligne 1</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="reason-badge breakdown">
+                                        🔴 Panne
+                                    </span>
+                                </td>
+                                <td>09:15</td>
+                                <td>09:30</td>
+                                <td class="duration-cell duration-short">15min</td>
+                                <td>Ahmed Ben</td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon-small">👁️</button>
+                                        <button class="btn-icon-small">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="machine-cell">
+                                        <div class="machine-icon-small">🔥</div>
+                                        <div class="machine-info-small">
+                                            <h4>Vulcanisation VU-05</h4>
+                                            <p>Ligne 3</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="reason-badge other">
+                                        ⚪ Autre
+                                    </span>
+                                </td>
+                                <td>08:00</td>
+                                <td>08:12</td>
+                                <td class="duration-cell duration-short">12min</td>
+                                <td>Youssef Omar</td>
+                                <td>
+                                    <div class="actions-cell">
+                                        <button class="btn-icon-small">👁️</button>
+                                        <button class="btn-icon-small">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Downtime Modal -->
+    <div id="downtimeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⏱️ Enregistrer un Temps d'Arrêt</h2>
+                <p>Enregistrez les détails de l'arrêt de production</p>
+            </div>
+            <form onsubmit="event.preventDefault();">
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Machine *</label>
+                            <select class="form-select" required>
+                                <option value="">Sélectionner une machine...</option>
+                                <option value="ex01">Extrudeuse EX-01</option>
+                                <option value="tr02">Tréfileuse TR-02</option>
+                                <option value="cb03">Câbleuse CB-03</option>
+                                <option value="en04">Enrouleuse EN-04</option>
+                                <option value="vu05">Vulcanisation VU-05</option>
+                                <option value="is06">Isolation IS-06</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Type d'Arrêt *</label>
+                            <select class="form-select" required>
+                                <option value="">Sélectionner...</option>
+                                <option value="breakdown">🔴 Panne</option>
+                                <option value="maintenance">🟠 Maintenance Planifiée</option>
+                                <option value="setup">🟣 Changement de Production</option>
+                                <option value="material">🔵 Manque de Matière</option>
+                                <option value="quality">🟡 Problème de Qualité</option>
+                                <option value="other">⚪ Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date *</label>
+                            <input type="date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Heure de Début *</label>
+                            <input type="time" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Heure de Fin *</label>
+                            <input type="time" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Durée Calculée</label>
+                            <input type="text" class="form-input" value="-- min" readonly>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Description / Cause *</label>
+                            <textarea class="form-textarea" placeholder="Décrivez la cause de l'arrêt..." required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Actions Correctives</label>
+                            <textarea class="form-textarea" placeholder="Actions prises pour résoudre le problème..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Opérateur</label>
+                            <input type="text" class="form-input" placeholder="Nom de l'opérateur">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Technicien Intervenant</label>
+                            <input type="text" class="form-input" placeholder="Nom du technicien">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer l'Arrêt</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('fr-FR', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('fr-FR', { 
+                weekday: 'short', 
+                day: 'numeric', 
+                month: 'short'
+            });
+            
+            const clockElement = document.querySelector('.clock');
+            if (clockElement) {
+                clockElement.innerHTML = `<div class="time">${timeString}</div><div class="date">${dateString}</div>`;
+            }
+        }
+        
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('downtimeModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('downtimeModal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.getElementById('downtimeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Chart: Arrêts par Type
+        const reasonCtx = document.getElementById('reasonChart').getContext('2d');
+        new Chart(reasonCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Panne', 'Maintenance', 'Changement', 'Matière', 'Autre'],
+                datasets: [{
+                    data: [35, 25, 20, 15, 5],
+                    backgroundColor: [
+                        'rgba(248, 113, 113, 0.8)',
+                        'rgba(251, 191, 36, 0.8)',
+                        'rgba(168, 85, 247, 0.8)',
+                        'rgba(96, 165, 250, 0.8)',
+                        'rgba(148, 163, 184, 0.8)'
+                    ],
+                    borderColor: '#1E293B',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#94A3B8',
+                            padding: 15,
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart: Tendance
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                datasets: [{
+                    label: 'Temps d\'Arrêt (heures)',
+                    data: [6.5, 8.2, 7.8, 9.5, 8.5, 5.2, 4.8],
+                    borderColor: '#F87171',
+                    backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: '#F87171'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#334155'
+                        },
+                        ticks: {
+                            color: '#94A3B8',
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#334155'
+                        },
+                        ticks: {
+                            color: '#94A3B8',
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

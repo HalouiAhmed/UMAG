@@ -1,0 +1,522 @@
+/* ===================================
+   RESPONSIVE STYLES - MAQUETTES UMAG
+   Styles responsive pour toutes les maquettes
+   =================================== */
+
+/* Tablettes (1024px et moins) */
+@media (max-width: 1024px) {
+    /* Header */
+    .header {
+        padding: 0 16px;
+        height: auto;
+        min-height: 72px;
+        flex-wrap: wrap;
+    }
+    
+    .header-left {
+        gap: 16px;
+    }
+    
+    .header-nav {
+        margin-left: 0;
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        padding: 12px 0;
+        border-top: 1px solid #334155;
+    }
+    
+    .page-title {
+        font-size: 1rem;
+    }
+    
+    .logo-text {
+        font-size: 1.25rem;
+    }
+    
+    /* Main Content */
+    .main-wrapper {
+        padding: 16px;
+        margin-top: 120px;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    
+    /* Charts */
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Timeline */
+    .timeline-container {
+        overflow-x: auto;
+        padding-bottom: 16px;
+    }
+    
+    .timeline-hours {
+        min-width: 1200px;
+    }
+    
+    /* Machines Grid */
+    .machines-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+/* Mobile (768px et moins) */
+@media (max-width: 768px) {
+    /* Header */
+    .header {
+        height: auto;
+        padding: 12px;
+    }
+    
+    .header-left {
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 12px;
+    }
+    
+    .logo-text {
+        font-size: 1.125rem;
+    }
+    
+    .page-title {
+        font-size: 0.95rem;
+    }
+    
+    .header-nav {
+        width: 100%;
+        gap: 4px;
+        padding: 8px 0;
+    }
+    
+    .header-nav a {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 8px;
+    }
+    
+    .clock {
+        font-size: 0.85rem;
+    }
+    
+    .clock .time {
+        font-size: 1rem;
+    }
+    
+    .clock .date {
+        font-size: 0.75rem;
+    }
+    
+    .user-profile {
+        padding: 6px 12px;
+    }
+    
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+    }
+    
+    .user-info {
+        display: none;
+    }
+    
+    /* Main Content */
+    .main-wrapper {
+        padding: 12px;
+        margin-top: 150px;
+    }
+    
+    .content {
+        max-width: 100%;
+    }
+    
+    /* Page Actions */
+    .page-actions {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+    
+    .page-header-text h2 {
+        font-size: 1.25rem;
+    }
+    
+    .page-header-text p {
+        font-size: 0.875rem;
+    }
+    
+    .actions-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .actions-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .stat-card {
+        padding: 16px;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+    }
+    
+    .stat-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .stat-content p {
+        font-size: 0.8rem;
+    }
+    
+    /* Charts */
+    .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .chart-card {
+        padding: 16px;
+    }
+    
+    .chart-card h3 {
+        font-size: 1rem;
+    }
+    
+    .chart-container {
+        height: 250px;
+    }
+    
+    /* Timeline */
+    .timeline-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .timeline-hours {
+        min-width: 1400px;
+    }
+    
+    .timeline-hour {
+        min-width: 58px;
+    }
+    
+    .hour-label {
+        font-size: 0.7rem;
+    }
+    
+    /* Filter Bar */
+    .filter-bar {
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .filter-group {
+        min-width: 100%;
+    }
+    
+    .filter-label {
+        font-size: 0.8rem;
+    }
+    
+    .filter-input,
+    .filter-select {
+        padding: 10px 12px;
+        font-size: 0.875rem;
+    }
+    
+    /* Machines Grid */
+    .machines-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .machine-card {
+        border-radius: 12px;
+    }
+    
+    .machine-header {
+        padding: 16px;
+    }
+    
+    .machine-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+    
+    .machine-info h3 {
+        font-size: 1rem;
+    }
+    
+    .machine-body {
+        padding: 16px;
+    }
+    
+    .machine-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-icon {
+        width: 100%;
+    }
+    
+    /* Table */
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .downtimes-table {
+        min-width: 800px;
+    }
+    
+    .downtimes-table th,
+    .downtimes-table td {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .machine-cell {
+        gap: 8px;
+    }
+    
+    .machine-icon-small {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .machine-info-small h4 {
+        font-size: 0.85rem;
+    }
+    
+    .machine-info-small p {
+        font-size: 0.75rem;
+    }
+    
+    /* Modal */
+    .modal {
+        padding: 20px;
+    }
+    
+    .modal-content {
+        max-width: 100%;
+        max-height: 95vh;
+    }
+    
+    .modal-header {
+        padding: 24px 20px 20px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.25rem;
+    }
+    
+    .modal-header p {
+        font-size: 0.875rem;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .form-group.full-width {
+        grid-column: 1;
+    }
+    
+    .form-label {
+        font-size: 0.8rem;
+    }
+    
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 10px 12px;
+        font-size: 0.875rem;
+    }
+    
+    .modal-actions {
+        padding: 20px;
+        flex-direction: column;
+    }
+    
+    .modal-actions .btn {
+        width: 100%;
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+    }
+    
+    .btn-icon-small {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    
+    /* Users Table */
+    .users-table {
+        min-width: 800px;
+    }
+    
+    /* Login Page */
+    .login-container {
+        padding: 20px;
+    }
+    
+    .login-box {
+        padding: 32px 24px;
+        max-width: 100%;
+    }
+    
+    .login-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .login-header p {
+        font-size: 0.875rem;
+    }
+    
+    .sso-buttons {
+        flex-direction: column;
+    }
+    
+    .sso-btn {
+        width: 100%;
+    }
+}
+
+/* Petits mobiles (480px et moins) */
+@media (max-width: 480px) {
+    .header {
+        padding: 8px;
+    }
+    
+    .header-nav a {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+    
+    .main-wrapper {
+        padding: 8px;
+        margin-top: 160px;
+    }
+    
+    .page-header-text h2 {
+        font-size: 1.125rem;
+    }
+    
+    .stat-content h3 {
+        font-size: 1.25rem;
+    }
+    
+    .chart-container {
+        height: 200px;
+    }
+    
+    .filter-bar {
+        padding: 12px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.125rem;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+    
+    .timeline-hour {
+        min-width: 48px;
+    }
+    
+    .hour-label {
+        font-size: 0.65rem;
+    }
+}
+
+/* Paysage mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .main-wrapper {
+        margin-top: 100px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Utilities pour le responsive */
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+    
+    .show-mobile {
+        display: block !important;
+    }
+    
+    /* Scrollbar personnalisée pour mobile */
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #1E293B;
+    }
+}
+
+/* Touch targets pour mobile */
+@media (max-width: 768px) {
+    button,
+    a,
+    input,
+    select,
+    textarea {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .btn-icon-small {
+        min-height: 36px;
+        min-width: 36px;
+    }
+}

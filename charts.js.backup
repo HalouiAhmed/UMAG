@@ -1,0 +1,743 @@
+/* ===================================
+   UMAG x ITSEasy - Charts & Interactions
+   =================================== */
+
+// Conf                tooltip: {
+                    backgroundColor: 'rgba(52, 73, 94, 0.95)',
+                    padding: 14,
+                    cornerRadius: 6,
+                    displayColors: true,
+                    titleFont: { size: 13, weight: '600' },
+                    bodyFont: { size: 13, weight: '500' },
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 1,
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + context.parsed;
+                        }
+                    }
+                },
+            cutout: '72%',obale des graphiques (Style Evocon)
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 13;
+Chart.defaults.font.weight = '500';
+Chart.defaults.color = '#5A6C7D';
+
+// Palette de couleurs Evocon-like
+const colors = {
+    primary: '#4A90E2',      // Bleu Evocon
+    primaryLight: '#7FB3E8',
+    secondary: '#34495E',    // Gris foncé
+    success: '#4CAF50',      // Vert doux
+    warning: '#FF9800',      // Orange
+    danger: '#E74C3C',       // Rouge doux
+    info: '#00BCD4',         // Cyan
+    gray: '#95A5A6',         // Gris neutre
+    lightBg: '#F5F7FA'       // Fond clair
+};
+
+// Initialisation au chargement de la page
+document.addEventListener('DOMContentLoaded', function() {
+    initCharts();
+    addInteractions();
+});
+
+// ===================================
+// GRAPHIQUES PRINCIPAUX
+// ===================================
+
+function initCharts() {
+    // Chart 1: Mini OEE Sparkline
+    createSparkline('oeeChart', [78, 82, 85, 87, 89, 88, 87, 90], colors.primary);
+    
+    // Chart 2: Machines Actives
+    createDonutChart('machinesChart', [12, 3], ['Actives', 'Arrêtées'], [colors.success, colors.danger]);
+    
+    // Chart 3: Production
+    createSparkline('productionChart', [1050, 1100, 1180, 1200, 1250, 1220, 1240, 1250], colors.success);
+    
+    // Chart 4: Taux de Rebut
+    createSparkline('rejectChart', [2.5, 2.3, 2.1, 1.9, 1.8, 1.7, 1.8, 1.8], colors.danger);
+    
+    // Chart 5: Graphique Principal - Évolution OEE 24h
+    createMainOEEChart();
+    
+    // Chart 6: Comparaison des Machines
+    createMachineComparisonChart();
+}
+
+// ===================================
+// SPARKLINE (Petit graphique de tendance)
+// ===================================
+
+function createSparkline(canvasId, data, color) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array(data.length).fill(''),
+            datasets: [{
+                data: data,
+                borderColor: color,
+                backgroundColor: hexToRGBA(color, 0.08),
+                borderWidth: 3,
+                fill: true,
+                tension: 0.35,
+                pointRadius: 0,
+                pointHoverRadius: 6,
+                pointHoverBorderWidth: 2,
+                pointBackgroundColor: color,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: 'rgba(52, 73, 94, 0.95)',
+                    padding: 10,
+                    cornerRadius: 6,
+                    displayColors: false,
+                    titleFont: { size: 0 },
+                    bodyFont: { size: 13, weight: '600' },
+                    callbacks: {
+                        title: () => '',
+                        label: (context) => context.parsed.y.toFixed(1)
+                    }
+                }
+            },
+            scales: {
+                x: { display: false },
+                y: { display: false }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            layout: {
+                padding: 0
+            }
+        }
+    });
+}
+
+// ===================================
+// DONUT CHART (Graphique en anneau)
+// ===================================
+
+function createDonutChart(canvasId, data, labels, backgroundColors) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: backgroundColors,
+                borderWidth: 3,
+                borderColor: '#fff',
+                hoverOffset: 8,
+                hoverBorderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    cornerRadius: 6,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + context.parsed;
+                        }
+                    }
+                }
+            },
+            cutout: '70%',
+            layout: {
+                padding: 0
+            }
+        }
+    });
+}
+
+// ===================================
+// GRAPHIQUE PRINCIPAL - OEE 24H
+// ===================================
+
+function createMainOEEChart() {
+    const ctx = document.getElementById('mainChart');
+    if (!ctx) return;
+    
+    // Données pour les dernières 24h
+    const labels = [];
+    const oeeData = [];
+    const dispData = [];
+    const perfData = [];
+    
+    for (let i = 0; i < 24; i++) {
+        labels.push(i + ':00');
+        // Simulation de données réalistes
+        oeeData.push(75 + Math.random() * 15);
+        dispData.push(85 + Math.random() * 10);
+        perfData.push(80 + Math.random() * 15);
+    }
+    
+    const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, hexToRGBA(colors.primary, 0.3));
+    gradient.addColorStop(1, hexToRGBA(colors.primary, 0.01));
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'OEE',
+                    data: oeeData,
+                    borderColor: colors.primary,
+                    backgroundColor: gradient,
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: colors.primary,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 3
+                },
+                {
+                    label: 'Disponibilité',
+                    data: dispData,
+                    borderColor: colors.success,
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    pointHoverRadius: 5
+                },
+                {
+                    label: 'Performance',
+                    data: perfData,
+                    borderColor: colors.warning,
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    pointHoverRadius: 5
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 20,
+                        font: { size: 13, weight: '600' }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                    padding: 15,
+                    cornerRadius: 8,
+                    titleFont: { size: 14, weight: 'bold' },
+                    bodyFont: { size: 13 },
+                    bodySpacing: 8,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: { size: 11 },
+                        maxRotation: 0,
+                        autoSkip: true,
+                        maxTicksLimit: 12
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    min: 60,
+                    max: 100,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        font: { size: 11 },
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            }
+        }
+    });
+}
+
+// ===================================
+// COMPARAISON DES MACHINES
+// ===================================
+
+function createMachineComparisonChart() {
+    const ctx = document.getElementById('comparisonChart');
+    if (!ctx) return;
+    
+    const machines = ['PRESSE-001', 'PRESSE-002', 'CABLE-001', 'CABLE-002', 'ASSEM-001', 'ASSEM-002'];
+    const oeeData = [87.5, 85.2, 92.1, 78.6, 88.9, 83.4];
+    const dispData = [92, 88, 95, 82, 91, 86];
+    const perfData = [95, 97, 97, 96, 98, 97];
+    const qualData = [100, 100, 100, 100, 100, 100];
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: machines,
+            datasets: [
+                {
+                    label: 'OEE',
+                    data: oeeData,
+                    backgroundColor: hexToRGBA(colors.primary, 0.8),
+                    borderColor: colors.primary,
+                    borderWidth: 2,
+                    borderRadius: 6,
+                    borderSkipped: false
+                },
+                {
+                    label: 'Disponibilité',
+                    data: dispData,
+                    backgroundColor: hexToRGBA(colors.success, 0.6),
+                    borderColor: colors.success,
+                    borderWidth: 2,
+                    borderRadius: 6,
+                    borderSkipped: false
+                },
+                {
+                    label: 'Performance',
+                    data: perfData,
+                    backgroundColor: hexToRGBA(colors.warning, 0.6),
+                    borderColor: colors.warning,
+                    borderWidth: 2,
+                    borderRadius: 6,
+                    borderSkipped: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 20,
+                        font: { size: 13, weight: '600' }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                    padding: 15,
+                    cornerRadius: 8,
+                    titleFont: { size: 14, weight: 'bold' },
+                    bodyFont: { size: 13 },
+                    bodySpacing: 8,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: { size: 12, weight: '600' }
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    min: 70,
+                    max: 100,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        font: { size: 11 },
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// ===================================
+// INTERACTIONS
+// ===================================
+
+function addInteractions() {
+    // Animation d'apparition des sections au scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.section').forEach(section => {
+        observer.observe(section);
+    });
+    
+    // Bouton de copie du code
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const codeBlock = this.closest('.code-block').querySelector('code');
+            navigator.clipboard.writeText(codeBlock.textContent);
+            
+            const originalText = this.textContent;
+            this.textContent = '✓ Copié!';
+            setTimeout(() => {
+                this.textContent = originalText;
+            }, 2000);
+        });
+    });
+}
+
+// ===================================
+// FONCTION DE MISE À JOUR DU DASHBOARD
+// ===================================
+
+// Stocker les instances des graphiques
+let chartInstances = {
+    oee: null,
+    machines: null,
+    production: null,
+    reject: null,
+    main: null,
+    comparison: null
+};
+
+function updateDashboard(view, buttonElement) {
+    // Mise à jour des boutons actifs
+    document.querySelectorAll('.control-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    if (buttonElement) {
+        buttonElement.classList.add('active');
+    }
+    
+    // Animation de changement
+    const metricsGrid = document.querySelector('.metrics-grid');
+    metricsGrid.style.opacity = '0.5';
+    metricsGrid.style.transform = 'scale(0.98)';
+    
+    setTimeout(() => {
+        // Mettre à jour les données selon la vue
+        updateChartData(view);
+        // Animer les valeurs des cartes métriques
+        animateMetricCards(view);
+        metricsGrid.style.opacity = '1';
+        metricsGrid.style.transform = 'scale(1)';
+    }, 200);
+}
+
+function updateChartData(view) {
+    const ctx = document.getElementById('mainChart');
+    if (!ctx) return;
+    
+    // Données différentes selon la vue
+    const dataByView = {
+        oee: {
+            title: 'Évolution OEE - Dernières 24h',
+            datasets: [
+                { label: 'OEE', data: generateRandomData(24, 75, 90), color: colors.primary },
+                { label: 'Disponibilité', data: generateRandomData(24, 85, 95), color: colors.success },
+                { label: 'Performance', data: generateRandomData(24, 80, 95), color: colors.warning }
+            ]
+        },
+        performance: {
+            title: 'Performance des Machines - Dernières 24h',
+            datasets: [
+                { label: 'Vitesse Réelle', data: generateRandomData(24, 1100, 1250), color: colors.primary },
+                { label: 'Vitesse Théorique', data: Array(24).fill(1200), color: colors.danger },
+                { label: 'Écart', data: generateRandomData(24, -100, 50), color: colors.warning }
+            ]
+        },
+        quality: {
+            title: 'Qualité de Production - Dernières 24h',
+            datasets: [
+                { label: 'Taux de Qualité', data: generateRandomData(24, 95, 100), color: colors.success },
+                { label: 'Vitesse Bonnes Pièces', data: generateRandomData(24, 1100, 1200), color: colors.primary },
+                { label: 'Vitesse Rebuts', data: generateRandomData(24, 10, 80), color: colors.danger }
+            ]
+        }
+    };
+    
+    const viewData = dataByView[view] || dataByView.oee;
+    
+    // Mettre à jour le titre
+    const titleElement = document.querySelector('.chart-section h3');
+    if (titleElement) {
+        titleElement.textContent = viewData.title;
+    }
+    
+    // Détruire l'ancien graphique s'il existe
+    if (chartInstances.main) {
+        chartInstances.main.destroy();
+        chartInstances.main = null;
+    }
+    
+    // Attendre un peu avant de recréer pour éviter les conflits
+    setTimeout(() => {
+        createMainChartWithView(ctx, viewData, view);
+    }, 100);
+}
+
+function createMainChartWithView(ctx, viewData, view) {
+    // Créer le nouveau graphique
+    const labels = [];
+    for (let i = 0; i < 24; i++) {
+        labels.push(i + ':00');
+    }
+    
+    const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, hexToRGBA(viewData.datasets[0].color, 0.15));
+    gradient.addColorStop(1, hexToRGBA(viewData.datasets[0].color, 0.0));
+    
+    chartInstances.main = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: viewData.datasets.map((dataset, index) => ({
+                label: dataset.label,
+                data: dataset.data,
+                borderColor: dataset.color,
+                backgroundColor: index === 0 ? gradient : 'transparent',
+                borderWidth: 3,
+                borderDash: index === 0 ? [] : [8, 4],
+                fill: index === 0,
+                tension: 0.35,
+                pointRadius: 0,
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointBackgroundColor: dataset.color,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 3
+            }))
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 20,
+                        font: { size: 13, weight: '600' }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                    padding: 15,
+                    cornerRadius: 8,
+                    titleFont: { size: 14, weight: 'bold' },
+                    bodyFont: { size: 13 },
+                    bodySpacing: 8,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            let suffix = '%';
+                            if (view === 'performance' || (view === 'quality' && context.datasetIndex > 0)) {
+                                suffix = ' pcs/h';
+                            }
+                            return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + suffix;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        font: { size: 12, weight: '500' },
+                        color: '#7F8C9A',
+                        maxRotation: 0,
+                        autoSkip: true,
+                        maxTicksLimit: 12,
+                        padding: 8
+                    }
+                },
+                y: {
+                    beginAtZero: view === 'quality',
+                    grid: {
+                        color: 'rgba(127, 140, 154, 0.1)',
+                        drawBorder: false,
+                        lineWidth: 1
+                    },
+                    ticks: {
+                        font: { size: 12, weight: '500' },
+                        color: '#7F8C9A',
+                        padding: 12,
+                        callback: function(value) {
+                            if (view === 'performance') {
+                                return value;
+                            }
+                            return value + '%';
+                        }
+                    }
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            }
+        }
+    });
+}
+
+function animateMetricCards(view) {
+    const metricsData = {
+        oee: [
+            { value: '87.5%', title: 'OEE Global', trend: '+5.2%', trendType: 'positive' },
+            { value: '80%', title: 'Machines Actives', trend: '12/15', trendType: 'neutral' },
+            { value: '1,250', title: 'Production', trend: '+12%', trendType: 'positive' },
+            { value: '1.8%', title: 'Taux de Rebut', trend: '-0.5%', trendType: 'positive' }
+        ],
+        performance: [
+            { value: '91.7%', title: 'Performance Globale', trend: '+3.2%', trendType: 'positive' },
+            { value: '1,150', title: 'Vitesse Moyenne', trend: 'pcs/h', trendType: 'neutral' },
+            { value: '1,200', title: 'Vitesse Théorique', trend: 'pcs/h', trendType: 'neutral' },
+            { value: '96%', title: 'Taux Atteinte', trend: '+2%', trendType: 'positive' }
+        ],
+        quality: [
+            { value: '98%', title: 'Qualité Globale', trend: '+1.2%', trendType: 'positive' },
+            { value: '1,180', title: 'Vitesse Bonnes Pièces', trend: 'pcs/h', trendType: 'neutral' },
+            { value: '45', title: 'Vitesse Rebuts', trend: 'pcs/h', trendType: 'neutral' },
+            { value: '2%', title: 'Taux de Défauts', trend: '-0.8%', trendType: 'positive' }
+        ]
+    };
+    
+    const data = metricsData[view] || metricsData.oee;
+    const metricCards = document.querySelectorAll('.metric-card');
+    
+    metricCards.forEach((card, index) => {
+        if (data[index]) {
+            const valueEl = card.querySelector('.metric-value');
+            const titleEl = card.querySelector('.metric-title');
+            const trendEl = card.querySelector('.trend-badge');
+            
+            if (valueEl) valueEl.innerHTML = data[index].value.split(/(\d+)/).map(part => 
+                /\d/.test(part) ? part : `<span class="unit">${part}</span>`
+            ).join('');
+            if (titleEl) titleEl.textContent = data[index].title;
+            if (trendEl) {
+                trendEl.textContent = data[index].trend;
+                trendEl.className = 'trend-badge ' + data[index].trendType;
+            }
+        }
+    });
+}
+
+function generateRandomData(count, min, max) {
+    const data = [];
+    for (let i = 0; i < count; i++) {
+        data.push(min + Math.random() * (max - min));
+    }
+    return data;
+}
+
+// ===================================
+// UTILITAIRES
+// ===================================
+
+function hexToRGBA(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// ===================================
+// ANIMATION DES COMPTEURS
+// ===================================
+
+function animateCounter(element, start, end, duration) {
+    const range = end - start;
+    const increment = range / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+            current = end;
+            clearInterval(timer);
+        }
+        element.textContent = Math.round(current);
+    }, 16);
+}
+
+// Animer les valeurs au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    const valueElements = document.querySelectorAll('.metric-value');
+    valueElements.forEach(el => {
+        const value = parseFloat(el.textContent);
+        if (!isNaN(value)) {
+            el.textContent = '0';
+            setTimeout(() => {
+                animateCounter(el, 0, value, 1000);
+            }, 500);
+        }
+    });
+});

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cahier des Charges - UMAG x ITSEasy - Solution de Monitoring Industriel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-gradient"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="brand-container">
+                    <div class="client-badge">
+                        <span class="badge-label">CLIENT</span>
+                        <span class="badge-name">UMAG</span>
+                    </div>
+                    <div class="partner-badge">
+                        <span class="badge-label">POWERED BY</span>
+                        <span class="badge-name">ITSEasy</span>
+                    </div>
+                </div>
+                <h1 class="hero-title">Solution de Monitoring Industriel</h1>
+                <p class="hero-subtitle">Une vision temps réel de vos performances pour une industrie 4.0</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">+35%</div>
+                        <div class="stat-label">Productivité</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">-25%</div>
+                        <div class="stat-label">Temps d'arrêt</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Temps réel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Section 1: Vision du Projet -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">🎯</div>
+                <div>
+                    <h2>Vision du Projet</h2>
+                    <p class="section-subtitle">Une solution pensée pour l'excellence opérationnelle</p>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="info-card glass-effect">
+                    <div class="card-icon">🏭</div>
+                    <h3>Pour UMAG</h3>
+                    <p>Une usine de câblage moderne qui mérite un outil de monitoring à la hauteur de ses ambitions. Inspiré par Evocon, mais adapté à vos besoins spécifiques.</p>
+                </div>
+                <div class="info-card glass-effect">
+                    <div class="card-icon">⚡</div>
+                    <h3>Par ITSEasy</h3>
+                    <p>Notre expertise en solutions industrielles au service de votre performance. Un développement simple, efficace et évolutif.</p>
+                </div>
+            </div>
+
+            <div class="kpi-showcase">
+                <h3>Indicateurs de Performance Clés (KPIs)</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card" data-color="blue">
+                        <div class="kpi-icon">📊</div>
+                        <div class="kpi-name">OEE</div>
+                        <div class="kpi-description">Taux de Rendement Global</div>
+                    </div>
+                    <div class="kpi-card" data-color="green">
+                        <div class="kpi-icon">⚙️</div>
+                        <div class="kpi-name">Disponibilité</div>
+                        <div class="kpi-description">Temps de fonctionnement</div>
+                    </div>
+                    <div class="kpi-card" data-color="purple">
+                        <div class="kpi-icon">🚀</div>
+                        <div class="kpi-name">Performance</div>
+                        <div class="kpi-description">Vitesse vs Théorique</div>
+                    </div>
+                    <div class="kpi-card" data-color="orange">
+                        <div class="kpi-icon">✨</div>
+                        <div class="kpi-name">Qualité</div>
+                        <div class="kpi-description">Taux de conformité</div>
+                    </div>
+                    <div class="kpi-card" data-color="red">
+                        <div class="kpi-icon">🔧</div>
+                        <div class="kpi-name">MTBF</div>
+                        <div class="kpi-description">Temps entre pannes</div>
+                    </div>
+                    <div class="kpi-card" data-color="cyan">
+                        <div class="kpi-icon">⏱️</div>
+                        <div class="kpi-name">MTTR</div>
+                        <div class="kpi-description">Temps de réparation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Dashboard Interactif -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">📈</div>
+                <div>
+                    <h2>Dashboard Interactif & Personnalisable</h2>
+                    <p class="section-subtitle">Visualisez vos données comme vous le souhaitez</p>
+                </div>
+            </div>
+
+            <div class="demo-dashboard">
+                <!-- Filtres et Contrôles -->
+                <div class="dashboard-filters">
+                    <div class="filter-group">
+                        <label for="periodFilter">📅 Période</label>
+                        <select id="periodFilter" class="filter-select" onchange="updatePeriod(this.value)">
+                            <option value="1h">Dernière heure</option>
+                            <option value="8h">8 dernières heures</option>
+                            <option value="24h" selected>24 dernières heures</option>
+                            <option value="7d">7 derniers jours</option>
+                            <option value="30d">30 derniers jours</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="machineFilter">🏭 Machine</label>
+                        <select id="machineFilter" class="filter-select" onchange="updateMachines(this.value)">
+                            <option value="all" selected>Toutes les machines</option>
+                            <option value="presse-001">PRESSE-001</option>
+                            <option value="presse-002">PRESSE-002</option>
+                            <option value="cable-001">CABLE-001</option>
+                            <option value="cable-002">CABLE-002</option>
+                            <option value="assem-001">ASSEM-001</option>
+                            <option value="assem-002">ASSEM-002</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>🎯 Vue</label>
+                        <div class="dashboard-controls">
+                            <button class="control-btn active" onclick="updateDashboard('oee', this)">OEE</button>
+                            <button class="control-btn" onclick="updateDashboard('performance', this)">Performance</button>
+                            <button class="control-btn" onclick="updateDashboard('quality', this)">Qualité</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Drag & Drop -->
+                <div class="drag-drop-info">
+                    <span class="info-badge">💡 Astuces</span>
+                    <p><strong>Glissez-déposez</strong> les cartes pour réorganiser le dashboard. Utilisez le <strong>menu ⋮</strong> pour masquer/afficher un indicateur.</p>
+                </div>
+
+                <div class="metrics-grid" id="metricsGrid">
+                    <div class="metric-card glass-effect draggable" draggable="true">
+                        <div class="card-menu">
+                            <button class="menu-btn" onclick="toggleCardMenu(event)">⋮</button>
+                            <div class="menu-dropdown">
+                                <button onclick="toggleCardVisibility(event)">👁️ Masquer</button>
+                            </div>
+                        </div>
+                        <div class="metric-header">
+                            <span class="metric-title">OEE Global</span>
+                            <span class="trend-badge positive">+5.2%</span>
+                        </div>
+                        <div class="metric-value">87.5<span class="unit">%</span></div>
+                        <canvas id="oeeChart" width="300" height="150"></canvas>
+                    </div>
+
+                    <div class="metric-card glass-effect draggable" draggable="true">
+                        <div class="card-menu">
+                            <button class="menu-btn" onclick="toggleCardMenu(event)">⋮</button>
+                            <div class="menu-dropdown">
+                                <button onclick="toggleCardVisibility(event)">👁️ Masquer</button>
+                            </div>
+                        </div>
+                        <div class="metric-header">
+                            <span class="metric-title">Machines Actives</span>
+                            <span class="trend-badge neutral">12/15</span>
+                        </div>
+                        <div class="metric-value">80<span class="unit">%</span></div>
+                        <canvas id="machinesChart" width="300" height="150"></canvas>
+                    </div>
+
+                    <div class="metric-card glass-effect draggable" draggable="true">
+                        <div class="card-menu">
+                            <button class="menu-btn" onclick="toggleCardMenu(event)">⋮</button>
+                            <div class="menu-dropdown">
+                                <button onclick="toggleCardVisibility(event)">👁️ Masquer</button>
+                            </div>
+                        </div>
+                        <div class="metric-header">
+                            <span class="metric-title">Production</span>
+                            <span class="trend-badge positive">+12%</span>
+                        </div>
+                        <div class="metric-value">1,250<span class="unit">pcs</span></div>
+                        <canvas id="productionChart" width="300" height="150"></canvas>
+                    </div>
+
+                    <div class="metric-card glass-effect draggable" draggable="true">
+                        <div class="card-menu">
+                            <button class="menu-btn" onclick="toggleCardMenu(event)">⋮</button>
+                            <div class="menu-dropdown">
+                                <button onclick="toggleCardVisibility(event)">👁️ Masquer</button>
+                            </div>
+                        </div>
+                        <div class="metric-header">
+                            <span class="metric-title">Taux de Rebut</span>
+                            <span class="trend-badge positive">-0.5%</span>
+                        </div>
+                        <div class="metric-value">1.8<span class="unit">%</span></div>
+                        <canvas id="rejectChart" width="300" height="150"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h3>Évolution OEE - Dernières 24h</h3>
+                    <div class="chart-container glass-effect">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h3>Comparaison des Machines</h3>
+                    <div class="chart-container glass-effect">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-highlight">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Drag & Drop</h4>
+                    <p>Organisez vos widgets comme vous le souhaitez par simple glisser-déposer</p>
+                </div>
+              
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h4>100% Responsive</h4>
+                    <p>Accessible sur desktop, tablette et smartphone</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Timeline Intelligente -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">⏱️</div>
+                <div>
+                    <h2>Timeline de Production Intelligente</h2>
+                    <p class="section-subtitle">Suivez et annotez chaque moment de production</p>
+                </div>
+            </div>
+
+            <div class="timeline-demo glass-effect">
+                <div class="timeline-header">
+                    <h4>Machine PRESSE-001 - Aujourd'hui</h4>
+                    <div class="timeline-legend">
+                        <span class="legend-item"><span class="dot running"></span>En marche</span>
+                        <span class="legend-item"><span class="dot stopped"></span>Arrêt planifié</span>
+                        <span class="legend-item"><span class="dot fault"></span>Panne</span>
+                    </div>
+                </div>
+                <div class="timeline-track">
+                    <div class="timeline-block running" style="width: 35%;">
+                        <span class="time-label">08:00 - 10:30</span>
+                    </div>
+                    <div class="timeline-block stopped" style="width: 10%;">
+                        <span class="time-label">10:30 - 11:00</span>
+                        <div class="timeline-comment">☕ Pause planifiée</div>
+                    </div>
+                    <div class="timeline-block running" style="width: 25%;">
+                        <span class="time-label">11:00 - 13:00</span>
+                    </div>
+                    <div class="timeline-block fault" style="width: 8%;">
+                        <span class="time-label">13:00 - 13:30</span>
+                        <div class="timeline-comment">⚠️ Panne moteur</div>
+                    </div>
+                    <div class="timeline-block running" style="width: 22%;">
+                        <span class="time-label">13:30 - 15:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-box glass-effect">
+                <h4>💬 Ajout de Commentaires</h4>
+                <p>Cliquez sur n'importe quel bloc de la timeline pour ajouter un commentaire et contextualiser l'événement. Parfait pour la traçabilité et l'analyse des causes.</p>
+                <div class="form-preview">
+                    <input type="text" placeholder="Ajouter une annotation..." class="timeline-input">
+                    <button class="btn-primary">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Gestion des Arrêts -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">🛠️</div>
+                <div>
+                    <h2>Gestion Intelligente des Arrêts</h2>
+                    <p class="section-subtitle">Qualifiez chaque arrêt pour un OEE précis</p>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="info-card glass-effect" data-type="planned">
+                    <div class="card-badge">N'impacte pas l'OEE</div>
+                    <h3>🟢 Arrêts Planifiés</h3>
+                    <ul>
+                        <li>Maintenance préventive</li>
+                        <li>Changement de série</li>
+                        <li>Pauses programmées</li>
+                        <li>Formation du personnel</li>
+                    </ul>
+                </div>
+                <div class="info-card glass-effect" data-type="unplanned">
+                    <div class="card-badge warning">Impacte l'OEE</div>
+                    <h3>🔴 Arrêts Non Planifiés</h3>
+                    <ul>
+                        <li>Pannes mécaniques</li>
+                        <li>Pannes électriques</li>
+                        <li>Manque de matière première</li>
+                        <li>Attente opérateur</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-form glass-effect">
+                <h4>Qualification d'un Arrêt Détecté</h4>
+                <div class="form-group">
+                    <label>Machine</label>
+                    <input type="text" value="PRESSE-002" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Période d'arrêt</label>
+                    <input type="text" value="14:32 - 14:58 (26 minutes)" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Type d'arrêt</label>
+                    <select class="form-select">
+                        <option>Panne mécanique</option>
+                        <option>Maintenance planifiée</option>
+                        <option>Manque matière première</option>
+                        <option>Problème électrique</option>
+                        <option>Attente opérateur</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Commentaire (optionnel)</label>
+                    <textarea placeholder="Décrivez la situation..." rows="3"></textarea>
+                </div>
+                <button class="btn-primary">✅ Valider et Qualifier l'Arrêt</button>
+            </div>
+        </div>
+
+        <!-- Section 5: Configuration des Machines -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">⚙️</div>
+                <div>
+                    <h2>Configuration et Ajout de Machines</h2>
+                    <p class="section-subtitle">Connexion simple avec InfluxDB</p>
+                </div>
+            </div>
+
+            <div class="integration-visual glass-effect">
+                <div class="integration-step">
+                    <div class="step-circle">1</div>
+                    <div class="step-content">
+                        <h4>InfluxDB</h4>
+                        <p>Source de données temps réel</p>
+                    </div>
+                </div>
+                <div class="integration-arrow">→</div>
+                <div class="integration-step">
+                    <div class="step-circle">2</div>
+                    <div class="step-content">
+                        <h4>ITSEasy Platform</h4>
+                        <p>Traitement et calculs</p>
+                    </div>
+                </div>
+                <div class="integration-arrow">→</div>
+                <div class="integration-step">
+                    <div class="step-circle">3</div>
+                    <div class="step-content">
+                        <h4>Dashboard UMAG</h4>
+                        <p>Visualisation temps réel</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-form glass-effect">
+                <h4>➕ Ajouter une Nouvelle Machine</h4>
+                <div class="form-group">
+                    <label>Nom de la Machine *</label>
+                    <input type="text" placeholder="Ex: PRESSE-001">
+                </div>
+                <div class="form-group">
+                    <label>Ligne de Production *</label>
+                    <select class="form-select">
+                        <option value="">Sélectionner...</option>
+                        <option>Ligne Câblage 1</option>
+                        <option>Ligne Câblage 2</option>
+                        <option>Ligne Assemblage A</option>
+                        <option>Ligne Assemblage B</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tag InfluxDB *</label>
+                    <input type="text" placeholder="machine_001">
+                    <small>Identifiant unique dans votre base InfluxDB</small>
+                </div>
+                <div class="form-group">
+                    <label>Champ Vitesse *</label>
+                    <input type="text" value="vitesse" placeholder="vitesse">
+                    <small>Nom du champ contenant la vitesse machine</small>
+                </div>
+                <div class="form-group">
+                    <label>Vitesse Théorique (pièces/heure) *</label>
+                    <input type="number" placeholder="1200">
+                </div>
+                <div class="form-group">
+                    <label>Seuil d'Alerte OEE (%)</label>
+                    <input type="number" value="70" placeholder="70">
+                    <small>Vous serez alerté si l'OEE descend sous ce seuil</small>
+                </div>
+                <button class="btn-success">✅ Ajouter et Tester la Connexion</button>
+            </div>
+
+            <div class="code-block glass-effect">
+                <div class="code-header">
+                    <span>💾 Exemple de Données InfluxDB</span>
+                    <button class="copy-btn">Copier</button>
+                </div>
+                <pre><code>// Structure attendue dans InfluxDB
+machine_001,line=cablage_1 vitesse=1150,status="running" 1635781200000000000
+machine_001,line=cablage_1 pieces_produites=50,pieces_conformes=49 1635781200000000000
+machine_002,line=cablage_2 vitesse=1200,status="running" 1635781200000000000</code></pre>
+            </div>
+        </div>
+
+        <!-- Section 6: Formules de Calcul -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">🧮</div>
+                <div>
+                    <h2>Indicateurs & Formules de Calcul</h2>
+                    <p class="section-subtitle">Calculs automatiques basés sur vos données InfluxDB</p>
+                </div>
+            </div>
+
+            <div class="formula-grid">
+                <div class="formula-card glass-effect">
+                    <div class="formula-header">
+                        <span class="formula-icon">📊</span>
+                        <h4>Disponibilité</h4>
+                    </div>
+                    <div class="formula-content">
+                        <div class="formula">
+                            <span class="formula-part">Temps de fonctionnement</span>
+                            <span class="formula-operator">/</span>
+                            <span class="formula-part">Temps requis</span>
+                            <span class="formula-operator">×</span>
+                            <span class="formula-part">100</span>
+                        </div>
+                        <div class="formula-example">
+                            Exemple: (7h / 8h) × 100 = <strong>87.5%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-card glass-effect">
+                    <div class="formula-header">
+                        <span class="formula-icon">🚀</span>
+                        <h4>Performance</h4>
+                    </div>
+                    <div class="formula-content">
+                        <div class="formula">
+                            <span class="formula-part">Vitesse réelle</span>
+                            <span class="formula-operator">/</span>
+                            <span class="formula-part">Vitesse théorique</span>
+                            <span class="formula-operator">×</span>
+                            <span class="formula-part">100</span>
+                        </div>
+                        <div class="formula-example">
+                            Exemple: (1100 / 1200) × 100 = <strong>91.7%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-card glass-effect">
+                    <div class="formula-header">
+                        <span class="formula-icon">✨</span>
+                        <h4>Qualité</h4>
+                    </div>
+                    <div class="formula-content">
+                        <div class="formula">
+                            <span class="formula-part">Pièces bonnes</span>
+                            <span class="formula-operator">/</span>
+                            <span class="formula-part">Pièces totales</span>
+                            <span class="formula-operator">×</span>
+                            <span class="formula-part">100</span>
+                        </div>
+                        <div class="formula-example">
+                            Exemple: (980 / 1000) × 100 = <strong>98%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-card glass-effect highlight">
+                    <div class="formula-header">
+                        <span class="formula-icon">🎯</span>
+                        <h4>OEE (Global)</h4>
+                    </div>
+                    <div class="formula-content">
+                        <div class="formula">
+                            <span class="formula-part">Disponibilité</span>
+                            <span class="formula-operator">×</span>
+                            <span class="formula-part">Performance</span>
+                            <span class="formula-operator">×</span>
+                            <span class="formula-part">Qualité</span>
+                        </div>
+                        <div class="formula-example">
+                            Exemple: 87.5% × 91.7% × 98% = <strong>78.6%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-card glass-effect">
+                    <div class="formula-header">
+                        <span class="formula-icon">🔧</span>
+                        <h4>MTBF</h4>
+                    </div>
+                    <div class="formula-content">
+                        <div class="formula">
+                            <span class="formula-part">Temps total</span>
+                            <span class="formula-operator">/</span>
+                            <span class="formula-part">Nombre de pannes</span>
+                        </div>
+                        <div class="formula-example">
+                            Exemple: 160h / 4 = <strong>40h</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formula-card glass-effect">
+                    <div class="formula-header">
+                        <span class="formula-icon">⏱️</span>
+                        <h4>MTTR</h4>
+                    </div>
+                    <div class="formula-content">
+                        <div class="formula">
+                            <span class="formula-part">Durée pannes</span>
+                            <span class="formula-operator">/</span>
+                            <span class="formula-part">Nombre de pannes</span>
+                        </div>
+                        <div class="formula-example">
+                            Exemple: 8h / 4 = <strong>2h</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: Gestion des Utilisateurs -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">👥</div>
+                <div>
+                    <h2>Gestion des Utilisateurs & Rôles</h2>
+                    <p class="section-subtitle">Permissions adaptées à chaque niveau</p>
+                </div>
+            </div>
+
+            <div class="roles-grid">
+                <div class="role-card glass-effect admin-role">
+                    <div class="role-badge-large">👑 Administrateur</div>
+                    <ul class="role-permissions">
+                        <li>✅ Accès complet au système</li>
+                        <li>✅ Gestion des machines</li>
+                        <li>✅ Gestion des utilisateurs</li>
+                        <li>✅ Configuration globale</li>
+                        <li>✅ Export de données</li>
+                    </ul>
+                </div>
+
+                <div class="role-card glass-effect manager-role">
+                    <div class="role-badge-large">📊 Chef d'Atelier</div>
+                    <ul class="role-permissions">
+                        <li>✅ Vue complète dashboard</li>
+                        <li>✅ Qualification des arrêts</li>
+                        <li>✅ Ajout d'annotations</li>
+                        <li>✅ Export de rapports</li>
+                        <li>❌ Modification machines</li>
+                    </ul>
+                </div>
+
+                <div class="role-card glass-effect operator-role">
+                    <div class="role-badge-large">⚙️ Opérateur</div>
+                    <ul class="role-permissions">
+                        <li>✅ Vue machines assignées</li>
+                        <li>✅ Ajout de commentaires</li>
+                        <li>✅ Signalement de pannes</li>
+                        <li>❌ Accès autres machines</li>
+                        <li>❌ Export de données</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Planning -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">📅</div>
+                <div>
+                    <h2>Planning de Développement</h2>
+                    <p class="section-subtitle">4 semaines pour une solution complète</p>
+                </div>
+            </div>
+
+            <div class="timeline-planning">
+                <div class="planning-phase glass-effect">
+                    <div class="phase-number">Semaine 1</div>
+                    <h4>Setup & Connexion</h4>
+                    <ul>
+                        <li>Configuration environnement</li>
+                        <li>Connexion à InfluxDB</li>
+                        <li>API REST fonctionnelle</li>
+                        <li>Tests de récupération données</li>
+                    </ul>
+                    <div class="phase-deliverable">✅ API connectée et testée</div>
+                </div>
+
+                <div class="planning-phase glass-effect">
+                    <div class="phase-number">Semaine 2</div>
+                    <h4>Dashboard & Interface</h4>
+                    <ul>
+                        <li>Design de l'interface</li>
+                        <li>Widgets d'indicateurs</li>
+                        <li>Graphiques temps réel</li>
+                        <li>Personnalisation dashboard</li>
+                    </ul>
+                    <div class="phase-deliverable">✅ Interface fonctionnelle</div>
+                </div>
+
+                <div class="planning-phase glass-effect">
+                    <div class="phase-number">Semaine 3</div>
+                    <h4>Fonctionnalités Avancées</h4>
+                    <ul>
+                        <li>Gestion machines</li>
+                        <li>Gestion utilisateurs</li>
+                        <li>Timeline & annotations</li>
+                        <li>Qualification arrêts</li>
+                    </ul>
+                    <div class="phase-deliverable">✅ Fonctionnalités complètes</div>
+                </div>
+
+                <div class="planning-phase glass-effect">
+                    <div class="phase-number">Semaine 4</div>
+                    <h4>Tests & Déploiement</h4>
+                    <ul>
+                        <li>Tests utilisateurs</li>
+                        <li>Corrections & ajustements</li>
+                        <li>Documentation</li>
+                        <li>Formation & mise en production</li>
+                    </ul>
+                    <div class="phase-deliverable">🚀 Solution en production</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Finale: Maquettes Interactives -->
+        <div class="section fade-in" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%); border: 2px solid #60A5FA; border-radius: 24px; box-shadow: 0 20px 60px rgba(96, 165, 250, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05); margin-top: 60px; position: relative; overflow: hidden;">
+            <!-- Decorative Background -->
+            <div style="position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+            <div style="position: absolute; bottom: -30%; left: -5%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+            
+            <div style="position: relative; z-index: 1;">
+                <div class="section-header" style="text-align: center; margin-bottom: 20px;">
+                    <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%); border-radius: 20px; font-size: 2.5rem; margin: 0 auto 24px; box-shadow: 0 8px 24px rgba(96, 165, 250, 0.4);">🎨</div>
+                    <div>
+                        <h2 style="font-size: 2.5rem; background: linear-gradient(135deg, #60A5FA 0%, #93C5FD 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px; font-weight: 800;">Maquettes Interactives</h2>
+                        <p style="font-size: 1.125rem; color: #94A3B8; max-width: 700px; margin: 0 auto;">Explorez les prototypes fonctionnels de la solution UMAG</p>
+                        <div style="display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 8px 20px; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 20px;">
+                            <span style="width: 8px; height: 8px; background: #34D399; border-radius: 50%; box-shadow: 0 0 10px #34D399;"></span>
+                            <span style="color: #34D399; font-weight: 600; font-size: 0.9rem;">Interfaces Finales Complètes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-grid" style="margin-top: 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+                    <div class="feature-card glass-effect" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; padding: 32px; border-radius: 16px;" onclick="window.open('maquettes/login.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">LOGIN</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">🔐</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Authentification</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Interface de connexion sécurisée avec SSO (Azure AD, LDAP) et design glassmorphism moderne.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card glass-effect" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; padding: 32px; border-radius: 16px;" onclick="window.open('maquettes/dashboard.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">PRINCIPAL</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">📊</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Tableau de Bord</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Dashboard avec KPIs temps réel, timeline horaire des arrêts, et graphiques interactifs Chart.js.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card glass-effect" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; padding: 32px; border-radius: 16px;" onclick="window.open('maquettes/machines.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">GESTION</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">⚙️</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Gestion des Machines</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Interface complète pour gérer le parc machines : ajout, modification, suivi des statuts en temps réel.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card glass-effect" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; padding: 32px; border-radius: 16px;" onclick="window.open('maquettes/downtimes.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">ANALYSE</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">⏱️</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Temps d'Arrêt</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Suivi détaillé des arrêts avec classification par type, graphiques analytiques et historique complet.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card glass-effect" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; padding: 32px; border-radius: 16px;" onclick="window.open('maquettes/users.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">ADMIN</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">👥</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Gestion Utilisateurs</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Administration des comptes utilisateurs, gestion des rôles et permissions avec interface intuitive.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 50px; padding: 32px; background: linear-gradient(135deg, rgba(96, 165, 250, 0.08) 0%, rgba(59, 130, 246, 0.05) 100%); border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 20px; backdrop-filter: blur(10px);">
+                    <div style="display: flex; align-items: start; gap: 20px;">
+                        <div style="font-size: 2.5rem; line-height: 1;">💡</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #60A5FA; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">À propos de ces maquettes</h4>
+                            <p style="color: #E2E8F0; margin: 0 0 16px 0; line-height: 1.8; font-size: 1rem;">
+                                Ces <strong>5 maquettes interactives</strong> représentent l'ensemble complet des interfaces de la solution UMAG. 
+                                Elles sont <strong>fonctionnelles et cliquables</strong>, utilisant des données fictives pour démontrer l'ergonomie et le design final.
+                            </p>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 20px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #34D399; font-size: 1.25rem;">✓</span>
+                                    <span style="color: #CBD5E1; font-size: 0.95rem;">Thème sombre optimisé</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #34D399; font-size: 1.25rem;">✓</span>
+                                    <span style="color: #CBD5E1; font-size: 0.95rem;">Design inspiré d'Evocon</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #34D399; font-size: 1.25rem;">✓</span>
+                                    <span style="color: #CBD5E1; font-size: 0.95rem;">Responsive & moderne</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #34D399; font-size: 1.25rem;">✓</span>
+                                    <span style="color: #CBD5E1; font-size: 0.95rem;">UX optimisée industrie</span>
+                                </div>
+                            </div>
+                            <div style="margin-top: 24px; padding: 16px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #60A5FA; border-radius: 8px;">
+                                <p style="color: #93C5FD; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="charts.js"></script>
+</body>
+</html>

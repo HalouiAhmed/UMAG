@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - UMAG Monitoring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles-dark.css">
+    <link rel="stylesheet" href="responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <style>
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100%;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .header {
+            background: #1E293B;
+            border-bottom: 1px solid #334155;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            margin: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FBBF24, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 32px;
+            background: #334155;
+        }
+
+        .page-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #F1F5F9;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-time {
+            padding: 8px 16px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            font-family: monospace;
+            color: #60A5FA;
+            font-weight: 700;
+        }
+
+        .notification-btn {
+            position: relative;
+            padding: 10px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .notification-btn:hover {
+            background: #334155;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 20px;
+            height: 20px;
+            background: #F87171;
+            color: white;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background: #334155;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #60A5FA, #A78BFA);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #F1F5F9;
+            font-size: 0.9rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: #64748B;
+        }
+
+        /* Filters Bar */
+        .filters-bar {
+            padding: 24px 32px;
+            background: #0F172A;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: sticky;
+            top: 74px;
+            z-index: 998;
+            width: 100%;
+            margin: 0;
+        }
+
+        .filters-left {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .filter-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-select {
+            padding: 10px 16px;
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #F1F5F9;
+            font-size: 0.9rem;
+            min-width: 180px;
+            cursor: pointer;
+        }
+
+        .filters-right {
+            display: flex;
+            gap: 8px;
+        }
+
+        .view-btn {
+            padding: 10px 20px;
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #CBD5E1;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background: #334155;
+        }
+
+        .view-btn.active {
+            background: linear-gradient(135deg, #3B82F6, #60A5FA);
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 32px 32px 32px 32px;
+            background: #0F172A;
+            min-height: calc(100vh - 200px);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin: 0;
+        }
+
+
+
+        /* Main wrapper */
+        .main-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        /* Stats Section */
+        .stats-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .stats-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #F1F5F9;
+        }
+
+        .hidden-cards-btn {
+            padding: 8px 12px;
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #94A3B8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .hidden-cards-btn:hover {
+            background: #334155;
+        }
+
+        .hidden-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #F87171;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Timeline Full Width */
+        .timeline-full {
+            width: 100%;
+        }
+
+        .stat-card {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: move;
+            min-height: 180px;
+        }
+
+        .stat-card.dragging {
+            opacity: 0.5;
+            transform: rotate(2deg);
+        }
+
+        .stat-card.hidden {
+            display: none;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-menu-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .card-menu-btn:hover {
+            background: #334155;
+        }
+
+        .card-dropdown {
+            position: absolute;
+            top: 45px;
+            right: 16px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            z-index: 20;
+        }
+
+        .card-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .card-dropdown button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            color: #CBD5E1;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-dropdown button:hover {
+            background: #334155;
+            color: #F1F5F9;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .stat-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--icon-bg);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #F1F5F9;
+            margin-bottom: 8px;
+        }
+
+        .stat-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .stat-change.positive {
+            color: #34D399;
+        }
+
+        .stat-change.negative {
+            color: #F87171;
+        }
+
+        .stat-chart {
+            width: 100px;
+            height: 40px;
+        }
+
+        .timeline-card {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .timeline-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: #0F172A;
+            border-radius: 12px;
+        }
+
+        .timeline-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 300px;
+            gap: 8px;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        /* Grid lines */
+        .timeline-chart::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background-image: 
+                linear-gradient(to top, #334155 1px, transparent 1px);
+            background-size: 100% 25%;
+            pointer-events: none;
+        }
+
+        .hour-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            position: relative;
+        }
+
+        .hour-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .time-bar {
+            width: 100%;
+            max-width: 60px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .time-bar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        .time-bar.running {
+            background: #10B981;
+        }
+
+        .time-bar.idle {
+            background: #F59E0B;
+        }
+
+        .time-bar.stopped {
+            background: #EF4444;
+        }
+
+        .time-bar.maintenance {
+            background: #3B82F6;
+        }
+
+        .time-bar.setup {
+            background: #8B5CF6;
+        }
+
+        .hour-label {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #94A3B8;
+            font-family: monospace;
+        }
+
+        .timeline-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            gap: 16px;
+        }
+
+        .timeline-stat {
+            text-align: center;
+        }
+
+        .timeline-stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #F1F5F9;
+            margin-bottom: 4px;
+        }
+
+        .timeline-stat-label {
+            font-size: 0.8rem;
+            color: #64748B;
+        }
+
+        .timeline-legend {
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #94A3B8;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .chart-card {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #F1F5F9;
+        }
+
+        .chart-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chart-btn {
+            padding: 6px 12px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: #94A3B8;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chart-btn:hover {
+            background: #334155;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 320px;
+            width: 100%;
+        }
+
+        .chart-container.small {
+            height: 250px;
+        }
+
+        .chart-container canvas {
+            max-height: 100%;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Table */
+        .table-card {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            padding: 8px 16px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #F1F5F9;
+            width: 300px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #60A5FA;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #0F172A;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #94A3B8;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid #334155;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #334155;
+            color: #CBD5E1;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: #0F172A;
+        }
+
+        .machine-name {
+            font-weight: 600;
+            color: #F1F5F9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-badge.running {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34D399;
+        }
+
+        .status-badge.idle {
+            background: rgba(251, 191, 36, 0.2);
+            color: #FBBF24;
+        }
+
+        .status-badge.stopped {
+            background: rgba(248, 113, 113, 0.2);
+            color: #F87171;
+        }
+
+        /* Hidden Cards Modal */
+        .hidden-cards-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hidden-cards-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #F1F5F9;
+        }
+
+        .hidden-cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hidden-card-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: #0F172A;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .hidden-card-item:hover {
+            background: #334155;
+        }
+
+        .hidden-card-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hidden-card-icon {
+            font-size: 1.5rem;
+        }
+
+        .hidden-card-name {
+            font-weight: 600;
+            color: #F1F5F9;
+        }
+
+        .restore-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #3B82F6, #60A5FA);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .restore-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.6);
+        }
+
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-chart {
+                height: 250px;
+                gap: 4px;
+            }
+
+            .hour-label {
+                font-size: 0.7rem;
+            }
+
+            .time-bar {
+                max-width: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 12px 16px;
+            }
+
+            .filters-bar {
+                padding: 16px;
+            }
+
+            .timeline-chart {
+                height: 200px;
+                gap: 2px;
+            }
+
+            .time-bar {
+                max-width: 30px;
+            }
+
+            .hour-label {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header -->
+        <header class="header">
+        <div class="header-left">
+            <div class="header-logo">
+                <span class="logo-text">UMAG</span>
+            </div>
+            <div class="header-divider"></div>
+            <h1 class="page-title">📊 Tableau de bord</h1>
+            <div style="margin-left: 20px; display: flex; gap: 8px;">
+                <a href="dashboard.html" style="color: #60A5FA; background: rgba(96,165,250,0.1); text-decoration: none; font-size: 0.9rem; padding: 8px 12px; border-radius: 6px; transition: all 0.3s;" onmouseover="this.style.background='rgba(96,165,250,0.1)'; this.style.color='#60A5FA'" onmouseout="this.style.background='rgba(96,165,250,0.1)'; this.style.color='#60A5FA'">Analytics</a>
+                <a href="machines.html" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; padding: 8px 12px; border-radius: 6px; transition: all 0.3s;" onmouseover="this.style.background='rgba(96,165,250,0.1)'; this.style.color='#60A5FA'" onmouseout="this.style.background='transparent'; this.style.color='#94A3B8'">Machines</a>
+                <a href="downtimes.html" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; padding: 8px 12px; border-radius: 6px; transition: all 0.3s;" onmouseover="this.style.background='rgba(96,165,250,0.1)'; this.style.color='#60A5FA'" onmouseout="this.style.background='transparent'; this.style.color='#94A3B8'">Temps d'Arrêt</a>
+                <a href="users.html" style="color: #94A3B8; text-decoration: none; font-size: 0.9rem; padding: 8px 12px; border-radius: 6px; transition: all 0.3s;" onmouseover="this.style.background='rgba(96,165,250,0.1)'; this.style.color='#60A5FA'" onmouseout="this.style.background='transparent'; this.style.color='#94A3B8'">Utilisateurs</a>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-time" id="currentTime">--:--:--</div>
+            <button class="notification-btn">
+                🔔
+                <span class="notification-badge">5</span>
+            </button>
+            <div class="user-profile">
+                <div class="user-avatar">AH</div>
+                <div class="user-info">
+                    <span class="user-name">Admin User</span>
+                    <span class="user-role">Administrateur</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filters Bar -->
+    <div class="filters-bar">
+        <div class="filters-left">
+            <div class="filter-group">
+                <label class="filter-label">Période</label>
+                <select class="form-select" id="periodFilter">
+                    <option value="1h">Dernière heure</option>
+                    <option value="8h" selected>Dernières 8 heures</option>
+                    <option value="24h">Dernières 24h</option>
+                    <option value="7d">7 derniers jours</option>
+                    <option value="30d">30 derniers jours</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Machine</label>
+                <select class="form-select" id="machineFilter">
+                    <option value="all">Toutes les machines</option>
+                    <option value="m1">Machine 1</option>
+                    <option value="m2">Machine 2</option>
+                    <option value="m3">Machine 3</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Ligne</label>
+                <select class="form-select" id="lineFilter">
+                    <option value="all">Toutes les lignes</option>
+                    <option value="l1">Ligne A</option>
+                    <option value="l2">Ligne B</option>
+                    <option value="l3">Ligne C</option>
+                </select>
+            </div>
+        </div>
+        <div class="filters-right">
+            <button class="view-btn active">Vue OEE</button>
+            <button class="view-btn">Vue Performance</button>
+            <button class="view-btn">Vue Qualité</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-header">
+                <h3 class="stats-title">📊 Indicateurs Clés</h3>
+                <button class="hidden-cards-btn" onclick="openHiddenCardsModal()">
+                    <span class="hidden-count" id="hiddenCount">0</span>
+                    Masqués
+                </button>
+            </div>
+            
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card" draggable="true" data-id="oee" style="--accent-color: #60A5FA; --icon-bg: rgba(96, 165, 250, 0.2);">
+                    <button class="card-menu-btn" onclick="toggleCardMenu(event)">⋮</button>
+                    <div class="card-dropdown">
+                        <button onclick="hideCard(event)">
+                            <span>👁️‍🗨️</span>
+                            <span>Masquer</span>
+                        </button>
+                    </div>
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-title">OEE Global</div>
+                            <div class="stat-value">78.5%</div>
+                        </div>
+                        <div class="stat-icon">⚙️</div>
+                    </div>
+                    <div class="stat-footer">
+                        <div class="stat-change positive">
+                            <span>↑</span>
+                            <span>+5.2%</span>
+                        </div>
+                        <canvas class="stat-chart" id="oeeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card" draggable="true" data-id="availability" style="--accent-color: #34D399; --icon-bg: rgba(52, 211, 153, 0.2);">
+                    <button class="card-menu-btn" onclick="toggleCardMenu(event)">⋮</button>
+                    <div class="card-dropdown">
+                        <button onclick="hideCard(event)">
+                            <span>👁️‍🗨️</span>
+                            <span>Masquer</span>
+                        </button>
+                    </div>
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-title">Disponibilité</div>
+                            <div class="stat-value">92.3%</div>
+                        </div>
+                        <div class="stat-icon">✓</div>
+                    </div>
+                    <div class="stat-footer">
+                        <div class="stat-change positive">
+                            <span>↑</span>
+                            <span>+2.1%</span>
+                        </div>
+                        <canvas class="stat-chart" id="availChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card" draggable="true" data-id="performance" style="--accent-color: #FBBF24; --icon-bg: rgba(251, 191, 36, 0.2);">
+                    <button class="card-menu-btn" onclick="toggleCardMenu(event)">⋮</button>
+                    <div class="card-dropdown">
+                        <button onclick="hideCard(event)">
+                            <span>👁️‍🗨️</span>
+                            <span>Masquer</span>
+                        </button>
+                    </div>
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-title">Performance</div>
+                            <div class="stat-value">85.1%</div>
+                        </div>
+                        <div class="stat-icon">⚡</div>
+                    </div>
+                    <div class="stat-footer">
+                        <div class="stat-change negative">
+                            <span>↓</span>
+                            <span>-1.3%</span>
+                        </div>
+                        <canvas class="stat-chart" id="perfChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card" draggable="true" data-id="quality" style="--accent-color: #A78BFA; --icon-bg: rgba(167, 139, 250, 0.2);">
+                    <button class="card-menu-btn" onclick="toggleCardMenu(event)">⋮</button>
+                    <div class="card-dropdown">
+                        <button onclick="hideCard(event)">
+                            <span>👁️‍🗨️</span>
+                            <span>Masquer</span>
+                        </button>
+                    </div>
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-title">Qualité</div>
+                            <div class="stat-value">99.2%</div>
+                        </div>
+                        <div class="stat-icon">⭐</div>
+                    </div>
+                    <div class="stat-footer">
+                        <div class="stat-change positive">
+                            <span>↑</span>
+                            <span>+0.8%</span>
+                        </div>
+                        <canvas class="stat-chart" id="qualChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section (Full Width) -->
+        <section class="timeline-full">
+            <div class="timeline-section">
+                <div class="timeline-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">⏱️ Temps d'Arrêt par Heure (24h)</h3>
+                        <div class="chart-options">
+                            <button class="chart-btn">↻ Actualiser</button>
+                        </div>
+                    </div>
+                    <div class="timeline-container">
+                        <div class="timeline-chart" id="timelineChart"></div>
+                    </div>
+                    <div class="timeline-stats">
+                        <div class="timeline-stat">
+                            <div class="timeline-stat-value">18h 30m</div>
+                            <div class="timeline-stat-label">Temps de marche</div>
+                        </div>
+                        <div class="timeline-stat">
+                            <div class="timeline-stat-value">3h 15m</div>
+                            <div class="timeline-stat-label">Temps d'arrêt</div>
+                        </div>
+                        <div class="timeline-stat">
+                            <div class="timeline-stat-value">2h 15m</div>
+                            <div class="timeline-stat-label">Maintenance</div>
+                        </div>
+                    </div>
+                    <div class="timeline-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #10B981;"></div>
+                            <span>En marche (100%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #F59E0B;"></div>
+                            <span>Ralenti</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #EF4444;"></div>
+                            <span>Arrêt</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #3B82F6;"></div>
+                            <span>Maintenance</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #8B5CF6;"></div>
+                            <span>Changement</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="charts-grid">
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <h3 class="chart-title">📈 OEE par Machine (24h)</h3>
+                        <div class="chart-options">
+                            <button class="chart-btn">↻ Actualiser</button>
+                            <button class="chart-btn">⬇ Export</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="oeeByMachineChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">🔄 Temps de cycle</h3>
+                    </div>
+                    <div class="chart-container small">
+                        <canvas id="cycleTimeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">⏱️ Temps d'arrêt</h3>
+                    </div>
+                    <div class="chart-container small">
+                        <canvas id="downtimeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Table Section -->
+        <section class="table-section">
+            <div class="table-card">
+            <div class="table-header">
+                <h3 class="chart-title">🏭 État des Machines en Temps Réel</h3>
+                <input type="text" class="search-box" placeholder="🔍 Rechercher une machine...">
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Machine</th>
+                        <th>Statut</th>
+                        <th>OEE</th>
+                        <th>Disponibilité</th>
+                        <th>Performance</th>
+                        <th>Qualité</th>
+                        <th>Production</th>
+                        <th>Dernière MAJ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="machine-name">Machine 1</td>
+                        <td><span class="status-badge running">En marche</span></td>
+                        <td>82.5%</td>
+                        <td>95.2%</td>
+                        <td>88.3%</td>
+                        <td>99.1%</td>
+                        <td>1,245 pièces</td>
+                        <td>Il y a 2 min</td>
+                    </tr>
+                    <tr>
+                        <td class="machine-name">Machine 2</td>
+                        <td><span class="status-badge idle">Ralenti</span></td>
+                        <td>65.3%</td>
+                        <td>87.1%</td>
+                        <td>72.8%</td>
+                        <td>97.5%</td>
+                        <td>892 pièces</td>
+                        <td>Il y a 1 min</td>
+                    </tr>
+                    <tr>
+                        <td class="machine-name">Machine 3</td>
+                        <td><span class="status-badge running">En marche</span></td>
+                        <td>91.2%</td>
+                        <td>98.5%</td>
+                        <td>93.7%</td>
+                        <td>99.8%</td>
+                        <td>1,587 pièces</td>
+                        <td>Il y a 30 sec</td>
+                    </tr>
+                    <tr>
+                        <td class="machine-name">Machine 4</td>
+                        <td><span class="status-badge stopped">Arrêtée</span></td>
+                        <td>0.0%</td>
+                        <td>0.0%</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>0 pièces</td>
+                        <td>Il y a 15 min</td>
+                    </tr>
+                    <tr>
+                        <td class="machine-name">Machine 5</td>
+                        <td><span class="status-badge running">En marche</span></td>
+                        <td>76.8%</td>
+                        <td>91.3%</td>
+                        <td>84.2%</td>
+                        <td>99.3%</td>
+                        <td>1,104 pièces</td>
+                        <td>Il y a 3 min</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </section>
+    </main>
+    </div>
+
+    <!-- Hidden Cards Modal -->
+    <div class="hidden-cards-modal" id="hiddenCardsModal">
+        <div class="modal-content fade-in">
+            <div class="modal-header">
+                <h2 class="modal-title">📦 Cartes Masquées</h2>
+            </div>
+            <div class="hidden-cards-list" id="hiddenCardsList"></div>
+        </div>
+    </div>
+
+    <script>
+        // Clock Update
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('fr-FR');
+            document.getElementById('currentTime').textContent = time;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Timeline Data - Par Heure avec temps d'arrêt
+        const hourlyData = [
+            { hour: '00h', events: [
+                { type: 'stopped', duration: 15, label: '15min' }
+            ]},
+            { hour: '01h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '02h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '03h', events: [
+                { type: 'idle', duration: 20, label: '20min' },
+                { type: 'running', duration: 40, label: '40min' }
+            ]},
+            { hour: '04h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '05h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '06h', events: [
+                { type: 'setup', duration: 25, label: '25min' },
+                { type: 'running', duration: 35, label: '35min' }
+            ]},
+            { hour: '07h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '08h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '09h', events: [
+                { type: 'stopped', duration: 30, label: '30min' },
+                { type: 'running', duration: 30, label: '30min' }
+            ]},
+            { hour: '10h', events: [
+                { type: 'maintenance', duration: 45, label: '45min' },
+                { type: 'running', duration: 15, label: '15min' }
+            ]},
+            { hour: '11h', events: [
+                { type: 'maintenance', duration: 60, label: '60min' }
+            ]},
+            { hour: '12h', events: [
+                { type: 'maintenance', duration: 30, label: '30min' },
+                { type: 'running', duration: 30, label: '30min' }
+            ]},
+            { hour: '13h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '14h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '15h', events: [
+                { type: 'idle', duration: 15, label: '15min' },
+                { type: 'running', duration: 45, label: '45min' }
+            ]},
+            { hour: '16h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '17h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '18h', events: [
+                { type: 'stopped', duration: 20, label: '20min' },
+                { type: 'running', duration: 40, label: '40min' }
+            ]},
+            { hour: '19h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '20h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '21h', events: [
+                { type: 'setup', duration: 35, label: '35min' },
+                { type: 'running', duration: 25, label: '25min' }
+            ]},
+            { hour: '22h', events: [
+                { type: 'running', duration: 60, label: '60min' }
+            ]},
+            { hour: '23h', events: [
+                { type: 'stopped', duration: 10, label: '10min' },
+                { type: 'running', duration: 50, label: '50min' }
+            ]}
+        ];
+
+        // Render Timeline Par Heure
+        function renderTimeline() {
+            const container = document.getElementById('timelineChart');
+            container.innerHTML = '';
+
+            const statusLabels = {
+                running: 'Marche',
+                idle: 'Ralenti',
+                stopped: 'Arrêt',
+                maintenance: 'Maintenance',
+                setup: 'Changement'
+            };
+
+            hourlyData.forEach(hourData => {
+                const column = document.createElement('div');
+                column.className = 'hour-column';
+                
+                const bars = document.createElement('div');
+                bars.className = 'hour-bars';
+                
+                // Trier les événements pour afficher du bas vers le haut
+                hourData.events.forEach(event => {
+                    const bar = document.createElement('div');
+                    bar.className = `time-bar ${event.type}`;
+                    // Hauteur proportionnelle à la durée (max 60min = 200px)
+                    const height = (event.duration / 60) * 200;
+                    bar.style.height = `${height}px`;
+                    bar.style.minHeight = '30px';
+                    
+                    bar.title = `${statusLabels[event.type]}: ${event.duration} minutes`;
+                    
+                    // Afficher le label si la barre est assez haute
+                    if (height > 40) {
+                        const label = document.createElement('span');
+                        label.textContent = event.label;
+                        bar.appendChild(label);
+                    }
+                    
+                    bars.appendChild(bar);
+                });
+                
+                const label = document.createElement('div');
+                label.className = 'hour-label';
+                label.textContent = hourData.hour;
+                
+                column.appendChild(bars);
+                column.appendChild(label);
+                container.appendChild(column);
+            });
+        }
+
+        renderTimeline();
+
+        // Drag and Drop for Stats Cards
+        let draggedCard = null;
+        const hiddenCards = new Set();
+
+        function initDragAndDrop() {
+            const statsGrid = document.getElementById('statsGrid');
+            const cards = statsGrid.querySelectorAll('.stat-card');
+
+            cards.forEach(card => {
+                card.addEventListener('dragstart', handleDragStart);
+                card.addEventListener('dragend', handleDragEnd);
+                card.addEventListener('dragover', handleDragOver);
+                card.addEventListener('drop', handleDrop);
+            });
+        }
+
+        function handleDragStart(e) {
+            draggedCard = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            draggedCard = null;
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (draggedCard !== this) {
+                const statsGrid = document.getElementById('statsGrid');
+                const allCards = [...statsGrid.querySelectorAll('.stat-card:not(.hidden)')];
+                const draggedIndex = allCards.indexOf(draggedCard);
+                const targetIndex = allCards.indexOf(this);
+
+                if (draggedIndex < targetIndex) {
+                    this.parentNode.insertBefore(draggedCard, this.nextSibling);
+                } else {
+                    this.parentNode.insertBefore(draggedCard, this);
+                }
+            }
+
+            return false;
+        }
+
+        // Card Menu
+        function toggleCardMenu(event) {
+            event.stopPropagation();
+            const dropdown = event.target.nextElementSibling;
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.card-dropdown').forEach(d => {
+                if (d !== dropdown) d.classList.remove('active');
+            });
+            
+            dropdown.classList.toggle('active');
+        }
+
+        // Hide Card
+        function hideCard(event) {
+            event.stopPropagation();
+            const card = event.target.closest('.stat-card');
+            const cardId = card.dataset.id;
+            
+            card.classList.add('hidden');
+            hiddenCards.add(cardId);
+            updateHiddenCount();
+            
+            // Close dropdown
+            card.querySelector('.card-dropdown').classList.remove('active');
+        }
+
+        // Restore Card
+        function restoreCard(cardId) {
+            const card = document.querySelector(`.stat-card[data-id="${cardId}"]`);
+            const statsGrid = document.getElementById('statsGrid');
+            
+            // Insert at the top
+            card.classList.remove('hidden');
+            statsGrid.insertBefore(card, statsGrid.firstChild);
+            
+            hiddenCards.delete(cardId);
+            updateHiddenCount();
+            updateHiddenCardsList();
+        }
+
+        // Update Hidden Count
+        function updateHiddenCount() {
+            const count = hiddenCards.size;
+            document.getElementById('hiddenCount').textContent = count;
+            document.getElementById('hiddenCount').style.display = count > 0 ? 'flex' : 'none';
+        }
+
+        // Open Hidden Cards Modal
+        function openHiddenCardsModal() {
+            if (hiddenCards.size === 0) return;
+            
+            updateHiddenCardsList();
+            document.getElementById('hiddenCardsModal').classList.add('active');
+        }
+
+        // Update Hidden Cards List
+        function updateHiddenCardsList() {
+            const list = document.getElementById('hiddenCardsList');
+            list.innerHTML = '';
+
+            const cardNames = {
+                'oee': { name: 'OEE Global', icon: '⚙️' },
+                'availability': { name: 'Disponibilité', icon: '✓' },
+                'performance': { name: 'Performance', icon: '⚡' },
+                'quality': { name: 'Qualité', icon: '⭐' }
+            };
+
+            hiddenCards.forEach(cardId => {
+                const cardInfo = cardNames[cardId];
+                const item = document.createElement('div');
+                item.className = 'hidden-card-item';
+                item.innerHTML = `
+                    <div class="hidden-card-info">
+                        <span class="hidden-card-icon">${cardInfo.icon}</span>
+                        <span class="hidden-card-name">${cardInfo.name}</span>
+                    </div>
+                    <button class="restore-btn" onclick="restoreCard('${cardId}')">
+                        Restaurer
+                    </button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // Close Modal on Click Outside
+        document.getElementById('hiddenCardsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        // Close all dropdowns when clicking outside
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.card-dropdown').forEach(d => {
+                d.classList.remove('active');
+            });
+        });
+
+        // Initialize
+        initDragAndDrop();
+        updateHiddenCount();
+
+        // Chart Configuration
+        Chart.defaults.color = '#94A3B8';
+        Chart.defaults.borderColor = '#334155';
+
+        // Sparkline Charts
+        const sparklineConfig = {
+            type: 'line',
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                },
+                scales: {
+                    x: { display: false },
+                    y: { display: false }
+                },
+                elements: {
+                    line: { borderWidth: 2, tension: 0.4 },
+                    point: { radius: 0 }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('oeeChart'), {
+            ...sparklineConfig,
+            data: {
+                labels: Array(20).fill(''),
+                datasets: [{
+                    data: [65, 68, 70, 67, 72, 75, 73, 76, 78, 77, 79, 81, 80, 78, 75, 76, 78, 77, 79, 78.5],
+                    borderColor: '#60A5FA',
+                    backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                    fill: true
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('availChart'), {
+            ...sparklineConfig,
+            data: {
+                labels: Array(20).fill(''),
+                datasets: [{
+                    data: [85, 87, 89, 88, 90, 91, 89, 92, 93, 91, 90, 92, 91, 93, 94, 92, 91, 93, 92, 92.3],
+                    borderColor: '#34D399',
+                    backgroundColor: 'rgba(52, 211, 153, 0.1)',
+                    fill: true
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('perfChart'), {
+            ...sparklineConfig,
+            data: {
+                labels: Array(20).fill(''),
+                datasets: [{
+                    data: [82, 84, 85, 86, 87, 88, 87, 86, 85, 86, 87, 88, 87, 86, 85, 86, 87, 86, 85, 85.1],
+                    borderColor: '#FBBF24',
+                    backgroundColor: 'rgba(251, 191, 36, 0.1)',
+                    fill: true
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('qualChart'), {
+            ...sparklineConfig,
+            data: {
+                labels: Array(20).fill(''),
+                datasets: [{
+                    data: [98, 98.5, 99, 98.7, 99.1, 99.3, 99.2, 99.4, 99.1, 99, 99.2, 99.3, 99.1, 98.9, 99, 99.1, 99.2, 99.3, 99.1, 99.2],
+                    borderColor: '#A78BFA',
+                    backgroundColor: 'rgba(167, 139, 250, 0.1)',
+                    fill: true
+                }]
+            }
+        });
+
+        // OEE by Machine Chart
+        new Chart(document.getElementById('oeeByMachineChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Machine 1', 'Machine 2', 'Machine 3', 'Machine 4', 'Machine 5', 'Machine 6'],
+                datasets: [
+                    {
+                        label: 'Disponibilité',
+                        data: [95, 87, 98, 0, 91, 89],
+                        backgroundColor: 'rgba(52, 211, 153, 0.8)',
+                    },
+                    {
+                        label: 'Performance',
+                        data: [88, 73, 94, 0, 84, 82],
+                        backgroundColor: 'rgba(251, 191, 36, 0.8)',
+                    },
+                    {
+                        label: 'Qualité',
+                        data: [99, 98, 100, 0, 99, 97],
+                        backgroundColor: 'rgba(167, 139, 250, 0.8)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: value => value + '%'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Cycle Time Chart
+        new Chart(document.getElementById('cycleTimeChart'), {
+            type: 'line',
+            data: {
+                labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                datasets: [{
+                    label: 'Temps de cycle (sec)',
+                    data: [45, 47, 46, 48, 46, 47],
+                    borderColor: '#60A5FA',
+                    backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Downtime Chart
+        new Chart(document.getElementById('downtimeChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Changement', 'Maintenance', 'Panne', 'Autre'],
+                datasets: [{
+                    data: [35, 25, 30, 10],
+                    backgroundColor: [
+                        'rgba(96, 165, 250, 0.8)',
+                        'rgba(251, 191, 36, 0.8)',
+                        'rgba(248, 113, 113, 0.8)',
+                        'rgba(148, 163, 184, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

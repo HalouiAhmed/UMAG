@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cahier des Charges - UMAG x ITSEasy - Solution de Monitoring Industriel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-gradient"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="brand-container">
+                    <div class="client-badge">
+                        <span class="badge-label">CLIENT</span>
+                        <span class="badge-name">UMAG</span>
+                    </div>
+                    <div class="partner-badge">
+                        <span class="badge-label">POWERED BY</span>
+                        <span class="badge-name">ITSEasy</span>
+                    </div>
+                </div>
+                <h1 class="hero-title">Solution de Monitoring Industriel</h1>
+                <p class="hero-subtitle">Une vision temps réel de vos performances pour une industrie 4.0</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">+35%</div>
+                        <div class="stat-label">Productivité</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">-25%</div>
+                        <div class="stat-label">Temps d'arrêt</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Temps réel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Section 1: Vision du Projet -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">🎯</div>
+                <div>
+                    <h2>Vision du Projet</h2>
+                    <p class="section-subtitle">Une solution pensée pour l'excellence opérationnelle</p>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="info-card glass-effect">
+                    <div class="card-icon">🏭</div>
+                    <h3>Pour UMAG</h3>
+                    <p>Une usine de câblage moderne qui mérite un outil de monitoring à la hauteur de ses ambitions. Inspiré par Evocon, mais adapté à vos besoins spécifiques.</p>
+                </div>
+                <div class="info-card glass-effect">
+                    <div class="card-icon">⚡</div>
+                    <h3>Par ITSEasy</h3>
+                    <p>Notre expertise en solutions industrielles au service de votre performance. Un développement simple, efficace et évolutif.</p>
+                </div>
+            </div>
+
+            <div class="kpi-showcase">
+                <h3>Indicateurs de Performance Clés (KPIs)</h3>
+                <div class="kpi-grid">
+                    <div class="kpi-card" data-color="blue">
+                        <div class="kpi-icon">📊</div>
+                        <div class="kpi-name">OEE</div>
+                        <div class="kpi-description">Taux de Rendement Global</div>
+                    </div>
+                    <div class="kpi-card" data-color="green">
+                        <div class="kpi-icon">⚙️</div>
+                        <div class="kpi-name">Disponibilité</div>
+                        <div class="kpi-description">Temps de fonctionnement</div>
+                    </div>
+                    <div class="kpi-card" data-color="purple">
+                        <div class="kpi-icon">🚀</div>
+                        <div class="kpi-name">Performance</div>
+                        <div class="kpi-description">Vitesse vs Théorique</div>
+                    </div>
+                    <div class="kpi-card" data-color="orange">
+                        <div class="kpi-icon">✨</div>
+                        <div class="kpi-name">Qualité</div>
+                        <div class="kpi-description">Taux de conformité</div>
+                    </div>
+                    <div class="kpi-card" data-color="red">
+                        <div class="kpi-icon">🔧</div>
+                        <div class="kpi-name">MTBF</div>
+                        <div class="kpi-description">Temps entre pannes</div>
+                    </div>
+                    <div class="kpi-card" data-color="cyan">
+                        <div class="kpi-icon">⏱️</div>
+                        <div class="kpi-name">MTTR</div>
+                        <div class="kpi-description">Temps de réparation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Dashboard Interactif -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">📈</div>
+                <div>
+                    <h2>Dashboard Interactif & Personnalisable</h2>
+                    <p class="section-subtitle">Visualisez vos données comme vous le souhaitez</p>
+                </div>
+            </div>
+
+            <div class="demo-dashboard">
+                <div class="dashboard-controls">
+                    <button class="control-btn active" onclick="updateDashboard('oee')">Vue OEE</button>
+                    <button class="control-btn" onclick="updateDashboard('performance')">Performance</button>
+                    <button class="control-btn" onclick="updateDashboard('quality')">Qualité</button>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card glass-effect">
+                        <div class="metric-header">
+                            <span class="metric-title">OEE Global</span>
+                            <span class="trend-badge positive">+5.2%</span>
+                        </div>
+                        <div class="metric-value">87.5<span class="unit">%</span></div>
+                        <canvas id="oeeChart" width="300" height="150"></canvas>
+                    </div>
+
+                    <div class="metric-card glass-effect">
+                        <div class="metric-header">
+                            <span class="metric-title">Machines Actives</span>
+                            <span class="trend-badge neutral">12/15</span>
+                        </div>
+                        <div class="metric-value">80<span class="unit">%</span></div>
+                        <canvas id="machinesChart" width="300" height="150"></canvas>
+                    </div>
+
+                    <div class="metric-card glass-effect">
+                        <div class="metric-header">
+                            <span class="metric-title">Production</span>
+                            <span class="trend-badge positive">+12%</span>
+                        </div>
+                        <div class="metric-value">1,250<span class="unit">pcs</span></div>
+                        <canvas id="productionChart" width="300" height="150"></canvas>
+                    </div>
+
+                    <div class="metric-card glass-effect">
+                        <div class="metric-header">
+                            <span class="metric-title">Taux de Rebut</span>
+                            <span class="trend-badge positive">-0.5%</span>
+                        </div>
+                        <div class="metric-value">1.8<span class="unit">%</span></div>
+                        <canvas id="rejectChart" width="300" height="150"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h3>Évolution OEE - Dernières 24h</h3>
+                    <div class="chart-container glass-effect">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h3>Comparaison des Machines</h3>
+                    <div class="chart-container glass-effect">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-highlight">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Drag & Drop</h4>
+                    <p>Organisez vos widgets comme vous le souhaitez par simple glisser-déposer</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💾</div>
+                    <h4>Vues Sauvegardées</h4>
+                    <p>Créez et enregistrez plusieurs configurations de dashboard</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h4>100% Responsive</h4>
+                    <p>Accessible sur desktop, tablette et smartphone</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Timeline Intelligente -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">⏱️</div>
+                <div>
+                    <h2>Timeline de Production Intelligente</h2>
+                    <p class="section-subtitle">Suivez et annotez chaque moment de production</p>
+                </div>
+            </div>
+
+            <div class="timeline-demo glass-effect">
+                <div class="timeline-header">
+                    <h4>Machine PRESSE-001 - Aujourd'hui</h4>
+                    <div class="timeline-legend">
+                        <span class="legend-item"><span class="dot running"></span>En marche</span>
+                        <span class="legend-item"><span class="dot stopped"></span>Arrêt planifié</span>
+                        <span class="legend-item"><span class="dot fault"></span>Panne</span>
+                    </div>
+                </div>
+                <div class="timeline-track">
+                    <div class="timeline-block running" style="width: 35%;">
+                        <span class="time-label">08:00 - 10:30</span>
+                    </div>
+                    <div class="timeline-block stopped" style="width: 10%;">
+                        <span class="time-label">10:30 - 11:00</span>
+                        <div class="timeline-comment">☕ Pause planifiée</div>
+                    </div>
+                    <div class="timeline-block running" style="width: 25%;">
+                        <span class="time-label">11:00 - 13:00</span>
+                    </div>
+                    <div class="timeline-block fault" style="width: 8%;">
+                        <span class="time-label">13:00 - 13:30</span>
+                        <div class="timeline-comment">⚠️ Panne moteur</div>
+                    </div>
+                    <div class="timeline-block running" style="width: 22%;">
+                        <span class="time-label">13:30 - 15:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-box glass-effect">
+                <h4>💬 Ajout de Commentaires</h4>
+                <p>Cliquez sur n'importe quel bloc de la timeline pour ajouter un commentaire et contextualiser l'événement. Parfait pour la traçabilité et l'analyse des causes.</p>
+                <div class="form-preview">
+                    <input type="text" placeholder="Ajouter une annotation..." class="timeline-input">
+                    <button class="btn-primary">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Remaining sections here... -->
+        <style>
+        :root {
+            --primary-color: #0052FF;
+            --primary-dark: #003bbf;
+            --secondary-color: #6366F1;
+            --background-color: #f8f9fc;
+            --card-background: #ffffff;
+            --text-color: #111827;
+            --subtle-text: #6B7280;
+            --border-color: #e5e7eb;
+            --success-color: #10B981;
+            --warning-color: #F59E0B;
+            --danger-color: #EF4444;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: white;
+            padding: 60px 40px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 82, 255, 0.2);
+        }
+
+        header h1 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: var(--card-background);
+            padding: 35px;
+            margin-bottom: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 15px;
+            font-size: 0.9em;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 25px 0 15px 0;
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .kpi-item {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .user-flow {
+            background: var(--background-color);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .step {
+            margin-bottom: 20px;
+        }
+
+        .step-header {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .form-preview, .feature-box {
+            background: #f9fafb;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border: 1px dashed #d1d5db;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--subtle-text);
+        }
+        
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: var(--font-family);
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+        }
+
+        button.success { background-color: var(--success-color); }
+        button.success:hover { background-color: #059669; }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background: var(--card-background);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .metric-card .metric-label {
+            font-weight: 500;
+            color: var(--subtle-text);
+        }
+        
+        .metric-card .metric-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+
+        .metric-card .metric-change {
+            font-weight: 600;
+        }
+        .metric-change.positive { color: var(--success-color); }
+        .metric-change.negative { color: var(--danger-color); }
+        
+        .graph-placeholder {
+            background: #f9fafb;
+            border: 1px dashed #d1d5db;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-style: italic;
+            border-radius: 12px;
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+        
+        .role-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 500;
+            border: 1px solid;
+        }
+        .role-admin { background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; }
+        .role-manager { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+        .role-operator { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            background: #f9fafb;
+            color: var(--subtle-text);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+        }
+        
+        .influx-config {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            margin: 8px 0;
+            background: #f3f4f6;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .menu-icon {
+            margin-right: 12px;
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+        }
+
+        .final-cta {
+            text-align: center; 
+            margin-top: 30px; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe); 
+            border-radius: 12px;
+            border: 1px solid #a5b4fc;
+        }
+        .final-cta strong {
+            color: var(--primary-dark);
+            font-size: 1.2em;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                padding: 40px 20px;
+            }
+            h1 { font-size: 2.2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Solution de Monitoring Industriel</h1>
+            <p>Cahier des Charges pour UMAG - Une Vision Temps Réel de la Performance</p>
+        </header>
+
+        <!-- Section 1: Présentation -->
+        <div class="section">
+            <h2><i class="fas fa-bullseye"></i>Objectif du Projet</h2>
+            <p>Développer un tableau de bord web moderne et intuitif pour visualiser et analyser en temps réel les performances des machines de l'usine UMAG. La solution, inspirée par des outils leaders comme Evocon, se basera sur les données de vitesse et de statut machine provenant d'InfluxDB pour fournir des indicateurs de performance clés (KPIs) et des outils d'analyse interactifs.</p>
+            
+            <h3>Indicateurs Fondamentaux</h3>
+            <div class="kpi-grid">
+                <div class="kpi-item">OEE</div>
+                <div class="kpi-item">TRS</div>
+                <div class="kpi-item">Disponibilité</div>
+                <div class="kpi-item">Performance</div>
+                <div class="kpi-item">Qualité</div>
+                <div class="kpi-item">MTBF</div>
+                <div class="kpi-item">MTTR</div>
+            </div>
+        </div>
+
+        <!-- Section 2: Le Dashboard Interactif -->
+        <div class="section">
+            <h2><i class="fas fa-tachometer-alt"></i>Le Dashboard Interactif : Votre Tour de Contrôle</h2>
+            <p>Le cœur de la solution est un dashboard dynamique offrant une vue d'ensemble et détaillée de la production. L'utilisateur est au centre de l'expérience.</p>
+
+            <h3>Dashboard 100% Personnalisable</h3>
+            <div class="feature-box">
+                <p>Chaque utilisateur (selon ses droits) pourra configurer son propre espace de travail :</p>
+                <ul>
+                    <li><strong>Sélection de machines :</strong> Affichez les données d'une ou plusieurs machines spécifiques.</li>
+                    <li><strong>Widgets par Glisser-Déposer (Drag & Drop) :</strong> Choisissez les indicateurs et graphiques à afficher et organisez-les librement sur la grille.</li>
+                    <li><strong>Sauvegarde de vues :</strong> Enregistrez différentes configurations de dashboard pour basculer rapidement entre plusieurs analyses (ex: vue "OEE Ligne 1", vue "Pannes Atelier").</li>
+                </ul>
+                <div class="graph-placeholder" style="margin-top: 20px;">Zone de prévisualisation du dashboard personnalisable</div>
+            </div>
+
+            <h3>Timeline de Production Intelligente</h3>
+            <div class="feature-box">
+                <p>Une vue chronologique permettra de suivre le cycle de vie de la production :</p>
+                <ul>
+                    <li><strong>Visualisation des états :</strong> Des blocs de couleur représenteront les périodes de production, d'arrêt planifié, et les pannes.</li>
+                    <li><strong>Ajout de commentaires :</strong> Les opérateurs et managers pourront ajouter des annotations directement sur la timeline pour contextualiser un événement (ex: "Panne moteur X", "Manque de matière première").</li>
+                </ul>
+                <div class="graph-placeholder" style="margin-top: 20px;">Exemple de timeline avec annotations</div>
+            </div>
+        </div>
+
+        <!-- Section 3: Gestion des Données -->
+        <div class="section">
+            <h2><i class="fas fa-cogs"></i>Gestion des Données et des Machines</h2>
+            
+            <h3>Ajout et Configuration d'une Machine</h3>
+            <p>Un formulaire simple et guidé pour intégrer une nouvelle machine au monitoring.</p>
+            <div class="form-preview">
+                <div class="form-group">
+                    <label>Nom de la Machine *</label>
+                    <input type="text" placeholder="Ex: PRESSE-001">
+                </div>
+                <div class="form-group">
+                    <label>Tag InfluxDB *</label>
+                    <input type="text" placeholder="machine_001">
+                    <small style="color:#666;">Identifiant unique de la machine dans la base de données InfluxDB.</small>
+                </div>
+                <div class="form-group">
+                    <label>Vitesse Théorique (pièces/heure) *</label>
+                    <input type="number" placeholder="1200">
+                </div>
+                <button class="success">✅ Ajouter et Tester la Connexion</button>
+            </div>
+
+            <h3>Gestion des Arrêts Machines</h3>
+            <p>Pour un calcul précis de la disponibilité, il est crucial de pouvoir qualifier les arrêts.</p>
+            <div class="feature-box">
+                <p>Lorsqu'un arrêt est détecté, le système permettra à l'utilisateur de le catégoriser :</p>
+                <ul>
+                    <li><strong>Arrêt Planifié :</strong> Maintenance préventive, changement de série, pause... (N'impacte pas l'OEE)</li>
+                    <li><strong>Arrêt Non Planifié (Panne) :</strong> Panne mécanique, électrique, attente matière... (Impacte l'OEE)</li>
+                </ul>
+                <div class="form-preview" style="margin-top: 15px; border-style: solid;">
+                    <label>Cause de l'arrêt pour MACHINE-002 (14:32 - 14:58)</label>
+                    <select>
+                        <option>Panne mécanique</option>
+                        <option>Maintenance planifiée</option>
+                        <option>Manque opérateur</option>
+                    </select>
+                    <button style="margin-top: 10px;">Valider la cause</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Formules de Calcul -->
+        <div class="section">
+            <h2><i class="fas fa-calculator"></i>Indicateurs et Formules de Calcul</h2>
+            <p>La solution calculera automatiquement les KPIs à partir des données brutes d'InfluxDB.</p>
+            
+            <table>
+                <tr>
+                    <th>Indicateur</th>
+                    <th>Formule</th>
+                    <th>Source des Données</th>
+                </tr>
+                <tr>
+                    <td><strong>Disponibilité</strong></td>
+                    <td>(Temps de fonctionnement / Temps requis) × 100</td>
+                    <td>Dérivé du statut machine et des arrêts qualifiés</td>
+                </tr>
+                <tr>
+                    <td><strong>Performance</strong></td>
+                    <td>(Vitesse réelle moyenne / Vitesse théorique) × 100</td>
+                    <td>Champ "vitesse" InfluxDB</td>
+                </tr>
+                <tr>
+                    <td><strong>Qualité</strong></td>
+                    <td>(Pièces bonnes / Pièces totales) × 100</td>
+                    <td>Champ "pieces_conformes" (si disponible, sinon 100% par défaut)</td>
+                </tr>
+                <tr>
+                    <td><strong>OEE</strong></td>
+                    <td>Disponibilité × Performance × Qualité</td>
+                    <td>Calculé</td>
+                </tr>
+                <tr>
+                    <td><strong>MTBF</strong><br>(Temps moyen entre pannes)</td>
+                    <td>Temps de fonctionnement total / Nombre de pannes</td>
+                    <td>Calculé sur une période</td>
+                </tr>
+                <tr>
+                    <td><strong>MTTR</strong><br>(Temps moyen de réparation)</td>
+                    <td>Temps total des pannes / Nombre de pannes</td>
+                    <td>Calculé sur une période</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Section 5: Rôles et Permissions -->
+        <div class="section">
+            <h2><i class="fas fa-users"></i>Gestion des Utilisateurs et Rôles</h2>
+            <p>Un système de rôles flexible pour garantir la sécurité et la pertinence des informations affichées.</p>
+            <table>
+                <tr>
+                    <th>Rôle</th>
+                    <th>Permissions</th>
+                </tr>
+                <tr>
+                    <td><span class="role-badge role-admin">Administrateur</span></td>
+                    <td>Accès total : gestion des machines, des utilisateurs, configuration du système.</td>
+                </tr>
+                <tr>
+                    <td><span class="role-badge role-manager">Chef d'Atelier</span></td>
+                    <td>Vue complète sur toutes les machines, qualification des arrêts, annotations, export de rapports.</td>
+                </tr>
+                <tr>
+                    <td><span class="role-badge role-operator">Opérateur</span></td>
+                    <td>Vue limitée aux machines assignées, ajout de commentaires sur la timeline.</td>
+                </tr>
+            </table>
+            
+            <h3>Formulaire de Création d'Utilisateur</h3>
+            <div class="form-preview">
+                <div class="form-group">
+                    <label>Nom Complet *</label>
+                    <input type="text" placeholder="Jean Dupont">
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" placeholder="jean.dupont@usine.com">
+                </div>
+                <div class="form-group">
+                    <label>Rôle *</label>
+                    <select>
+                        <option>Administrateur</option>
+                        <option>Chef d'Atelier</option>
+                        <option>Opérateur</option>
+                    </select>
+                </div>
+                <button>Créer l'Utilisateur</button>
+            </div>
+        </div>
+
+        <!-- Section 6: Planning Prévisionnel -->
+        <div class="section">
+            <h2><i class="fas fa-calendar-alt"></i>Planning du Projet</h2>
+            <table>
+                <tr>
+                    <th>Phase</th>
+                    <th>Durée Estimée</th>
+                    <th>Livrable Clé</th>
+                </tr>
+                <tr>
+                    <td><strong>Phase 1:</strong> Setup & Connexion Données</td>
+                    <td>1 semaine</td>
+                    <td>API fonctionnelle connectée à InfluxDB, premières données récupérées.</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 2:</strong> Développement du Dashboard</td>
+                    <td>1 semaine</td>
+                    <td>Interface du dashboard avec widgets statiques et personnalisation de base.</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 3:</strong> Implémentation des Fonctionnalités</td>
+                    <td>1 semaine</td>
+                    <td>Gestion des machines, des utilisateurs, des arrêts et des annotations.</td>
+                </tr>
+                <tr>
+                    <td><strong>Phase 4:</strong> Tests, Déploiement & Formation</td>
+                    <td>1 semaine</td>
+                    <td>Solution en production, documentation et session de formation.</td>
+                </tr>
+            </table>
+            <p><strong>Durée totale estimée : 1 mois</strong></p>
+        </div>
+
+        <!-- Section 7: Prochaines Étapes -->
+        <div class="section">
+            <h2><i class="fas fa-rocket"></i>Prochaines Étapes</h2>
+            <ol style="margin-left: 20px; line-height: 2;">
+                <li><strong>Validation</strong> de ce cahier des charges par UMAG.</li>
+                <li><strong>Fourniture des accès</strong> (lecture seule) à la base de données InfluxDB pour les tests de développement.</li>
+                <li><strong>Liste initiale</strong> des machines à intégrer et de leurs caractéristiques (tags, vitesses théoriques).</li>
+                <li><strong>Lancement officiel</strong> du développement.</li>
+            </ol>
+            
+            <div class="final-cta">
+                <strong>Prêts à transformer votre suivi de production ?<br>Validons ensemble ce projet pour démarrer au plus vite !</strong>
+            </div>
+        </div>
+
+        <!-- Section Finale: Maquettes Interactives -->
+        <div class="section fade-in" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%); border: 2px solid #60A5FA; border-radius: 24px; box-shadow: 0 20px 60px rgba(96, 165, 250, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05); margin-top: 60px; position: relative; overflow: hidden;">
+            <!-- Decorative Background -->
+            <div style="position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+            <div style="position: absolute; bottom: -30%; left: -5%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+            
+            <div style="position: relative; z-index: 1;">
+                <div class="section-header" style="text-align: center; margin-bottom: 20px;">
+                    <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%); border-radius: 20px; font-size: 2.5rem; margin: 0 auto 24px; box-shadow: 0 8px 24px rgba(96, 165, 250, 0.4);">🎨</div>
+                    <div>
+                        <h2 class="section-title" style="font-size: 2.5rem; background: linear-gradient(135deg, #60A5FA 0%, #93C5FD 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px;">Maquettes Interactives</h2>
+                        <p class="section-subtitle" style="font-size: 1.125rem; color: #94A3B8; max-width: 700px; margin: 0 auto;">Explorez les prototypes fonctionnels de la solution UMAG</p>
+                        <div style="display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 8px 20px; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 20px;">
+                            <span style="width: 8px; height: 8px; background: #34D399; border-radius: 50%; box-shadow: 0 0 10px #34D399;"></span>
+                            <span style="color: #34D399; font-weight: 600; font-size: 0.9rem;">Interfaces Finales Complètes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-grid" style="margin-top: 50px;">
+                    <div class="feature-card" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden;" onclick="window.open('maquettes/login.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">LOGIN</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">🔐</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Authentification</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Interface de connexion sécurisée avec SSO (Azure AD, LDAP) et design glassmorphism moderne.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden;" onclick="window.open('maquettes/dashboard.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">PRINCIPAL</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">📊</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Tableau de Bord</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Dashboard avec KPIs temps réel, timeline horaire des arrêts, et graphiques interactifs Chart.js.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden;" onclick="window.open('maquettes/machines.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">GESTION</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">⚙️</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Gestion des Machines</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Interface complète pour gérer le parc machines : ajout, modification, suivi des statuts en temps réel.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden;" onclick="window.open('maquettes/downtimes.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">ANALYSE</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">⏱️</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Temps d'Arrêt</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Suivi détaillé des arrêts avec classification par type, graphiques analytiques et historique complet.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden;" onclick="window.open('maquettes/users.html', '_blank')" onmouseover="this.style.transform='translateY(-8px) scale(1.02)'; this.style.borderColor='#60A5FA'; this.style.boxShadow='0 16px 40px rgba(96, 165, 250, 0.4)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.borderColor='#334155'; this.style.boxShadow='none'">
+                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(96, 165, 250, 0.2); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; color: #60A5FA;">ADMIN</div>
+                        <div style="font-size: 3rem; margin-bottom: 20px;">👥</div>
+                        <h3 style="color: #F1F5F9; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">Gestion Utilisateurs</h3>
+                        <p style="color: #94A3B8; margin: 0 0 20px 0; line-height: 1.6; font-size: 0.95rem;">Administration des comptes utilisateurs, gestion des rôles et permissions avec interface intuitive.</p>
+                        <div style="display: flex; align-items: center; gap: 8px; color: #60A5FA; font-weight: 600; font-size: 0.95rem;">
+                            <span>Ouvrir la maquette</span>
+                            <span style="transition: transform 0.3s;">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 50px; padding: 32px; background: linear-gradient(135deg, rgba(96, 165, 250, 0.08) 0%, rgba(59, 130, 246, 0.05) 100%); border: 1px solid rgba(96, 165, 250, 0.3); border-radius: 20px; backdrop-filter: blur(10px);">
+                    <div style="display: flex; align-items: start; gap: 20px;">
+                        <div style="font-size: 2.5rem; line-height: 1;">💡</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #60A5FA; font-size: 1.25rem; font-weight: 700; margin: 0 0 12px 0;">À propos de ces maquettes</h4>
+                            <p style="color: #E2E8F0; margin: 0 0 16px 0; line-height: 1.8; font-size: 1rem;">
+                                Ces <strong>5 maquettes interactives</strong> représentent l'ensemble complet des interfaces de la solution UMAG. 
+                                Elles sont <strong>fonctionnelles et cliquables</strong>, utilisant des données fictives pour démontrer l'ergonomie et le design final.
+                            </p>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 20px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #34D399; font-size: 1.25rem;">✓</span>
+                                    <span style="color: #CBD5E1; font-size: 0.95rem;">Thème sombre optimisé</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #34D399; font-size: 1.25rem;">✓</span>
+                                    <span style="color: #CBD5E1; font-size: 0.95rem;">Design inspiré d'Evocon</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #34D399; font-size: 1.25rem;">✓</span>
+                                    <span style="color: #CBD5E1; font-size: 0.95rem;">Responsive & moderne</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="color: #34D399; font-size: 1.25rem;">✓</span>
+                                    <span style="color: #CBD5E1; font-size: 0.95rem;">UX optimisée industrie</span>
+                                </div>
+                            </div>
+                            <div style="margin-top: 24px; padding: 16px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid #60A5FA; border-radius: 8px;">
+                                <p style="color: #93C5FD; margin: 0; font-size: 0.95rem; line-height: 1.6;">
+                                    <strong>Note :</strong> Ces 5 interfaces constituent la totalité de l'application. Aucune autre interface ne sera développée dans le cadre de ce projet.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
