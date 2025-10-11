@@ -103,7 +103,7 @@
 
     <div class="exec-box">
       <h2 style="margin-top:0;font-size:1.4rem">Résumé Exécutif</h2>
-  <p>Investissement global (hors options) <strong>1 503 400 MAD HT</strong> (<strong>1 804 080 MAD TTC</strong>) pour une solution complète de <em>monitoring industriel temps quasi-réel</em>, intégrant calcul dynamique OEE (Disponibilité × Performance × Qualité), gestion des arrêts qualifiés, logique articles & hiérarchie lignes ↔ machines, exports administratifs Excel/PDF, filtres avancés (ligne, période, shift, matière), et gouvernance utilisateurs (rôles Admin / Chef d'Atelier / Opérateur).</p>
+  <p>Investissement global (hors options) <strong>153 400 MAD HT</strong> (<strong>184 080 MAD TTC</strong>) – Version Essentielle optimisée (réduction de la profondeur de tests, limitation fonctionnalités avancées non critiques, ajustement charges). Elle conserve : calcul OEE principal, gestion arrêts (planifiés / non planifiés), articles (changement automatique), exports de base (Excel/PDF standards), filtres période & ligne, rôles (Admin / Chef / Opérateur).</p>
       <p>Le projet est structuré en 5 phases sur 6 semaines, avec une approche agile (revues hebdomadaires) minimisant risques et ré‑itérations tardives.</p>
     </div>
 
@@ -138,100 +138,88 @@
     <h2 style="margin-top:10px">Phases, Charges & Coûts</h2>
     <p class="muted">TJM basés sur le marché marocain : Architecte 4 500 – Backend 3 200 – Front 3 000 – Data 3 800 – DevOps 3 500 – UX 3 000 – QA 2 200 (MAD / jour).</p>
 
-    <!-- Phase Tables -->
-    <div class="phase-title"><span class="phase-chip">Phase 1</span> Semaine 1–2 · Architecture & Socle</div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Tâche</th><th>Rôle(s)</th><th>Charge (JH)</th><th>Coût (MAD)</th></tr></thead>
-        <tbody>
-          <tr><td>Kickoff & cadrage détaillé</td><td>CP/Arch</td><td>2.0</td><td>9 000</td></tr>
-          <tr><td>Schéma BD (conceptuel + logique)</td><td>Arch + Backend</td><td>3.0</td><td>10 900</td></tr>
-          <tr><td>Setup backend (API base, auth structure)</td><td>Backend</td><td>5.0</td><td>16 000</td></tr>
-          <tr><td>Intégration flux (mock + parsing)</td><td>Backend + Data</td><td>5.0</td><td>17 200</td></tr>
-          <tr><td>Authentification basique (JWT + rôles init)</td><td>Backend</td><td>2.0</td><td>6 400</td></tr>
-          <tr><td>Environnement CI / repo</td><td>DevOps</td><td>1.5</td><td>5 250</td></tr>
-          <tr><td>Wireframes hi-level</td><td>UX</td><td>2.0</td><td>6 000</td></tr>
-          <tr><td>Plan de tests initial</td><td>QA</td><td>0.5</td><td>1 100</td></tr>
-          <tr><td>Suivi & reporting</td><td>CP</td><td>0.5</td><td>2 250</td></tr>
-          <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 1</td><td></td><td>21.5</td><td>74 100</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="phase-title"><span class="phase-chip">Phase 2</span> Semaine 3 · Dashboard & Visualisations</div>
-    <div class="table-wrap"><table><thead><tr><th>Tâche</th><th>Rôle(s)</th><th>JH</th><th>Coût</th></tr></thead><tbody>
-      <tr><td>Design hi‑fi dashboard</td><td>UX</td><td>3.0</td><td>9 000</td></tr>
-      <tr><td>Structure front (layout, thème)</td><td>Front</td><td>4.0</td><td>12 000</td></tr>
-      <tr><td>Widgets KPIs</td><td>Backend + Front</td><td>5.0</td><td>15 400</td></tr>
-      <tr><td>Graphiques temps réel (Chart.js)</td><td>Backend + Front</td><td>4.0</td><td>12 400</td></tr>
-      <tr><td>Timeline production basique</td><td>Backend + Front</td><td>3.5</td><td>10 800</td></tr>
-      <tr><td>Filtres globaux</td><td>Backend + Front</td><td>3.5</td><td>10 800</td></tr>
-      <tr><td>Responsive & optim.</td><td>Front</td><td>1.0</td><td>3 000</td></tr>
-      <tr><td>Tests fonctionnels</td><td>QA</td><td>1.0</td><td>2 200</td></tr>
-      <tr><td>Suivi projet</td><td>CP</td><td>1.0</td><td>4 500</td></tr>
-      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 2</td><td></td><td>26.0</td><td>80 100</td></tr>
+    <!-- Phase Tables (Version Essentielle Réduite) -->
+    <div class="phase-title"><span class="phase-chip">Phase 1</span> S1 · Socle & Architecture (29 500 MAD)</div>
+    <div class="table-wrap"><table><thead><tr><th>Lot</th><th>Contenu Réduit</th><th>Coût (MAD)</th></tr></thead><tbody>
+      <tr><td>Kickoff & Cadrage</td><td>Périmètre ajusté, risques, planning</td><td>3 600</td></tr>
+      <tr><td>Modèle & Schéma BD</td><td>Schéma logique + mapping flux</td><td>4 300</td></tr>
+      <tr><td>API Socle</td><td>Structure endpoints + auth base</td><td>6 400</td></tr>
+      <tr><td>Flux Données (mock)</td><td>Parser + injection tampon</td><td>6 800</td></tr>
+      <tr><td>Auth & Rôles Init</td><td>JWT + middleware minimal</td><td>2 600</td></tr>
+      <tr><td>CI / Repo</td><td>Branche main + workflow lint</td><td>2 100</td></tr>
+      <tr><td>Wireframes essentiels</td><td>Dashboard + formulaire arrêt</td><td>2 400</td></tr>
+      <tr><td>Plan de tests</td><td>Checklist critique</td><td>400</td></tr>
+      <tr><td>Suivi / Reporting</td><td>Instance hebdo</td><td>900</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 1</td><td></td><td>29 500</td></tr>
     </tbody></table></div>
 
-    <div class="phase-title"><span class="phase-chip">Phase 3</span> Semaine 4 · Logique Métier & Articles</div>
-    <div class="table-wrap"><table><thead><tr><th>Tâche</th><th>Rôle(s)</th><th>JH</th><th>Coût</th></tr></thead><tbody>
-      <tr><td>CRUD Articles</td><td>Backend + Front</td><td>4.0</td><td>12 400</td></tr>
-      <tr><td>Détection changement article</td><td>Backend + Data</td><td>3.5</td><td>11 800</td></tr>
-      <tr><td>Calcul dynamique OEE article</td><td>Backend</td><td>2.0</td><td>6 400</td></tr>
-      <tr><td>Hiérarchie lignes ↔ machines</td><td>Backend</td><td>1.5</td><td>4 800</td></tr>
-      <tr><td>Qualification arrêts (types + UI)</td><td>Backend + Front</td><td>4.0</td><td>12 400</td></tr>
-      <tr><td>Optimisation filtres matière/shift</td><td>Backend + Front</td><td>2.0</td><td>6 200</td></tr>
-      <tr><td>Tests régression métier</td><td>QA</td><td>1.5</td><td>3 300</td></tr>
-      <tr><td>Suivi projet</td><td>CP</td><td>1.0</td><td>4 500</td></tr>
-      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 3</td><td></td><td>23.5</td><td>61 800</td></tr>
+    <div class="phase-title"><span class="phase-chip">Phase 2</span> S2 · Dashboard & KPIs (32 000 MAD)</div>
+    <div class="table-wrap"><table><thead><tr><th>Lot</th><th>Contenu Réduit</th><th>Coût (MAD)</th></tr></thead><tbody>
+      <tr><td>UI Dashboard</td><td>Layout sombre responsive</td><td>5 200</td></tr>
+      <tr><td>KPIs OEE Base</td><td>Disponibilité / Performance / Qualité</td><td>7 000</td></tr>
+      <tr><td>Graphique Princip.</td><td>Courbe OEE période</td><td>5 300</td></tr>
+      <tr><td>Timeline Simplifiée</td><td>Segments run/stop/fault</td><td>5 400</td></tr>
+      <tr><td>Filtres Période/Ligne</td><td>Range + sélection ligne</td><td>3 600</td></tr>
+      <tr><td>Responsive & Optim.</td><td>Breakpoints clés</td><td>2 500</td></tr>
+      <tr><td>Tests fonctionnels</td><td>Scénarios nav + KPIs</td><td>1 700</td></tr>
+      <tr><td>Suivi projet</td><td>Point hebdo</td><td>1 300</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 2</td><td></td><td>32 000</td></tr>
     </tbody></table></div>
 
-    <div class="phase-title"><span class="phase-chip">Phase 4</span> Semaine 5 · Utilisateurs, Rôles & Exports</div>
-    <div class="table-wrap"><table><thead><tr><th>Tâche</th><th>Rôle(s)</th><th>JH</th><th>Coût</th></tr></thead><tbody>
-      <tr><td>CRUD Utilisateurs</td><td>Backend + Front</td><td>4.0</td><td>12 400</td></tr>
-      <tr><td>Rôles & permissions</td><td>Backend</td><td>2.0</td><td>6 400</td></tr>
-      <tr><td>Vue admin tableau consolidé</td><td>Backend + Front</td><td>5.0</td><td>15 400</td></tr>
-      <tr><td>Export Excel</td><td>Backend + Front</td><td>3.0</td><td>9 400</td></tr>
-      <tr><td>Export PDF</td><td>Backend + Front</td><td>2.5</td><td>7 800</td></tr>
-      <tr><td>Historique / journal</td><td>Backend</td><td>1.5</td><td>4 800</td></tr>
-      <tr><td>Branding rapports</td><td>UX</td><td>1.0</td><td>3 000</td></tr>
-      <tr><td>Tests exports / permissions</td><td>QA</td><td>2.0</td><td>4 400</td></tr>
-      <tr><td>Suivi projet</td><td>CP</td><td>1.0</td><td>4 500</td></tr>
-      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 4</td><td></td><td>26.0</td><td>68 100</td></tr>
+    <div class="phase-title"><span class="phase-chip">Phase 3</span> S3 · Logique Articles & Arrêts (24 600 MAD)</div>
+    <div class="table-wrap"><table><thead><tr><th>Lot</th><th>Contenu Réduit</th><th>Coût (MAD)</th></tr></thead><tbody>
+      <tr><td>CRUD Articles</td><td>Créer / lister / activer</td><td>6 000</td></tr>
+      <tr><td>Changement Auto</td><td>Détection champ article_code</td><td>5 200</td></tr>
+      <tr><td>Recalcul OEE</td><td>Seuils article actif</td><td>3 800</td></tr>
+      <tr><td>Hiérarchie Ligne/Machine</td><td>Référentiel minimal</td><td>4 200</td></tr>
+      <tr><td>Qualification Arrêts</td><td>Form + typologie réduite</td><td>3 900</td></tr>
+      <tr><td>Suivi & Tests ciblés</td><td>Cas pivot</td><td>1 500</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 3</td><td></td><td>24 600</td></tr>
     </tbody></table></div>
 
-    <div class="phase-title"><span class="phase-chip">Phase 5</span> Semaine 6 · Tests, Documentation & Déploiement</div>
-    <div class="table-wrap"><table><thead><tr><th>Tâche</th><th>Rôle(s)</th><th>JH</th><th>Coût</th></tr></thead><tbody>
-      <tr><td>Tests unitaires & couverture</td><td>Backend + Front</td><td>3.0</td><td>9 400</td></tr>
-      <tr><td>Tests intégration & charge</td><td>Backend + QA</td><td>3.5</td><td>9 200</td></tr>
-      <tr><td>Documentation technique</td><td>Backend + CP</td><td>2.0</td><td>7 700</td></tr>
-      <tr><td>Guides utilisateurs</td><td>QA + UX</td><td>2.0</td><td>5 200</td></tr>
-      <tr><td>Optimisations performance</td><td>Backend + Front</td><td>2.0</td><td>6 200</td></tr>
-      <tr><td>Déploiement & recette</td><td>DevOps + CP</td><td>2.0</td><td>7 500</td></tr>
-      <tr><td>Support lancement (hypercare)</td><td>Mix</td><td>1.0</td><td>4 570</td></tr>
-      <tr><td>QA régression finale</td><td>QA</td><td>0.5</td><td>1 100</td></tr>
-      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 5</td><td></td><td>17.0</td><td>50 870</td></tr>
+    <div class="phase-title"><span class="phase-chip">Phase 4</span> S4 · Rôles & Exports (27 000 MAD)</div>
+    <div class="table-wrap"><table><thead><tr><th>Lot</th><th>Contenu Réduit</th><th>Coût (MAD)</th></tr></thead><tbody>
+      <tr><td>Gestion Utilisateurs</td><td>CRUD + affect rôles</td><td>6 200</td></tr>
+      <tr><td>Permissions Middleware</td><td>Contrôles endpoints</td><td>4 300</td></tr>
+      <tr><td>Export Excel</td><td>Tableau simple KPIs</td><td>5 100</td></tr>
+      <tr><td>Export PDF</td><td>Version condensée</td><td>4 800</td></tr>
+      <tr><td>Historique Actions</td><td>Log basique</td><td>2 800</td></tr>
+      <tr><td>Tests + Revue</td><td>Permissions / exports</td><td>2 400</td></tr>
+      <tr><td>Suivi projet</td><td>Point hebdo</td><td>1 400</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 4</td><td></td><td>27 000</td></tr>
+    </tbody></table></div>
+
+    <div class="phase-title"><span class="phase-chip">Phase 5</span> S5–S6 · Tests & Déploiement (20 200 MAD)</div>
+    <div class="table-wrap"><table><thead><tr><th>Lot</th><th>Contenu Réduit</th><th>Coût (MAD)</th></tr></thead><tbody>
+      <tr><td>Tests Unitaire Sélectifs</td><td>Fonctions critiques</td><td>4 000</td></tr>
+      <tr><td>Tests Intégration</td><td>Flux + OEE recalcul</td><td>3 500</td></tr>
+      <tr><td>Documentation</td><td>API + Guide rapide</td><td>3 300</td></tr>
+      <tr><td>Optimisations</td><td>Requêtes & cache simple</td><td>3 200</td></tr>
+      <tr><td>Déploiement</td><td>Instance unique</td><td>3 000</td></tr>
+      <tr><td>Support Lancement</td><td>Hypercare 1 semaine</td><td>2 200</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 5</td><td></td><td>20 200</td></tr>
     </tbody></table></div>
 
     <h3 style="margin-top:60px">Synthèse Financière</h3>
     <div class="totals">
-  <div class="stat"><h4>Total Production (HT)</h4><div class="value">1 307 300 <span style="font-size:.8rem;font-weight:600;">MAD</span></div></div>
-  <div class="stat"><h4>Gestion Projet (5%)</h4><div class="value">65 400 <span style="font-size:.8rem;">MAD</span></div></div>
-  <div class="stat"><h4>Provision Risques (10%)</h4><div class="value">130 700 <span style="font-size:.8rem;">MAD</span></div></div>
-  <div class="stat" style="border-color:var(--primary);"><h4>Total Global HT</h4><div class="value accent-gradient">1 503 400 <span style="font-size:.8rem;">MAD</span></div></div>
-  <div class="stat"><h4>TVA 20%</h4><div class="value">300 680 <span style="font-size:.8rem;">MAD</span></div></div>
-  <div class="stat" style="border-color:var(--ok);"><h4>Total TTC</h4><div class="value" style="color:var(--ok);">1 804 080 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat"><h4>Total Production (HT)</h4><div class="value">133 300 <span style="font-size:.8rem;font-weight:600;">MAD</span></div></div>
+  <div class="stat"><h4>Gestion Projet (5%)</h4><div class="value">6 600 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat"><h4>Provision Risques (10%)</h4><div class="value">13 500 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat" style="border-color:var(--primary);"><h4>Total Global HT</h4><div class="value accent-gradient">153 400 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat"><h4>TVA 20%</h4><div class="value">30 680 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat" style="border-color:var(--ok);"><h4>Total TTC</h4><div class="value" style="color:var(--ok);">184 080 <span style="font-size:.8rem;">MAD</span></div></div>
     </div>
-  <p class="muted" style="margin-top:10px;font-size:.65rem;">Montants ajustés – Total Global HT cible fixé à 1 503 400 MAD (incluant provision & gestion). TVA 20% ⇒ 1 804 080 MAD TTC.</p>
+  <p class="muted" style="margin-top:10px;font-size:.65rem;">Version Essentielle : réduction périmètre avancé pour atteindre 153 400 MAD HT (Production 133 300 + Gestion 6 600 + Risques 13 500). TVA 20% ⇒ 184 080 MAD TTC.</p>
 
     <div class="section-sep"></div>
 
     <h2>Conditions Financières & Facturation</h2>
     <div class="table-wrap"><table><thead><tr><th>Échéance</th><th>%</th><th>Montant HT (MAD)</th><th>Détails</th></tr></thead><tbody>
-  <tr><td>Acompte commande</td><td>40%</td><td>601 360</td><td>Signature + démarrage</td></tr>
-  <tr><td>Fin Semaine 3</td><td>30%</td><td>451 020</td><td>Dashboard livré</td></tr>
-  <tr><td>Pré‑production (S6)</td><td>20%</td><td>300 680</td><td>Avant mise en prod</td></tr>
-  <tr><td>Recette finale (J+10)</td><td>10%</td><td>150 340</td><td>Après corrections finales</td></tr>
-  <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total</td><td>100%</td><td>1 503 400</td><td></td></tr>
+  <tr><td>Acompte commande</td><td>40%</td><td>61 360</td><td>Signature + démarrage</td></tr>
+  <tr><td>Fin Semaine 3</td><td>30%</td><td>46 020</td><td>Dashboard livré</td></tr>
+  <tr><td>Pré‑production (S6)</td><td>20%</td><td>30 680</td><td>Avant mise en prod</td></tr>
+  <tr><td>Recette finale (J+10)</td><td>10%</td><td>15 340</td><td>Après corrections finales</td></tr>
+  <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total</td><td>100%</td><td>153 400</td><td></td></tr>
     </tbody></table></div>
 
     <h2>Options Facultatives</h2>
