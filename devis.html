@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Devis – Plateforme Monitoring Industriel UMAG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0f172a;--panel:#1e293b;--panel-alt:#243554;--line:#334155;--primary:#3b82f6;--primary-accent:#60a5fa;--warn:#fbbf24;--danger:#f87171;--ok:#22c55e;--text:#e2e8f0;--muted:#94a3b8;--radius:18px;--gradient:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#0f172a 100%);
+      --shadow:0 8px 30px -8px rgba(0,0,0,.5);
+    }
+    *{box-sizing:border-box;}
+    html,body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+    body{padding:40px 30px;}
+    h1,h2,h3,h4{font-weight:700;letter-spacing:.5px;margin:0 0 .6em}
+    p{line-height:1.55;margin:.4em 0}
+    a{color:var(--primary-accent);text-decoration:none}
+    .devis-wrapper{max-width:1350px;margin:0 auto;position:relative;}
+    .watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:110px;font-weight:800;pointer-events:none;opacity:.035;white-space:nowrap;z-index:0;}
+    header.devis-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;margin-bottom:40px;position:relative;z-index:2}
+    .brand-block{display:flex;flex-direction:column;gap:4px}
+  .brand-block h1{font-size:1.9rem;background:linear-gradient(90deg,var(--primary) 0%,var(--primary-accent) 60%,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
+    .meta{display:grid;gap:6px;font-size:.85rem;color:var(--muted)}
+    .badge{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;letter-spacing:.5px;padding:6px 12px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.03);backdrop-filter:blur(4px);}
+    .grid{display:grid;gap:26px;margin-bottom:46px;}
+    .two{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+    .panel{background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:var(--radius);padding:26px;position:relative;overflow:hidden;box-shadow:var(--shadow);} 
+    .panel:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 18%,rgba(96,165,250,.18),transparent 60%);opacity:.4;pointer-events:none;}
+    .panel h3{margin-top:0;font-size:1.15rem}
+    .panel.highlight{border-color:var(--primary);}
+    .muted{color:var(--muted);}
+    ul{margin:.4em 0 .8em 1.1em;padding:0;line-height:1.5}
+    li{margin:.25em 0}
+    table{width:100%;border-collapse:collapse;font-size:.85rem;}
+    th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #263246;vertical-align:top;}
+    th{font-weight:600;color:var(--primary-accent);font-size:.75rem;text-transform:uppercase;letter-spacing:.8px;background:rgba(96,165,250,.06);} 
+    tbody tr:last-child td{border-bottom:none}
+    tbody tr:hover{background:rgba(255,255,255,.03);} 
+    .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,rgba(255,255,255,.02),rgba(255,255,255,.01));margin:18px 0 34px;}
+    .phase-title{font-size:1.05rem;margin:50px 0 14px;font-weight:700;display:flex;align-items:center;gap:10px;}
+    .phase-chip{background:linear-gradient(135deg,var(--primary),#6366f1);padding:6px 14px;border-radius:40px;font-size:.7rem;font-weight:600;letter-spacing:.7px;box-shadow:0 4px 14px -4px rgba(59,130,246,.6);}
+    .totals{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:20px;}
+    .stat{padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(155deg,#1e293b,#162132);position:relative;overflow:hidden;}
+    .stat:after{content:"";position:absolute;top:-20%;right:-10%;width:140px;height:140px;background:radial-gradient(circle,rgba(96,165,250,.25),transparent 70%);}
+    .stat h4{margin:0 0 6px;font-size:.7rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);} 
+    .stat .value{font-size:1.3rem;font-weight:700;display:flex;align-items:baseline;gap:6px;}
+    .label-pill{display:inline-block;background:rgba(255,255,255,.06);padding:4px 10px;font-size:.6rem;font-weight:600;letter-spacing:.7px;border-radius:20px;margin-right:6px;color:var(--muted);}
+    .warn{color:var(--warn);} .danger{color:var(--danger);} .ok{color:var(--ok);} 
+    .section-sep{height:1px;background:linear-gradient(90deg,transparent,#334155 30%,#334155 70%,transparent);margin:60px 0 40px;}
+    .options-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+    .option-card{background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.015));border:1px solid var(--line);padding:18px 20px;border-radius:16px;position:relative;}
+    .option-card h4{margin:0 0 8px;font-size:.9rem;font-weight:600;}
+  .price{font-weight:700;font-size:.95rem;background:linear-gradient(90deg,var(--primary-accent),#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .risk-table td:first-child{font-weight:600;color:var(--primary-accent);}
+    footer{margin:80px 0 20px;font-size:.65rem;color:var(--muted);text-align:center;}
+    .print-bar{position:sticky;top:10px;display:flex;justify-content:flex-end;margin:-20px 0 30px;z-index:50;}
+    .btn{cursor:pointer;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-accent) 100%);border:none;color:#fff;font-weight:600;letter-spacing:.5px;padding:10px 20px;border-radius:14px;font-size:.75rem;display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 18px -6px rgba(59,130,246,.6);transition:.35s;}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px -10px rgba(59,130,246,.55);} 
+    .signature-grid{display:grid;gap:30px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:50px;}
+    .signature-box{border:1px dashed #395073;border-radius:14px;padding:18px 20px;min-height:140px;position:relative;background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(255,255,255,.01));}
+    .signature-box span{position:absolute;top:-11px;left:14px;background:var(--bg);padding:4px 10px;font-size:.65rem;font-weight:600;letter-spacing:.6px;color:var(--muted);} 
+    .stamp{position:absolute;bottom:8px;right:10px;font-size:.55rem;font-weight:600;color:var(--muted);opacity:.5;letter-spacing:.5px;}
+  .accent-gradient{background:linear-gradient(90deg,#3b82f6,#6366f1,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800;}
+    .exec-box{background:linear-gradient(135deg,rgba(96,165,250,.1),rgba(59,130,246,.05));border:1px solid rgba(96,165,250,.35);padding:26px 30px;border-radius:22px;box-shadow:0 10px 40px -10px rgba(59,130,246,.4);}
+    .phase-icon{width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e293b,#243554);border:1px solid #395073;font-size:14px;}
+    .inline-note{font-size:.65rem;font-weight:500;color:var(--muted);margin-left:6px;}
+    mark{background:rgba(96,165,250,.18);color:var(--text);padding:2px 6px;border-radius:6px;font-size:.75rem;}
+    @media print{
+      body{padding:0;background:#fff;color:#000;font-size:12px;}
+      header.devis-header,.print-bar .btn{box-shadow:none}
+      .panel,.stat,.option-card,.exec-box{box-shadow:none!important;background:#fff!important;border-color:#ccc!important;}
+      .watermark{opacity:.06;}
+      .btn,.print-bar{display:none!important}
+      a{color:#000;text-decoration:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="watermark">UMAG CONFIDENTIEL</div>
+  <div class="devis-wrapper">
+    <div class="print-bar">
+      <button class="btn" onclick="window.print()">🖨️ Imprimer / Export PDF</button>
+    </div>
+    <header class="devis-header">
+      <div class="brand-block">
+        <h1>Devis Projet Monitoring Industriel</h1>
+        <div class="badges" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+          <span class="badge">Client · UMAG</span>
+          <span class="badge">Prestataire · ITSEasy</span>
+          <span class="badge">Version 1.0</span>
+          <span class="badge" id="dateBadge">Date : <script>document.write(new Date().toLocaleDateString('fr-FR'))</script></span>
+          <span class="badge">Validité 30 jours</span>
+        </div>
+      </div>
+      <div class="meta">
+        <div><strong>Objet :</strong> Réalisation plateforme web (KPIs OEE, Arrêts, Articles, Exports)</div>
+        <div><strong>Périmètre :</strong> Backend API, Front SPA, Intégration flux, Exports, Rôles</div>
+        <div><strong>Durée estimée :</strong> 6 semaines calendaires</div>
+        <div><strong>Monnaie :</strong> MAD (Dirham Marocain) – TVA 20%</div>
+      </div>
+    </header>
+
+    <div class="exec-box">
+      <h2 style="margin-top:0;font-size:1.4rem">Résumé Exécutif</h2>
+  <p>Investissement global (hors options) <strong>1 503 400 MAD HT</strong> (<strong>1 804 080 MAD TTC</strong>) pour une solution complète de <em>monitoring industriel temps quasi-réel</em>, intégrant calcul dynamique OEE (Disponibilité × Performance × Qualité), gestion des arrêts qualifiés, logique articles & hiérarchie lignes ↔ machines, exports administratifs Excel/PDF, filtres avancés (ligne, période, shift, matière), et gouvernance utilisateurs (rôles Admin / Chef d'Atelier / Opérateur).</p>
+      <p>Le projet est structuré en 5 phases sur 6 semaines, avec une approche agile (revues hebdomadaires) minimisant risques et ré‑itérations tardives.</p>
+    </div>
+
+    <div class="section-sep"></div>
+
+    <div class="grid two">
+      <div class="panel highlight">
+        <h3>Objectifs</h3>
+        <ul>
+          <li>Suivi temps réel des KPIs (OEE, MTBF, MTTR)</li>
+          <li>Qualification structurée des arrêts planifiés / non planifiés</li>
+          <li>Adaptation automatique aux changements d'article</li>
+          <li>Exports décisionnels (Excel & PDF)</li>
+          <li>Hiérarchie lignes → machines → articles</li>
+          <li>Gestion des rôles & permissions</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Hypothèses & Périmètre Inclus</h3>
+        <ul>
+          <li>Schéma MySQL défini (création physique côté infrastructure client)</li>
+          <li>Flux de données accessible (ou mock fourni S2)</li>
+          <li>Rafraîchissement 30 s (WebSocket en option)</li>
+          <li>Authentification JWT + 3 rôles</li>
+          <li>UI sombre responsive</li>
+          <li>Exports formatés (xlsx + pdf)</li>
+        </ul>
+        <p class="muted" style="font-size:.7rem;">Éléments hors périmètre : SSO, alertes SMS/email, multi‑langue (option), haute disponibilité avancée.</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:10px">Phases, Charges & Coûts</h2>
+    <p class="muted">TJM basés sur le marché marocain : Architecte 4 500 – Backend 3 200 – Front 3 000 – Data 3 800 – DevOps 3 500 – UX 3 000 – QA 2 200 (MAD / jour).</p>
+
+    <!-- Phase Tables -->
+    <div class="phase-title"><span class="phase-chip">Phase 1</span> Semaine 1–2 · Architecture & Socle</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tâche</th><th>Rôle(s)</th><th>Charge (JH)</th><th>Coût (MAD)</th></tr></thead>
+        <tbody>
+          <tr><td>Kickoff & cadrage détaillé</td><td>CP/Arch</td><td>2.0</td><td>9 000</td></tr>
+          <tr><td>Schéma BD (conceptuel + logique)</td><td>Arch + Backend</td><td>3.0</td><td>10 900</td></tr>
+          <tr><td>Setup backend (API base, auth structure)</td><td>Backend</td><td>5.0</td><td>16 000</td></tr>
+          <tr><td>Intégration flux (mock + parsing)</td><td>Backend + Data</td><td>5.0</td><td>17 200</td></tr>
+          <tr><td>Authentification basique (JWT + rôles init)</td><td>Backend</td><td>2.0</td><td>6 400</td></tr>
+          <tr><td>Environnement CI / repo</td><td>DevOps</td><td>1.5</td><td>5 250</td></tr>
+          <tr><td>Wireframes hi-level</td><td>UX</td><td>2.0</td><td>6 000</td></tr>
+          <tr><td>Plan de tests initial</td><td>QA</td><td>0.5</td><td>1 100</td></tr>
+          <tr><td>Suivi & reporting</td><td>CP</td><td>0.5</td><td>2 250</td></tr>
+          <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 1</td><td></td><td>21.5</td><td>74 100</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="phase-title"><span class="phase-chip">Phase 2</span> Semaine 3 · Dashboard & Visualisations</div>
+    <div class="table-wrap"><table><thead><tr><th>Tâche</th><th>Rôle(s)</th><th>JH</th><th>Coût</th></tr></thead><tbody>
+      <tr><td>Design hi‑fi dashboard</td><td>UX</td><td>3.0</td><td>9 000</td></tr>
+      <tr><td>Structure front (layout, thème)</td><td>Front</td><td>4.0</td><td>12 000</td></tr>
+      <tr><td>Widgets KPIs</td><td>Backend + Front</td><td>5.0</td><td>15 400</td></tr>
+      <tr><td>Graphiques temps réel (Chart.js)</td><td>Backend + Front</td><td>4.0</td><td>12 400</td></tr>
+      <tr><td>Timeline production basique</td><td>Backend + Front</td><td>3.5</td><td>10 800</td></tr>
+      <tr><td>Filtres globaux</td><td>Backend + Front</td><td>3.5</td><td>10 800</td></tr>
+      <tr><td>Responsive & optim.</td><td>Front</td><td>1.0</td><td>3 000</td></tr>
+      <tr><td>Tests fonctionnels</td><td>QA</td><td>1.0</td><td>2 200</td></tr>
+      <tr><td>Suivi projet</td><td>CP</td><td>1.0</td><td>4 500</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 2</td><td></td><td>26.0</td><td>80 100</td></tr>
+    </tbody></table></div>
+
+    <div class="phase-title"><span class="phase-chip">Phase 3</span> Semaine 4 · Logique Métier & Articles</div>
+    <div class="table-wrap"><table><thead><tr><th>Tâche</th><th>Rôle(s)</th><th>JH</th><th>Coût</th></tr></thead><tbody>
+      <tr><td>CRUD Articles</td><td>Backend + Front</td><td>4.0</td><td>12 400</td></tr>
+      <tr><td>Détection changement article</td><td>Backend + Data</td><td>3.5</td><td>11 800</td></tr>
+      <tr><td>Calcul dynamique OEE article</td><td>Backend</td><td>2.0</td><td>6 400</td></tr>
+      <tr><td>Hiérarchie lignes ↔ machines</td><td>Backend</td><td>1.5</td><td>4 800</td></tr>
+      <tr><td>Qualification arrêts (types + UI)</td><td>Backend + Front</td><td>4.0</td><td>12 400</td></tr>
+      <tr><td>Optimisation filtres matière/shift</td><td>Backend + Front</td><td>2.0</td><td>6 200</td></tr>
+      <tr><td>Tests régression métier</td><td>QA</td><td>1.5</td><td>3 300</td></tr>
+      <tr><td>Suivi projet</td><td>CP</td><td>1.0</td><td>4 500</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 3</td><td></td><td>23.5</td><td>61 800</td></tr>
+    </tbody></table></div>
+
+    <div class="phase-title"><span class="phase-chip">Phase 4</span> Semaine 5 · Utilisateurs, Rôles & Exports</div>
+    <div class="table-wrap"><table><thead><tr><th>Tâche</th><th>Rôle(s)</th><th>JH</th><th>Coût</th></tr></thead><tbody>
+      <tr><td>CRUD Utilisateurs</td><td>Backend + Front</td><td>4.0</td><td>12 400</td></tr>
+      <tr><td>Rôles & permissions</td><td>Backend</td><td>2.0</td><td>6 400</td></tr>
+      <tr><td>Vue admin tableau consolidé</td><td>Backend + Front</td><td>5.0</td><td>15 400</td></tr>
+      <tr><td>Export Excel</td><td>Backend + Front</td><td>3.0</td><td>9 400</td></tr>
+      <tr><td>Export PDF</td><td>Backend + Front</td><td>2.5</td><td>7 800</td></tr>
+      <tr><td>Historique / journal</td><td>Backend</td><td>1.5</td><td>4 800</td></tr>
+      <tr><td>Branding rapports</td><td>UX</td><td>1.0</td><td>3 000</td></tr>
+      <tr><td>Tests exports / permissions</td><td>QA</td><td>2.0</td><td>4 400</td></tr>
+      <tr><td>Suivi projet</td><td>CP</td><td>1.0</td><td>4 500</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 4</td><td></td><td>26.0</td><td>68 100</td></tr>
+    </tbody></table></div>
+
+    <div class="phase-title"><span class="phase-chip">Phase 5</span> Semaine 6 · Tests, Documentation & Déploiement</div>
+    <div class="table-wrap"><table><thead><tr><th>Tâche</th><th>Rôle(s)</th><th>JH</th><th>Coût</th></tr></thead><tbody>
+      <tr><td>Tests unitaires & couverture</td><td>Backend + Front</td><td>3.0</td><td>9 400</td></tr>
+      <tr><td>Tests intégration & charge</td><td>Backend + QA</td><td>3.5</td><td>9 200</td></tr>
+      <tr><td>Documentation technique</td><td>Backend + CP</td><td>2.0</td><td>7 700</td></tr>
+      <tr><td>Guides utilisateurs</td><td>QA + UX</td><td>2.0</td><td>5 200</td></tr>
+      <tr><td>Optimisations performance</td><td>Backend + Front</td><td>2.0</td><td>6 200</td></tr>
+      <tr><td>Déploiement & recette</td><td>DevOps + CP</td><td>2.0</td><td>7 500</td></tr>
+      <tr><td>Support lancement (hypercare)</td><td>Mix</td><td>1.0</td><td>4 570</td></tr>
+      <tr><td>QA régression finale</td><td>QA</td><td>0.5</td><td>1 100</td></tr>
+      <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total Phase 5</td><td></td><td>17.0</td><td>50 870</td></tr>
+    </tbody></table></div>
+
+    <h3 style="margin-top:60px">Synthèse Financière</h3>
+    <div class="totals">
+  <div class="stat"><h4>Total Production (HT)</h4><div class="value">1 307 300 <span style="font-size:.8rem;font-weight:600;">MAD</span></div></div>
+  <div class="stat"><h4>Gestion Projet (5%)</h4><div class="value">65 400 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat"><h4>Provision Risques (10%)</h4><div class="value">130 700 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat" style="border-color:var(--primary);"><h4>Total Global HT</h4><div class="value accent-gradient">1 503 400 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat"><h4>TVA 20%</h4><div class="value">300 680 <span style="font-size:.8rem;">MAD</span></div></div>
+  <div class="stat" style="border-color:var(--ok);"><h4>Total TTC</h4><div class="value" style="color:var(--ok);">1 804 080 <span style="font-size:.8rem;">MAD</span></div></div>
+    </div>
+  <p class="muted" style="margin-top:10px;font-size:.65rem;">Montants ajustés – Total Global HT cible fixé à 1 503 400 MAD (incluant provision & gestion). TVA 20% ⇒ 1 804 080 MAD TTC.</p>
+
+    <div class="section-sep"></div>
+
+    <h2>Conditions Financières & Facturation</h2>
+    <div class="table-wrap"><table><thead><tr><th>Échéance</th><th>%</th><th>Montant HT (MAD)</th><th>Détails</th></tr></thead><tbody>
+  <tr><td>Acompte commande</td><td>40%</td><td>601 360</td><td>Signature + démarrage</td></tr>
+  <tr><td>Fin Semaine 3</td><td>30%</td><td>451 020</td><td>Dashboard livré</td></tr>
+  <tr><td>Pré‑production (S6)</td><td>20%</td><td>300 680</td><td>Avant mise en prod</td></tr>
+  <tr><td>Recette finale (J+10)</td><td>10%</td><td>150 340</td><td>Après corrections finales</td></tr>
+  <tr style="font-weight:600;background:rgba(96,165,250,.05)"><td>Total</td><td>100%</td><td>1 503 400</td><td></td></tr>
+    </tbody></table></div>
+
+    <h2>Options Facultatives</h2>
+    <div class="options-grid">
+      <div class="option-card"><h4>WebSocket Temps Réel</h4><p>Remplace polling 30s par push événementiel (moins de latence).</p><div class="price">6 JH · 18 800 MAD</div></div>
+      <div class="option-card"><h4>Alertes Email / SMS</h4><p>Seuil OEE / arrêts prolongés (intégration passerelle SMS/API).</p><div class="price">12 JH · 37 000 MAD</div></div>
+      <div class="option-card"><h4>Interface Bilingue FR/EN</h4><p>Système i18n, clés traduction, bascule UI.</p><div class="price">6 JH · 18 000 MAD</div></div>
+      <div class="option-card"><h4>Dashboard TV Mode</h4><p>Plein écran rotation métriques auto.</p><div class="price">5 JH · 15 500 MAD</div></div>
+      <div class="option-card"><h4>SSO Azure AD</h4><p>Authentification fédérée OAuth2/OpenID Connect.</p><div class="price">8 JH · 25 600 MAD</div></div>
+    </div>
+
+    <h2 style="margin-top:60px">Maintenance & Support (Option)</h2>
+    <div class="table-wrap"><table><thead><tr><th>Offre</th><th>Contenu</th><th>JH / mois</th><th>Coût Mensuel HT</th></tr></thead><tbody>
+      <tr><td>Bronze</td><td>Correctifs bloquants (SLA 3j), 1 optimisation mineure</td><td>3</td><td>9 600</td></tr>
+      <tr><td>Silver</td><td>Bronze + 1 évolution mineure + monitoring BD (SLA 2j)</td><td>5</td><td>15 800</td></tr>
+      <tr><td>Gold</td><td>Silver + 2 évolutions + revue perf trimestrielle (SLA 1j)</td><td>8</td><td>24 600</td></tr>
+    </tbody></table></div>
+
+    <h2>Risques & Mitigation</h2>
+    <div class="table-wrap"><table class="risk-table"><thead><tr><th>Risque</th><th>Impact</th><th>Mitigation</th></tr></thead><tbody>
+      <tr><td>Flux retardé</td><td>Décalage phases 3–4</td><td>Mock + contrat interface S2</td></tr>
+      <tr><td>Détection article ambiguë</td><td>Rework logique</td><td>Ateliers validation S2</td></tr>
+      <tr><td>Exports modifiés tard</td><td>Délai + surcoût</td><td>Geler format fin S5</td></tr>
+      <tr><td>Volumétrie élevée</td><td>Perf DB</td><td>Index + tests charge S6</td></tr>
+      <tr><td>Validations manquées</td><td>Effet tunnel</td><td>Réunion hebdo fixe</td></tr>
+    </tbody></table></div>
+
+    <h2>Clauses & Modalités</h2>
+    <ul>
+      <li>Validité devis : 30 jours.</li>
+      <li>Paiements échelonnés selon tableau ci‑dessus (TVA 20%).</li>
+      <li>Retards côté client (données / validations) décalent planning sans pénalité.</li>
+      <li>Propriété intellectuelle transférée après paiement complet.</li>
+      <li>Confidentialité réciproque (NDA possible).</li>
+      <li>Hébergement & infrastructure MySQL : fournis/validés par UMAG / partenaire.</li>
+    </ul>
+
+    <div class="section-sep"></div>
+
+    <h2>Signature</h2>
+    <div class="signature-grid">
+      <div class="signature-box"><span>PRESTATAIRE (ITSEasy)</span><div style="margin-top:34px;font-size:.75rem;">Nom / Fonction : ___________________________<br><br>Date : ____ / ____ / 2025<br><br>Signature : </div><div class="stamp">ITSEasy</div></div>
+      <div class="signature-box"><span>CLIENT (UMAG)</span><div style="margin-top:34px;font-size:.75rem;">Nom / Fonction : ___________________________<br><br>Date : ____ / ____ / 2025<br><br>Signature : </div><div class="stamp">UMAG</div></div>
+    </div>
+
+    <footer>
+      Document strictement confidentiel – Ne pas diffuser sans accord écrit. TVA 20% appliquée sur chaque facture émise. Version générée automatiquement pour support commercial.
+    </footer>
+  </div>
+</body>
+</html>

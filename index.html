@@ -615,65 +615,772 @@ machine_002,line=cablage_2 vitesse=1200,status="running" 1635781200000000000</co
             </div>
         </div>
 
-        <!-- Section 8: Planning -->
+        <!-- Section 8: Vue Administration & Export -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <div>
+                    <h2>Vue Administration & Export de Données</h2>
+                    <p class="section-subtitle">Tableau de bord consolidé pour analyse et export</p>
+                </div>
+            </div>
+
+            <div class="alert-box glass-effect" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%); border-left: 4px solid #FBBF24; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">⚠️</span>
+                    <div>
+                        <h4 style="color: #FBBF24; margin: 0 0 8px 0; font-weight: 700;">Point Critique - Accès Réservé</h4>
+                        <p style="color: #E2E8F0; margin: 0; line-height: 1.6;">Cette fonctionnalité est <strong>strictement réservée aux administrateurs</strong>. Elle permet d'exporter des rapports détaillés avec toutes les métriques calculées et les écarts constatés.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-table glass-effect">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+                    <h4>Tableau Consolidé des Performances</h4>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button class="btn-secondary" style="display: flex; align-items: center; gap: 8px;">
+                            <span>📊</span> Exporter Excel
+                        </button>
+                        <button class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
+                            <span>📄</span> Exporter PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: #1E293B; border-bottom: 2px solid #60A5FA;">
+                                <th style="padding: 16px 12px; text-align: left; color: #F1F5F9; font-weight: 700; white-space: nowrap;">Ligne Production</th>
+                                <th style="padding: 16px 12px; text-align: left; color: #F1F5F9; font-weight: 700; white-space: nowrap;">Article</th>
+                                <th style="padding: 16px 12px; text-align: center; color: #F1F5F9; font-weight: 700; white-space: nowrap;">OEE Théorique</th>
+                                <th style="padding: 16px 12px; text-align: center; color: #F1F5F9; font-weight: 700; white-space: nowrap;">OEE Réel</th>
+                                <th style="padding: 16px 12px; text-align: center; color: #F1F5F9; font-weight: 700; white-space: nowrap;">Écart</th>
+                                <th style="padding: 16px 12px; text-align: center; color: #F1F5F9; font-weight: 700; white-space: nowrap;">Perf. Théo.</th>
+                                <th style="padding: 16px 12px; text-align: center; color: #F1F5F9; font-weight: 700; white-space: nowrap;">Perf. Réelle</th>
+                                <th style="padding: 16px 12px; text-align: center; color: #F1F5F9; font-weight: 700; white-space: nowrap;">Mètre Linéaire Théo.</th>
+                                <th style="padding: 16px 12px; text-align: center; color: #F1F5F9; font-weight: 700; white-space: nowrap;">Mètre Linéaire Réel</th>
+                                <th style="padding: 16px 12px; text-align: center; color: #F1F5F9; font-weight: 700; white-space: nowrap;">Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #334155;">
+                                <td style="padding: 14px 12px; color: #F1F5F9; font-weight: 600;">Ligne Câblage 1</td>
+                                <td style="padding: 14px 12px; color: #94A3B8;">Câble Cuivre 2.5mm</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #60A5FA; font-weight: 600;">85%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #34D399; font-weight: 600;">87.5%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #34D399;">+2.5%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #94A3B8;">1200 pcs/h</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #E2E8F0;">1150 pcs/h</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #94A3B8;">9600 m</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #E2E8F0;">9200 m</td>
+                                <td style="padding: 14px 12px; text-align: center;"><span style="background: rgba(52, 211, 153, 0.2); color: #34D399; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">✓ En Marche</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #334155;">
+                                <td style="padding: 14px 12px; color: #F1F5F9; font-weight: 600;">Ligne Câblage 2</td>
+                                <td style="padding: 14px 12px; color: #94A3B8;">Câble Aluminium 4mm</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #60A5FA; font-weight: 600;">80%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #F87171; font-weight: 600;">72%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #F87171;">-8%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #94A3B8;">1000 pcs/h</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #E2E8F0;">890 pcs/h</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #94A3B8;">8000 m</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #E2E8F0;">7120 m</td>
+                                <td style="padding: 14px 12px; text-align: center;"><span style="background: rgba(248, 113, 113, 0.2); color: #F87171; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">⚠ Alerte</span></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #334155;">
+                                <td style="padding: 14px 12px; color: #F1F5F9; font-weight: 600;">Ligne Assemblage A</td>
+                                <td style="padding: 14px 12px; color: #94A3B8;">Câble Cuivre 1.5mm</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #60A5FA; font-weight: 600;">88%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #34D399; font-weight: 600;">90%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #34D399;">+2%</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #94A3B8;">1400 pcs/h</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #E2E8F0;">1380 pcs/h</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #94A3B8;">10080 m</td>
+                                <td style="padding: 14px 12px; text-align: center; color: #E2E8F0;">9936 m</td>
+                                <td style="padding: 14px 12px; text-align: center;"><span style="background: rgba(52, 211, 153, 0.2); color: #34D399; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600;">✓ En Marche</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="feature-highlight" style="margin-top: 30px;">
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h4>Export Excel</h4>
+                    <p>Fichier .xlsx avec toutes les colonnes, formules Excel intégrées, et mise en forme conditionnelle</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📄</div>
+                    <h4>Export PDF</h4>
+                    <p>Rapport professionnel avec graphiques, logo UMAG, et formatage optimisé pour l'impression</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <h4>Actualisation Auto</h4>
+                    <p>Données rafraîchies toutes les 30 secondes pour garantir des exports toujours à jour</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 9: Gestion des Articles & Logique Métier -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">📦</div>
+                <div>
+                    <h2>Gestion des Articles & Logique Métier</h2>
+                    <p class="section-subtitle">Configuration des produits et association aux lignes de production</p>
+                </div>
+            </div>
+
+            <div class="alert-box glass-effect" style="background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%); border-left: 4px solid #60A5FA; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">💡</span>
+                    <div>
+                        <h4 style="color: #60A5FA; margin: 0 0 8px 0; font-weight: 700;">Fonctionnalité Clé - Changement Dynamique</h4>
+                        <p style="color: #E2E8F0; margin: 0; line-height: 1.6;">Le système doit <strong>détecter automatiquement le changement d'article en production</strong> en temps réel (via flux de données) et <strong>adapter les calculs selon les nouveaux seuils</strong> de l'article actif.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid" style="margin-bottom: 30px;">
+                <div class="info-card glass-effect">
+                    <div class="card-icon">🏭</div>
+                    <h3>Lignes de Production</h3>
+                    <p>Une ligne de production contient <strong>plusieurs machines</strong>. Chaque ligne peut produire <strong>différents articles</strong> (Cuivre, Aluminium, différents diamètres).</p>
+                    <ul style="margin-top: 16px; color: #94A3B8; line-height: 1.8;">
+                        <li>Ligne Câblage 1</li>
+                        <li>Ligne Câblage 2</li>
+                        <li>Ligne Assemblage A</li>
+                        <li>Ligne Assemblage B</li>
+                    </ul>
+                </div>
+
+                <div class="info-card glass-effect">
+                    <div class="card-icon">📦</div>
+                    <h3>Articles Configurables</h3>
+                    <p>Chaque article possède ses propres <strong>paramètres métier</strong> : vitesse théorique, OEE cible, seuils d'alerte, matière première, diamètre.</p>
+                    <ul style="margin-top: 16px; color: #94A3B8; line-height: 1.8;">
+                        <li>Câble Cuivre 1.5mm</li>
+                        <li>Câble Cuivre 2.5mm</li>
+                        <li>Câble Aluminium 4mm</li>
+                        <li>Câble Aluminium 6mm</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-form glass-effect">
+                <h4>➕ Ajouter un Nouvel Article</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div class="form-group">
+                        <label>Nom de l'Article *</label>
+                        <input type="text" placeholder="Ex: Câble Cuivre 2.5mm">
+                    </div>
+                    <div class="form-group">
+                        <label>Code Article *</label>
+                        <input type="text" placeholder="Ex: CU-2.5-001">
+                    </div>
+                    <div class="form-group">
+                        <label>Ligne de Production *</label>
+                        <select class="form-select">
+                            <option value="">Sélectionner...</option>
+                            <option>Ligne Câblage 1</option>
+                            <option>Ligne Câblage 2</option>
+                            <option>Ligne Assemblage A</option>
+                            <option>Ligne Assemblage B</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Matière Première *</label>
+                        <select class="form-select">
+                            <option value="">Sélectionner...</option>
+                            <option>Cuivre</option>
+                            <option>Aluminium</option>
+                            <option>Mixte</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Diamètre (mm) *</label>
+                        <input type="number" step="0.1" placeholder="2.5">
+                    </div>
+                    <div class="form-group">
+                        <label>Vitesse Théorique (pcs/h) *</label>
+                        <input type="number" placeholder="1200">
+                    </div>
+                    <div class="form-group">
+                        <label>Mètre Linéaire Théorique *</label>
+                        <input type="number" placeholder="9600">
+                        <small>Capacité théorique en mètres par shift</small>
+                    </div>
+                    <div class="form-group">
+                        <label>OEE Cible (%)</label>
+                        <input type="number" value="85" placeholder="85">
+                    </div>
+                    <div class="form-group">
+                        <label>Seuil d'Alerte OEE (%)</label>
+                        <input type="number" value="70" placeholder="70">
+                    </div>
+                    <div class="form-group">
+                        <label>Temps de Cycle (secondes)</label>
+                        <input type="number" step="0.1" placeholder="3.0">
+                    </div>
+                </div>
+                <button class="btn-success" style="margin-top: 20px;">✅ Enregistrer l'Article</button>
+            </div>
+
+            <div class="feature-box glass-effect" style="margin-top: 30px;">
+                <h4>🔄 Détection Automatique du Changement d'Article</h4>
+                <p style="margin-bottom: 20px;">Le système surveille en temps réel le flux de données pour détecter automatiquement quand un changement d'article est effectué sur une ligne de production.</p>
+                
+                <div class="code-block glass-effect" style="background: #0F172A; border: 1px solid #334155; border-radius: 12px; padding: 20px;">
+                    <div class="code-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <span style="color: #60A5FA; font-weight: 600;">💾 Exemple de Flux de Données</span>
+                    </div>
+                    <pre style="margin: 0; color: #94A3B8; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6;"><code>// Le client fournit un flux temps réel avec l'article actif
+{
+  "ligne_id": "ligne_cablage_1",
+  "article_code": "CU-2.5-001",  // ← Changement détecté ici
+  "article_nom": "Câble Cuivre 2.5mm",
+  "timestamp": "2025-10-11T14:32:00Z",
+  "vitesse_reelle": 1150,
+  "production_actuelle": 950,
+  "matiere_premiere": "Cuivre",
+  "diametre": 2.5
+}
+
+// Le système applique automatiquement les seuils de CU-2.5-001
+// OEE cible: 85% → Performance théorique: 1200 pcs/h
+// Calcul automatique de l'écart en temps réel</code></pre>
+                </div>
+            </div>
+
+            <div class="alert-box glass-effect" style="background: linear-gradient(135deg, rgba(248, 113, 113, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); border-left: 4px solid #F87171; margin-top: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">🚨</span>
+                    <div>
+                        <h4 style="color: #F87171; margin: 0 0 8px 0; font-weight: 700;">Point Critique - Validation Nécessaire</h4>
+                        <p style="color: #E2E8F0; margin: 0; line-height: 1.6;"><strong>Question Ouverte :</strong> Comment le client signale-t-il le changement d'article dans le flux ? Par un champ spécifique ? Un événement ? Une mutation de valeur ? <strong>À clarifier avec le prestataire Lepresta.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 10: Architecture Ligne vs Machine -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">🏗️</div>
+                <div>
+                    <h2>Architecture : Lignes & Machines</h2>
+                    <p class="section-subtitle">Clarification de la structure hiérarchique</p>
+                </div>
+            </div>
+
+            <div class="alert-box glass-effect" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%); border-left: 4px solid #FBBF24; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">⚠️</span>
+                    <div>
+                        <h4 style="color: #FBBF24; margin: 0 0 8px 0; font-weight: 700;">Clarification Terminologique Importante</h4>
+                        <p style="color: #E2E8F0; margin: 0 0 12px 0; line-height: 1.6;">Dans le CDC actuel, le terme <strong>"Machine"</strong> désigne en réalité une <strong>"Ligne de Production"</strong>. Voici la vraie hiérarchie :</p>
+                        <ul style="color: #E2E8F0; margin: 0; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>1 Ligne de Production</strong> = Plusieurs machines physiques</li>
+                            <li>Les <strong>KPIs (OEE, Performance)</strong> sont calculés au niveau de la ligne</li>
+                            <li>Les <strong>temps d'arrêt</strong> doivent spécifier quelle machine de la ligne est arrêtée</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integration-visual glass-effect" style="padding: 40px; margin-bottom: 30px;">
+                <h4 style="text-align: center; margin-bottom: 40px; color: #60A5FA;">Structure Hiérarchique Réelle</h4>
+                
+                <div style="display: flex; flex-direction: column; gap: 30px;">
+                    <!-- Ligne 1 -->
+                    <div style="border: 2px solid #60A5FA; border-radius: 16px; padding: 24px; background: rgba(96, 165, 250, 0.05);">
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                            <div style="background: #60A5FA; color: #0F172A; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 1.1rem;">🏭 Ligne Câblage 1</div>
+                            <div style="color: #94A3B8; font-size: 0.9rem;">Article: Câble Cuivre 2.5mm | OEE Global: 87.5%</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding-left: 40px;">
+                            <div style="background: #1E293B; padding: 16px; border-radius: 12px; border: 1px solid #334155;">
+                                <div style="font-weight: 600; color: #F1F5F9; margin-bottom: 8px;">⚙️ Machine Enrouleuse-01</div>
+                                <div style="font-size: 0.85rem; color: #94A3B8;">Statut: <span style="color: #34D399;">✓ Active</span></div>
+                            </div>
+                            <div style="background: #1E293B; padding: 16px; border-radius: 12px; border: 1px solid #334155;">
+                                <div style="font-weight: 600; color: #F1F5F9; margin-bottom: 8px;">⚙️ Machine Torsadeur-01</div>
+                                <div style="font-size: 0.85rem; color: #94A3B8;">Statut: <span style="color: #34D399;">✓ Active</span></div>
+                            </div>
+                            <div style="background: #1E293B; padding: 16px; border-radius: 12px; border: 1px solid #F87171;">
+                                <div style="font-weight: 600; color: #F1F5F9; margin-bottom: 8px;">⚙️ Machine Extrudeuse-01</div>
+                                <div style="font-size: 0.85rem; color: #94A3B8;">Statut: <span style="color: #F87171;">⚠ Arrêtée</span></div>
+                                <div style="font-size: 0.8rem; color: #F87171; margin-top: 4px;">Arrêt depuis 14:32 (26 min)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ligne 2 -->
+                    <div style="border: 2px solid #34D399; border-radius: 16px; padding: 24px; background: rgba(52, 211, 153, 0.05);">
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                            <div style="background: #34D399; color: #0F172A; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 1.1rem;">🏭 Ligne Assemblage A</div>
+                            <div style="color: #94A3B8; font-size: 0.9rem;">Article: Câble Cuivre 1.5mm | OEE Global: 90%</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding-left: 40px;">
+                            <div style="background: #1E293B; padding: 16px; border-radius: 12px; border: 1px solid #334155;">
+                                <div style="font-weight: 600; color: #F1F5F9; margin-bottom: 8px;">⚙️ Machine Assemblage-A1</div>
+                                <div style="font-size: 0.85rem; color: #94A3B8;">Statut: <span style="color: #34D399;">✓ Active</span></div>
+                            </div>
+                            <div style="background: #1E293B; padding: 16px; border-radius: 12px; border: 1px solid #334155;">
+                                <div style="font-weight: 600; color: #F1F5F9; margin-bottom: 8px;">⚙️ Machine Contrôle-A1</div>
+                                <div style="font-size: 0.85rem; color: #94A3B8;">Statut: <span style="color: #34D399;">✓ Active</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-box glass-effect">
+                <h4>🛠️ Qualification des Arrêts avec Identification Machine</h4>
+                <p style="margin-bottom: 20px;">Lorsqu'un arrêt est détecté sur une ligne, l'opérateur doit spécifier <strong>quelle machine spécifique</strong> de la ligne est concernée.</p>
+                
+                <div class="demo-form glass-effect" style="background: #0F172A; border: 1px solid #334155;">
+                    <h4 style="color: #F1F5F9;">Qualification d'Arrêt Détecté</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                        <div class="form-group">
+                            <label>Ligne de Production</label>
+                            <input type="text" value="Ligne Câblage 1" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Machine Concernée *</label>
+                            <select class="form-select">
+                                <option value="">Sélectionner...</option>
+                                <option>Enrouleuse-01</option>
+                                <option>Torsadeur-01</option>
+                                <option selected>Extrudeuse-01</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Période d'Arrêt</label>
+                            <input type="text" value="14:32 - 14:58 (26 minutes)" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Type d'Arrêt</label>
+                            <select class="form-select">
+                                <option>Panne mécanique</option>
+                                <option>Maintenance planifiée</option>
+                                <option>Manque matière première</option>
+                                <option>Problème électrique</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 16px;">
+                        <label>Commentaire</label>
+                        <textarea placeholder="Problème détecté sur l'Extrudeuse-01..." rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box glass-effect" style="background: linear-gradient(135deg, rgba(248, 113, 113, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); border-left: 4px solid #F87171; margin-top: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">🚨</span>
+                    <div>
+                        <h4 style="color: #F87171; margin: 0 0 8px 0; font-weight: 700;">Point Critique - Structure Base de Données</h4>
+                        <p style="color: #E2E8F0; margin: 0; line-height: 1.6;"><strong>À Définir avec Lepresta :</strong> Structure hiérarchique en BD MySQL (Tables: lignes, machines, articles, arrêts). Comment le flux de données identifie-t-il la machine spécifique en cas d'arrêt ?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 11: Filtres Avancés (Shift & Matière Première) -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">🔍</div>
+                <div>
+                    <h2>Filtres Avancés : Shift & Matière Première</h2>
+                    <p class="section-subtitle">Analyse ciblée par équipe et type de matériau</p>
+                </div>
+            </div>
+
+            <div class="demo-dashboard">
+                <div class="dashboard-filters" style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); padding: 24px; border-radius: 16px; border: 1px solid #334155;">
+                    <h4 style="color: #F1F5F9; margin-bottom: 20px;">🎯 Filtres Globaux</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                        <div class="filter-group">
+                            <label for="shiftFilter">⏰ Shift (Équipe)</label>
+                            <select id="shiftFilter" class="filter-select">
+                                <option value="all" selected>Tous les shifts</option>
+                                <option value="shift1">Shift 1 (06:00 - 14:00)</option>
+                                <option value="shift2">Shift 2 (14:00 - 22:00)</option>
+                                <option value="shift3">Shift 3 (22:00 - 06:00)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="materiauFilter">🧱 Matière Première</label>
+                            <select id="materiauFilter" class="filter-select">
+                                <option value="all" selected>Toutes matières</option>
+                                <option value="cuivre">Cuivre</option>
+                                <option value="aluminium">Aluminium</option>
+                                <option value="mixte">Mixte</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="ligneFilter">🏭 Ligne de Production</label>
+                            <select id="ligneFilter" class="filter-select">
+                                <option value="all" selected>Toutes les lignes</option>
+                                <option value="ligne1">Ligne Câblage 1</option>
+                                <option value="ligne2">Ligne Câblage 2</option>
+                                <option value="ligneA">Ligne Assemblage A</option>
+                                <option value="ligneB">Ligne Assemblage B</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="periodFilter">📅 Période</label>
+                            <select id="periodFilter" class="filter-select">
+                                <option value="8h" selected>8 dernières heures</option>
+                                <option value="24h">24 dernières heures</option>
+                                <option value="7d">7 derniers jours</option>
+                                <option value="30d">30 derniers jours</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-primary" style="margin-top: 20px; width: 100%;">🔄 Appliquer les Filtres</button>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h4 style="color: #F1F5F9; margin-bottom: 16px;">📊 Résultats Filtrés : Shift 1 - Cuivre</h4>
+                    <div class="metrics-grid">
+                        <div class="metric-card glass-effect">
+                            <div class="metric-header">
+                                <span class="metric-title">OEE Moyen Shift 1</span>
+                                <span class="trend-badge positive">+3.2%</span>
+                            </div>
+                            <div class="metric-value">89<span class="unit">%</span></div>
+                            <p style="color: #94A3B8; font-size: 0.85rem; margin-top: 8px;">Production Cuivre uniquement</p>
+                        </div>
+
+                        <div class="metric-card glass-effect">
+                            <div class="metric-header">
+                                <span class="metric-title">Temps d'Arrêt</span>
+                                <span class="trend-badge positive">-15 min</span>
+                            </div>
+                            <div class="metric-value">45<span class="unit">min</span></div>
+                            <p style="color: #94A3B8; font-size: 0.85rem; margin-top: 8px;">Sur 8h de shift</p>
+                        </div>
+
+                        <div class="metric-card glass-effect">
+                            <div class="metric-header">
+                                <span class="metric-title">Production Totale</span>
+                                <span class="trend-badge positive">+8%</span>
+                            </div>
+                            <div class="metric-value">9,520<span class="unit">m</span></div>
+                            <p style="color: #94A3B8; font-size: 0.85rem; margin-top: 8px;">Mètre linéaire Cuivre</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-highlight" style="margin-top: 30px;">
+                <div class="feature-item">
+                    <div class="feature-icon">⏰</div>
+                    <h4>Analyse par Shift</h4>
+                    <p>Comparez les performances entre équipes et identifiez les meilleures pratiques à généraliser</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🧱</div>
+                    <h4>Filtrage par Matière</h4>
+                    <p>Analysez les performances spécifiques à chaque type de matériau (Cuivre vs Aluminium)</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h4>Export Filtré</h4>
+                    <p>Tous les exports (Excel/PDF) respectent les filtres actifs pour des rapports ciblés</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 12: Infrastructure & Base de Données -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <div class="section-icon">🗄️</div>
+                <div>
+                    <h2>Infrastructure & Base de Données</h2>
+                    <p class="section-subtitle">Architecture technique et responsabilités</p>
+                </div>
+            </div>
+
+            <div class="alert-box glass-effect" style="background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%); border-left: 4px solid #60A5FA; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">💡</span>
+                    <div>
+                        <h4 style="color: #60A5FA; margin: 0 0 8px 0; font-weight: 700;">Responsabilité Infrastructure</h4>
+                        <p style="color: #E2E8F0; margin: 0; line-height: 1.6;"><strong>Lepresta</strong> est responsable de la mise en place de la structure de base de données MySQL. ITSEasy fournit le schéma requis et les spécifications techniques.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integration-visual glass-effect" style="padding: 40px;">
+                <h4 style="text-align: center; margin-bottom: 40px; color: #60A5FA;">Architecture Technique</h4>
+                
+                <div style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                    <div class="integration-step" style="width: 100%; max-width: 600px;">
+                        <div style="display: flex; align-items: center; gap: 16px; background: #1E293B; padding: 20px; border-radius: 12px; border: 2px solid #60A5FA;">
+                            <div class="step-circle" style="background: #60A5FA; color: #0F172A; min-width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; font-size: 1.2rem;">1</div>
+                            <div class="step-content">
+                                <h4 style="color: #F1F5F9; margin: 0 0 8px 0;">Flux de Données Client</h4>
+                                <p style="color: #94A3B8; margin: 0;">Le client UMAG fournit un flux temps réel des machines (vitesse, production, article actif, arrêts)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #60A5FA; font-size: 2rem;">↓</div>
+                    
+                    <div class="integration-step" style="width: 100%; max-width: 600px;">
+                        <div style="display: flex; align-items: center; gap: 16px; background: #1E293B; padding: 20px; border-radius: 12px; border: 2px solid #34D399;">
+                            <div class="step-circle" style="background: #34D399; color: #0F172A; min-width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; font-size: 1.2rem;">2</div>
+                            <div class="step-content">
+                                <h4 style="color: #F1F5F9; margin: 0 0 8px 0;">Instance MySQL (Lepresta)</h4>
+                                <p style="color: #94A3B8; margin: 0;">Base de données gérée par Lepresta : tables lignes, machines, articles, arrêts, users</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #60A5FA; font-size: 2rem;">↓</div>
+                    
+                    <div class="integration-step" style="width: 100%; max-width: 600px;">
+                        <div style="display: flex; align-items: center; gap: 16px; background: #1E293B; padding: 20px; border-radius: 12px; border: 2px solid #FBBF24;">
+                            <div class="step-circle" style="background: #FBBF24; color: #0F172A; min-width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; font-size: 1.2rem;">3</div>
+                            <div class="step-content">
+                                <h4 style="color: #F1F5F9; margin: 0 0 8px 0;">API ITSEasy</h4>
+                                <p style="color: #94A3B8; margin: 0;">Backend développé par ITSEasy : calculs OEE, gestion logique métier, endpoints REST</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="color: #60A5FA; font-size: 2rem;">↓</div>
+                    
+                    <div class="integration-step" style="width: 100%; max-width: 600px;">
+                        <div style="display: flex; align-items: center; gap: 16px; background: #1E293B; padding: 20px; border-radius: 12px; border: 2px solid #A78BFA;">
+                            <div class="step-circle" style="background: #A78BFA; color: #0F172A; min-width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; font-size: 1.2rem;">4</div>
+                            <div class="step-content">
+                                <h4 style="color: #F1F5F9; margin: 0 0 8px 0;">Frontend UMAG</h4>
+                                <p style="color: #94A3B8; margin: 0;">Interface utilisateur développée par ITSEasy : dashboard, gestion, visualisations</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block glass-effect" style="margin-top: 30px;">
+                <div class="code-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <span style="color: #60A5FA; font-weight: 600;">🗂️ Structure Base de Données MySQL (Schéma Proposé)</span>
+                </div>
+                <pre style="margin: 0; color: #94A3B8; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6;"><code>-- Table: lignes_production
+CREATE TABLE lignes_production (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(100) NOT NULL,
+    code VARCHAR(50) UNIQUE NOT NULL,
+    actif BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table: machines (appartiennent à une ligne)
+CREATE TABLE machines (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    ligne_id INT NOT NULL,
+    nom VARCHAR(100) NOT NULL,
+    code VARCHAR(50) UNIQUE NOT NULL,
+    type VARCHAR(50),
+    actif BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (ligne_id) REFERENCES lignes_production(id)
+);
+
+-- Table: articles (produits configurables)
+CREATE TABLE articles (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    ligne_id INT NOT NULL,
+    nom VARCHAR(100) NOT NULL,
+    code VARCHAR(50) UNIQUE NOT NULL,
+    matiere_premiere ENUM('Cuivre', 'Aluminium', 'Mixte') NOT NULL,
+    diametre DECIMAL(5,2),
+    vitesse_theorique INT NOT NULL,
+    metre_lineaire_theorique INT,
+    oee_cible DECIMAL(5,2) DEFAULT 85.00,
+    seuil_alerte DECIMAL(5,2) DEFAULT 70.00,
+    temps_cycle DECIMAL(5,2),
+    actif BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (ligne_id) REFERENCES lignes_production(id)
+);
+
+-- Table: arrêts (avec identification machine)
+CREATE TABLE arrets (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    ligne_id INT NOT NULL,
+    machine_id INT NOT NULL,
+    type_arret ENUM('Planifié', 'Non Planifié') NOT NULL,
+    categorie VARCHAR(100),
+    debut DATETIME NOT NULL,
+    fin DATETIME,
+    duree_minutes INT,
+    commentaire TEXT,
+    operateur_id INT,
+    FOREIGN KEY (ligne_id) REFERENCES lignes_production(id),
+    FOREIGN KEY (machine_id) REFERENCES machines(id)
+);
+
+-- Table: production_realtime (flux temps réel)
+CREATE TABLE production_realtime (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    ligne_id INT NOT NULL,
+    article_id INT NOT NULL,
+    shift ENUM('Shift 1', 'Shift 2', 'Shift 3') NOT NULL,
+    timestamp DATETIME NOT NULL,
+    vitesse_reelle INT,
+    production_actuelle INT,
+    metre_lineaire_reel INT,
+    oee_calcule DECIMAL(5,2),
+    performance_calculee DECIMAL(5,2),
+    FOREIGN KEY (ligne_id) REFERENCES lignes_production(id),
+    FOREIGN KEY (article_id) REFERENCES articles(id),
+    INDEX idx_timestamp (timestamp),
+    INDEX idx_ligne_shift (ligne_id, shift)
+);</code></pre>
+            </div>
+
+            <div class="alert-box glass-effect" style="background: linear-gradient(135deg, rgba(248, 113, 113, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); border-left: 4px solid #F87171; margin-top: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">🚨</span>
+                    <div>
+                        <h4 style="color: #F87171; margin: 0 0 8px 0; font-weight: 700;">Points Critiques à Valider avec Lepresta & Client</h4>
+                        <ul style="color: #E2E8F0; margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>Format du flux de données client :</strong> JSON via API REST ? Fichier CSV ? Protocole spécifique ?</li>
+                            <li><strong>Fréquence d'actualisation :</strong> Temps réel (WebSocket) ? Polling toutes les X secondes ?</li>
+                            <li><strong>Identification changement d'article :</strong> Champ dédié ? Événement ? Détection automatique ?</li>
+                            <li><strong>Gestion des shifts :</strong> Le client envoie l'info shift ou calcul côté backend selon timestamp ?</li>
+                            <li><strong>Permissions BD :</strong> ITSEasy aura accès direct MySQL ou uniquement via API Lepresta ?</li>
+                            <li><strong>Hébergement :</strong> Cloud (AWS, Azure) ? On-premise chez UMAG ? VPN requis ?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 13: Planning -->
         <div class="section fade-in">
             <div class="section-header">
                 <div class="section-icon">📅</div>
                 <div>
                     <h2>Planning de Développement</h2>
-                    <p class="section-subtitle">4 semaines pour une solution complète</p>
+                    <p class="section-subtitle">6 semaines pour une solution complète</p>
+                </div>
+            </div>
+
+            <div class="alert-box glass-effect" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%); border-left: 4px solid #FBBF24; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 1.5rem;">⚠️</span>
+                    <div>
+                        <h4 style="color: #FBBF24; margin: 0 0 8px 0; font-weight: 700;">Planning Révisé - Complexité Ajoutée</h4>
+                        <p style="color: #E2E8F0; margin: 0; line-height: 1.6;">Avec les nouvelles fonctionnalités (gestion articles, filtres avancés, export admin, logique métier), le planning passe de <strong>4 à 6 semaines</strong> pour garantir une solution robuste et testée.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="timeline-planning">
                 <div class="planning-phase glass-effect">
-                    <div class="phase-number">Semaine 1</div>
-                    <h4>Setup & Connexion</h4>
+                    <div class="phase-number">Semaine 1-2</div>
+                    <h4>Setup & Architecture BD</h4>
                     <ul>
-                        <li>Configuration environnement</li>
-                        <li>Connexion à InfluxDB</li>
-                        <li>API REST fonctionnelle</li>
-                        <li>Tests de récupération données</li>
+                        <li>Configuration environnement développement</li>
+                        <li>Coordination avec Lepresta pour structure MySQL</li>
+                        <li>Définition schéma BD (lignes, machines, articles, arrêts)</li>
+                        <li>Setup flux de données client</li>
+                        <li>API REST backend avec endpoints de base</li>
+                        <li>Tests connexion et récupération données</li>
                     </ul>
-                    <div class="phase-deliverable">✅ API connectée et testée</div>
-                </div>
-
-                <div class="planning-phase glass-effect">
-                    <div class="phase-number">Semaine 2</div>
-                    <h4>Dashboard & Interface</h4>
-                    <ul>
-                        <li>Design de l'interface</li>
-                        <li>Widgets d'indicateurs</li>
-                        <li>Graphiques temps réel</li>
-                        <li>Personnalisation dashboard</li>
-                    </ul>
-                    <div class="phase-deliverable">✅ Interface fonctionnelle</div>
+                    <div class="phase-deliverable">✅ Architecture validée & API connectée</div>
                 </div>
 
                 <div class="planning-phase glass-effect">
                     <div class="phase-number">Semaine 3</div>
-                    <h4>Fonctionnalités Avancées</h4>
+                    <h4>Dashboard & Visualisations</h4>
                     <ul>
-                        <li>Gestion machines</li>
-                        <li>Gestion utilisateurs</li>
-                        <li>Timeline & annotations</li>
-                        <li>Qualification arrêts</li>
+                        <li>Design interface principale (thème sombre)</li>
+                        <li>Widgets KPIs (OEE, Performance, Disponibilité)</li>
+                        <li>Graphiques temps réel (Chart.js)</li>
+                        <li>Timeline de production par heure</li>
+                        <li>Filtres globaux (période, ligne, shift, matière)</li>
+                        <li>Responsive design mobile/tablette</li>
                     </ul>
-                    <div class="phase-deliverable">✅ Fonctionnalités complètes</div>
+                    <div class="phase-deliverable">✅ Dashboard fonctionnel avec visualisations</div>
                 </div>
 
                 <div class="planning-phase glass-effect">
                     <div class="phase-number">Semaine 4</div>
-                    <h4>Tests & Déploiement</h4>
+                    <h4>Logique Métier & Gestion Articles</h4>
                     <ul>
-                        <li>Tests utilisateurs</li>
-                        <li>Corrections & ajustements</li>
-                        <li>Documentation</li>
-                        <li>Formation & mise en production</li>
+                        <li>Module gestion articles (CRUD)</li>
+                        <li>Association articles ↔ lignes de production</li>
+                        <li>Détection automatique changement d'article</li>
+                        <li>Adaptation calculs selon seuils article actif</li>
+                        <li>Hiérarchie lignes ↔ machines</li>
+                        <li>Qualification arrêts avec identification machine</li>
+                        <li>Filtres par matière première et shift</li>
                     </ul>
-                    <div class="phase-deliverable">🚀 Solution en production</div>
+                    <div class="phase-deliverable">✅ Logique métier complète & dynamique</div>
+                </div>
+
+                <div class="planning-phase glass-effect">
+                    <div class="phase-number">Semaine 5</div>
+                    <h4>Gestion Utilisateurs & Export Admin</h4>
+                    <ul>
+                        <li>Module gestion utilisateurs (CRUD)</li>
+                        <li>Système de rôles (Admin, Chef d'Atelier, Opérateur)</li>
+                        <li>Permissions et restrictions d'accès</li>
+                        <li>Vue administration avec tableau consolidé</li>
+                        <li>Export Excel avec formules et formatage</li>
+                        <li>Export PDF avec graphiques et branding UMAG</li>
+                        <li>Historique des actions et traçabilité</li>
+                    </ul>
+                    <div class="phase-deliverable">✅ Gestion complète & exports opérationnels</div>
+                </div>
+
+                <div class="planning-phase glass-effect">
+                    <div class="phase-number">Semaine 6</div>
+                    <h4>Tests, Documentation & Déploiement</h4>
+                    <ul>
+                        <li>Tests unitaires et intégration</li>
+                        <li>Tests utilisateurs avec équipes UMAG</li>
+                        <li>Corrections bugs et optimisations performance</li>
+                        <li>Documentation technique (API, BD, architecture)</li>
+                        <li>Documentation utilisateur (guides par rôle)</li>
+                        <li>Formation équipes (Admin, Chefs d'Atelier, Opérateurs)</li>
+                        <li>Déploiement en production</li>
+                        <li>Support post-déploiement (1 semaine)</li>
+                    </ul>
+                    <div class="phase-deliverable">🚀 Solution en production avec support</div>
                 </div>
             </div>
+
+            <div class="feature-highlight" style="margin-top: 40px;">
+                <div class="feature-item">
+                    <div class="feature-icon">🤝</div>
+                    <h4>Coordination Lepresta</h4>
+                    <p>Points de synchronisation hebdomadaires pour validation structure BD et flux de données</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <h4>Méthodologie Agile</h4>
+                    <p>Sprints de 1 semaine avec démos et ajustements selon feedback client</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Livrables Incrémentiels</h4>
+                    <p>Validation à chaque étape pour garantir l'alignement avec les besoins UMAG</p>
+                </div>
+            </div>
+        </div>
         </div>
 
         <!-- Section Finale: Maquettes Interactives -->
