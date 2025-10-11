@@ -1,8 +1,8 @@
-# Cahier des Charges - UMAG x ITSEasy
+# Cahier des Charges - TUMAG x ITSEasy
 ## Solution de Monitoring Industriel
 
 ### 📋 Description
-Cahier des charges ultra-moderne et interactif pour une solution de monitoring industriel destinée à UMAG, développée par ITSEasy.
+Cahier des charges ultra-moderne et interactif pour une solution de monitoring industriel destinée à TUMAG, développée par ITSEasy.
 
 ### 🎨 Caractéristiques
 - **Design Ultra-Moderne** : Interface glassmorphism avec dégradés et animations
@@ -12,7 +12,7 @@ Cahier des charges ultra-moderne et interactif pour une solution de monitoring i
 
 ### 📁 Structure des Fichiers
 ```
-Porjet UMAG/
+Porjet TUMAG/
 ├── index.html          # Fichier principal (cahier des charges complet)
 ├── CDC.html            # Version alternative
 ├── styles.css          # Styles CSS personnalisés
@@ -36,7 +36,7 @@ python -m http.server 8000
 
 ### 🎯 Sections du Cahier des Charges
 
-1. **Vision du Projet** - Présentation UMAG x ITSEasy avec KPIs fondamentaux
+1. **Vision du Projet** - Présentation TUMAG x ITSEasy avec KPIs fondamentaux
 2. **Dashboard Interactif** - Démonstration des graphiques temps réel
 3. **Timeline Intelligente** - Suivi de production avec annotations
 4. **Gestion des Arrêts** - Qualification des arrêts machines
@@ -148,7 +148,7 @@ Le cahier des charges inclut :
 
 ### 📞 Contact
 
-**Client** : UMAG  
+**Client** : TUMAG  
 **Développeur** : ITSEasy  
 **Date** : Octobre 2025
 
@@ -156,11 +156,11 @@ Le cahier des charges inclut :
 
 ### 🚀 Prochaines Étapes
 
-1. ✅ Valider le cahier des charges avec UMAG
+1. ✅ Valider le cahier des charges avec TUMAG
 2. 🔐 Obtenir les accès InfluxDB
 3. 📋 Finaliser la liste des machines
 4. 🎬 Lancer le développement
 
 ---
 
-**Made with ❤️ by ITSEasy for UMAG**
+**Made with ❤️ by ITSEasy for TUMAG**

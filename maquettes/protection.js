@@ -1,6 +1,6 @@
 /**
  * Protection Anti-Copie et Anti-Capture d'Écran
- * UMAG x ITSEasy - Document Confidentiel
+ * TUMAG x ITSEasy - Document Confidentiel
  */
 
 (function() {
@@ -137,7 +137,7 @@
                 `;
                 blurOverlay.innerHTML = `
                     <div style="font-size: 4rem;">🔒</div>
-                    <div>Document Confidentiel UMAG</div>
+                    <div>Document Confidentiel TUMAG</div>
                     <div style="font-size: 1rem; color: #94A3B8;">Capture d\'écran interdite</div>
                 `;
                 document.body.appendChild(blurOverlay);
@@ -192,7 +192,7 @@
     // Filigrane visible et persistant
     function addWatermark() {
         const watermark = document.createElement('div');
-        watermark.id = 'umag-watermark';
+        watermark.id = 'TUMAG-watermark';
         watermark.style.cssText = `
             position: fixed;
             top: 50%;
@@ -208,7 +208,7 @@
             font-family: Inter, sans-serif;
             letter-spacing: 2rem;
         `;
-        watermark.textContent = 'UMAG CONFIDENTIEL';
+        watermark.textContent = 'TUMAG CONFIDENTIEL';
         document.body.appendChild(watermark);
 
         // Empêcher la suppression du filigrane
@@ -216,7 +216,7 @@
             mutations.forEach(function(mutation) {
                 if (mutation.removedNodes.length) {
                     mutation.removedNodes.forEach(function(node) {
-                        if (node.id === 'umag-watermark') {
+                        if (node.id === 'TUMAG-watermark') {
                             addWatermark();
                         }
                     });
@@ -286,9 +286,9 @@
         // Message dans la console
         console.clear();
         console.log('%c⚠️ DOCUMENT CONFIDENTIEL', 'color: #EF4444; font-size: 32px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);');
-        console.log('%c🔒 Ce document est la propriété de UMAG et ITSEasy', 'color: #60A5FA; font-size: 16px; font-weight: bold;');
+        console.log('%c🔒 Ce document est la propriété de TUMAG et ITSEasy', 'color: #60A5FA; font-size: 16px; font-weight: bold;');
         console.log('%c⚖️ Toute reproduction, diffusion ou capture d\'écran non autorisée est interdite', 'color: #F59E0B; font-size: 14px;');
-        console.log('%c© 2025 UMAG x ITSEasy - Tous droits réservés', 'color: #94A3B8; font-size: 12px;');
+        console.log('%c© 2025 TUMAG x ITSEasy - Tous droits réservés', 'color: #94A3B8; font-size: 12px;');
     });
 
     // Protection contre l'impression
